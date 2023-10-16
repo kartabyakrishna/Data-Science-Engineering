@@ -1,6 +1,6 @@
-# Data Structures and Algorithms Lab
+# Design and Analysis of Algorithms Lab
 
-This repository contains programming assignments and code implementations for the Data Structures and Algorithms Lab as part of the MIT Manipal Data Science Engineering course.
+"This repository contains programming assignments and code implementations for the Design and Analysis of Algorithms Lab as part of the MIT Manipal Data Science & Engineering course."
 
 ## Repository Structure
 
