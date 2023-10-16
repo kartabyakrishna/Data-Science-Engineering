@@ -45,28 +45,63 @@ The repository is organized into weekly folders, each containing code and assign
 - [MergeSort.cpp](Week6/MergeSort.cpp): Implementation of the Merge Sort algorithm.
 - [quick.cpp](Week6/quick.cpp): Quick Sort algorithm implementation.
 
+### Week 7: AVL Trees, Fibonacci, and Queue Reversal
+
+- [avl.cpp](Week7/avl.cpp): AVL Tree implementation.
+- [BinaryTree Implementation.cpp](Week7/BinaryTree%20Implementation.cpp): Implementation of Binary Trees.
+- [BSTtraversal.cpp](Week7/BSTtraversal.cpp): Code for Binary Search Tree (BST) traversal.
+- [Fibonacci.cpp](Week7/Fibonacci.cpp): Code for generating Fibonacci sequence.
+- [ReversingAQueue.cpp](Week7/ReversingAQueue.cpp): Code for reversing a queue.
+
+### Week 8: Heap Sort and Priority Queues
+
+- [HeapSort.cpp](Week8/HeapSort.cpp): Implementation of the Heap Sort algorithm.
+- [SearchDeleteSmallest.cpp](Week8/SearchDeleteSmallest.cpp): Search and delete the smallest element in a heap.
+- [TopDownBuildHeap.cpp](Week8/TopDownBuildHeap.cpp): Building a heap using the top-down method.
+
+### Week 9: Sorting and Hashing
+
+- [ComparisionCountingSort.cpp](Week9/ComparisionCountingSort.cpp): Comparison Counting Sort implementation.
+- [HorsepoolStringMatch.cpp](Week9/HorsepoolStringMatch.cpp): String matching using the Horspool algorithm.
+- [NumberOfNodes.cpp](Week9/NumberOfNodes.cpp): Counting the number of nodes in a binary tree.
+- [OpenHashing.cpp](Week9/OpenHashing.cpp): Implementation of open hashing (closed addressing) for hash tables.
+
+### Week 10: Dynamic Programming
+
+- [DP-BinomialCoeff.cpp](Week10/DP-BinomialCoeff.cpp): Dynamic Programming for calculating Binomial Coefficients.
+- [DP-FloydsAlgorithm.cpp](Week10/DP-FloydsAlgorithm.cpp): Implementation of Floyd's Algorithm for All-Pairs Shortest Path.
+- [DP-KnapSack01.cpp](Week10/DP-KnapSack01.cpp): Dynamic Programming for solving the 0-1 Knapsack problem.
+- [DP-WarshallAlgorithm.cpp](Week10/DP-WarshallAlgorithm.cpp): Implementation of the Warshall Algorithm for transitive closure.
+
+### Week 11: Minimum Spanning Trees and Shortest Path
+
+- [11_1_Prim's.cpp](Week11/11_1_Prim's.cpp): Implementation of Prim's Algorithm for Minimum Spanning Trees.
+- [11_2_Kruskal's.cpp](Week11/11_2_Kruskal's.cpp): Implementation of Kruskal's Algorithm for Minimum Spanning Trees.
+- [11_3_Dijkstra's.cpp](Week11/11_3_Dijkstra's.cpp): Implementation of Dijkstra's Algorithm for Shortest Path.
 
 
 ## Getting Started
 
 You can navigate to the specific week's folder to access code and assignments related to that topic.
 
-## About MIT Manipal Data Science Engineering Course
+## About This Repository
 
-This repository is a part of the curriculum for the Data Science Engineering course at Manipal Institute of Technology, Manipal University. The course covers various aspects of data science and engineering, including algorithms, data structures, and practical coding.
+This repository is a personal initiative created by me, a student of the DSE'25 batch at Manipal Institute of Technology, Manipal University. It is designed to provide resources and code examples for fellow students and individuals interested in data science and engineering. The repository includes a collection of code implementations, assignments, and practical coding exercises covering various aspects of algorithms and data structures.
 
-For more information about the course and its curriculum, please visit the [MIT Manipal Data Science Engineering Course](https://example-link-to-course.com).
+The intention behind this repository is to assist and support students in their learning journey and provide a valuable resource for those looking to explore the world of data science and engineering. While it's not an official part of the curriculum, it serves as a helpful reference for the broader educational community.
+
+Feel free to explore the code and assignments in this repository. If you have any questions or feedback, please don't hesitate to reach out to the author.
+
+For more information about the course and its curriculum, please visit the [MIT Manipal Data Science Engineering Course](https://manipal.edu/mit/program-list/btech/btech-data-science-and-engineering.html).
 
 ## Repository Information
 
-- Author: [Your Name]
-- Contact: [Your Email]
+- Author: Kartabya Krishna
+- Contact: kartabyakrishna@gmail.com
 
 Feel free to explore the code and assignments in this repository. If you have any questions or feedback, please don't hesitate to reach out to the author.
 
 Happy coding!
-You can continue the format provided for the first few weeks by listing the contents of each week's folder along with a brief description. Ensure that you replace [Your Name] and [Your Email] with your actual information in the "Repository Information" section.
-
 
 
 
