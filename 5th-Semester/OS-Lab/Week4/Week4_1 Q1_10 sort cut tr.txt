@@ -1,0 +1,30 @@
+# 1. Sort all records based on location.
+tail -n +2 data | sort -t ';' -k3,3 > sorted_location.dat
+
+# 2. Sort all records based on State.
+tail -n +2 data | sort -t ';' -k4,4 > sorted_state.dat
+
+# 3. Sort all records based on BMI index
+tail -n +2 data | awk -F';' '{bmi = $9 / (($8 / 100) * ($8 / 100)); print $0, bmi}' OFS=';' | sort -t ';' -k11,11n > sorted_bmi.dat
+
+# 4. Display Sorted Records on State and Location (California)
+tail -n +2 data | sort -t ';' -k4,4 -k3,3 > sorted_california_locations.dat
+
+# 5. Display only the Row no, Name, Age, Gender and BMI columns
+tail -n +2 data | cut -d ';' -f1,2,5,7,10 > selected_columns.dat
+
+# 6. Change all names into upper case
+tail -n +2 data | awk -F';' '{print $1, toupper($2), $3, $4, $5, $6, $7, $8, $9, $10}' OFS=';' > uppercase_names.dat
+
+# 7. Sort all records based on age
+tail -n +2 data | sort -t ';' -k5,5n > sorted_age.dat
+
+# 8. Display Records Ordered on Month in a File
+tail -n +2 data | sort -t ';' -k6,6M > Personnel_data_month2022.dat
+
+# 9. Display records where names begin with S and J. Store in a new file
+tail -n +2 data | awk -F';' '$2 ~ /^(S|J)/ {print}' > SJ_Names.dat
+
+# 10. Move columns Name, Location, State, Age and Index into a new file after sorting on Name
+tail -n +2 data | sort -t ';' -k2,2 > sorted_by_name.dat && mv sorted_by_name.dat data
+

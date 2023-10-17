@@ -1,0 +1,158 @@
+1. C program to block parent until child completes using wait system call :
+
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+int main(){
+        pid_t pid;
+        if((pid=fork())==0){
+                printf("child executing with pid %d\n",getpid());
+                sleep(2);
+                printf("child slept for 2 seconds\n");
+        }
+        else if(pid>0){
+                printf("This is a parent process executing\n");
+                printf("waiting for child to finish\n");
+                int status;
+                pid_t child = wait(&status);
+                if(child==-1){
+                        printf("child still exectuing");
+                }
+                else{
+                        printf("returned back to parent\n");
+                        printf("working\n");
+                        sleep(1);
+                        printf("wokring\n");
+                        sleep(1);
+                        printf("finished\n");
+                }
+        }
+        else{
+                printf("fork\n");
+        }
+        return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+int main() {
+    pid_t child_pid;
+
+    child_pid = fork();
+
+    if (child_pid == 0) {
+        printf("Child process\n");
+    } else {
+        wait(NULL); // Parent blocks until child completes
+        printf("Parent process\n");
+    }
+
+    return 0;
+} 
+================================================================================================
+2. C program to display process IDs of parent and child :
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main() {
+    pid_t parent_pid = getpid();
+    pid_t child_pid;
+
+    child_pid = fork();
+
+    if (child_pid == 0) {
+        printf("Child Process - PID: %d, Parent PID: %d\n", getpid(), getppid());
+    } else {
+        printf("Parent Process - PID: %d, Child PID: %d\n", getpid(), child_pid);
+    }
+
+    return 0;
+}
+================================================================================================
+3. C program to accept and sort an array in parent and child processes :
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[] = {5, 2, 9, 1, 5, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    pid_t child_pid = fork();
+
+    if (child_pid == 0) {
+        printf("Child Process - Unsorted Array: ");
+        for (int i = 0; i < n; i++) {
+            printf("%d ", arr[i]);
+        }
+        printf("\n");
+
+        bubbleSort(arr, n);
+
+        printf("Child Process - Sorted Array: ");
+        for (int i = 0; i < n; i++) {
+            printf("%d ", arr[i]);
+        }
+        printf("\n");
+    } else {
+        printf("Parent Process\n");
+    }
+
+    return 0;
+}
+================================================================================================
+4. C program to create an orphan process :
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+int main() {
+    pid_t child_pid;
+
+    child_pid = fork();
+
+    if (child_pid == 0) {
+        sleep(5); // Delay to demonstrate orphan process
+        printf("Child Process - PID: %d, Parent PID before becoming orphan: %d\n", getpid(), getppid());
+    } else {
+        printf("Parent Process - PID: %d\n", getpid());
+        exit(0); // Parent process terminates before child
+    }
+
+    return 0;
+}
+================================================================================================
+5. C program to simulate the ls command :
+
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+int main(){
+        execlp("/bin/ls","ls","-l",NULL);
+        return 0;
+}
+****************************************************************************************

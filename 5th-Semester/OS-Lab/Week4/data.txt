@@ -1,0 +1,11 @@
+Row No.;Name;Location;State;Age;Month of entry;Gender;Height;Weight;Index
+1;John;Los Angeles;California;29;Aug;Male;174;96;4
+2;Max;Chicago;Illinois;45;Jan;Male;189;87;2
+3;Samantha;Houston;Texas;25;Jul;Female;185;110;4
+4;Penelope;Phoenix;Arizona;48;Sep;Female;195;104;3
+5;Henry;Fort Worth;Texas;35;Apr;Male;149;61;3
+6;William;San Francisco;California;37;Apr;Male;189;104;3
+7;Scott;Las Vegas;Nevada;39;May;Male;147;92;5
+8;James;Miami;Florida;26;Oct;Male;154;111;5
+9;Jason;Oakland;California;40;Feb;Male;174;90;3
+10;Megan;Cincinnati;Ohio;24;Nov;Female;169;103;4
