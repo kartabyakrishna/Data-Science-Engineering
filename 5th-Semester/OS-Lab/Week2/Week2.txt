@@ -1,0 +1,62 @@
+#!/bin/bash
+<<Block_comment
+# Script: Even or Odd Number
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 2
+Block_comment
+
+
+read -p "Enter a number: " number
+
+if [ $((number % 2)) -eq 0 ]; then
+    echo "Even"
+else
+    echo "Odd"
+fi
+
+------------------------------------------
+#!/bin/bash
+<<Block_comment
+# Script: Greeting Based on Username
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 2
+Block_comment
+
+
+read -p "Enter your username: " username
+
+if [ "$username" == "Alice" ]; then
+    echo "Good morning"
+elif [ "$username" == "Peter" ]; then
+    echo "Good night"
+else
+    echo "Hello, $username"
+fi
+
+------------------------------------------
+
+#!/bin/bash
+<<Block_comment
+# Script: CGPA to Grade Conversion
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 2
+Block_comment
+
+
+read -p "Enter your CGPA: " cgpa
+
+if (( $(echo "$cgpa >= 10.0" | bc -l) )); then
+    echo "Grade: A+"
+elif (( $(echo "$cgpa >= 9.0" | bc -l) )); then
+    echo "Grade: A"
+elif (( $(echo "$cgpa >= 8.0" | bc -l) )); then
+    echo "Grade: B"
+elif (( $(echo "$cgpa >= 7.0" | bc -l) )); then
+    echo "Grade: C"
+else
+    echo "Grade: D"
+fi
+
