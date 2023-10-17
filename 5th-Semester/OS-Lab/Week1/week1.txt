@@ -1,0 +1,48 @@
+Q1.) Create 11 subdirectories in your home directory under OSxxx.
+
+mkdir week1 week2 week3 week4 week5 week6 week7 week8 week9 week10 week11
+
+Q2.Create subdirectory TestFolder under Week1
+
+cd week1 // to get inside week1 direc\
+mkdir testfolder // created directory in week1
+
+Q3. Create 3 different empty files in the TestFolder.
+
+cd testfolder // to get in directory
+touch f1 f2 f3 // created 3 empt files in testfolder directory of u dont do cd testfolder files will be created in week1 dir
+
+4.Add different contents in each of them using vi editor (say f1, f2 and f3)
+vi f1 // not vi editor edits in f1
+i // press i to go into insert mode
+// after writing content press esc to get out of insert mode
+:wq // tp save the contents and get into shell its case sensitive
+
+vi f2
+i
+esc
+:wq
+
+vi f3
+i
+esc
+:wq
+
+5. Move back to Week1 folder and copy f1 to this location
+cd .. // get out of testfolder direc
+cp ./testfolder/f1 f1 // week 1 mai ab file copy hogyi under the name of f1
+
+6.Create one more file with the command listing the number of users and number
+of files. Check content of this file.
+who|wc -l>f4 /// who tells user wc counts -l meand count lines >f4 copies in f4 makes new file if not exist
+to get no. of files
+ls -l // gives akll direc and files
+ls -l|grep ^- // input of ls -l will go to grep and ^ indicates starts with - and not it will give the output of rows that start with - ie files
+ls -l|grep ^-|wc - // will calculate no of lines/rows.
+ls -l|grep ^-|wc -l>>f4 // >> appends and not overwrites and not mo. of files r copied ino f4
+
+
+7. Use command to list all the files which starts with either ‘a’ or ‘A’.
+ touch a a1 abc a23 g12 r13 t45 // cretaed sone new files
+ls [aA]* // will give files
+ls [!af]* // will give files not starting with a and f 
