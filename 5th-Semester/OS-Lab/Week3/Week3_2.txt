@@ -1,0 +1,66 @@
+1. Shell script 'listing' that includes commands for file listing and deletion:
+
+#!/bin/bash
+<<Block_comment
+# Script: Listing and Deletion
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+while true; do
+    echo "a. Display long listing of files"
+    echo "b. Display long listing of files including hidden files"
+    echo "c. Delete files from directory"
+    echo "d. Exit"
+
+    read -p "Choose an option: " choice
+
+    case $choice in
+        a)
+            ls -l
+            ;;
+        b)
+            ls -la
+            ;;
+        c)
+            read -p "Enter file(s) to delete: " files
+            rm $files
+            echo "Deleted: $files"
+            ;;
+        d)
+            read -p "Do you wish to quit? (y/n): " quit_choice
+            if [ "$quit_choice" == "y" ]; then
+                echo "Exiting..."
+                break
+            fi
+            ;;
+        *)
+            echo "Invalid option"
+            ;;
+    esac
+done
+
+
+-------------------------------------------------------------------------------------------------------------
+2. Shell script to change file access permissions (FAP) to executable:
+
+#!/bin/bash
+<<Block_comment
+# Script: Change File Access Permissions to Executable
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+read -p "Enter filename: " filename
+
+if [ -f $filename ]; then
+    chmod +x $filename
+    echo "File access permissions changed for $filename"
+else
+    echo "File not found: $filename"
+fi
+
+
+--------------------------------------------------------------------------------------------------------------

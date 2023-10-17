@@ -1,0 +1,56 @@
+1. Shell script to compare two strings for equality:
+
+#!/bin/bash
+<<Block_comment
+# Script: String Comparison
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+read -p "Enter the first string: " string1
+read -p "Enter the second string: " string2
+
+# Check if the strings are empty
+if [ -z "$string1" ] || [ -z "$string2" ]; then
+    echo "One or both strings are empty."
+else
+    if [ "$string1" = "$string2" ]; then
+        echo "The strings are equal."
+    else
+        echo "The strings are not equal."
+    fi
+fi
+
+
+-------------------------------------------------------------------
+2. Shell script to process filenames from command line:
+
+#!/bin/bash
+<<Block_comment
+Script: Process Filenames
+Author: Kartabya Krishna
+Reg No: 210968244
+Week: 3
+Block_comment
+
+read -p "Enter a list of filenames separated by spaces: " filenames
+
+for filename in $filenames; do
+    if [ -f "$filename" ]; then
+        echo "File content of $filename:"
+        cat "$filename"
+        
+        if [ -x "$filename" ]; then
+            echo "$filename has execute permission."
+        else
+            echo "$filename does not have execute permission."
+        fi
+    elif [ -d "$filename" ]; then
+        num_files=$(ls -1 "$filename" | wc -l)
+        echo "Number of files in directory $filename: $num_files"
+    else
+        echo "File or directory $filename does not exist."
+    fi
+done
+

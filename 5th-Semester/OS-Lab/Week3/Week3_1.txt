@@ -1,0 +1,101 @@
+#!/bin/bash
+<<Block_comment
+# Script: Find Largest of Three Numbers
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+read -p "Enter three numbers: " num1 num2 num3
+
+if [ $num1 -ge $num2 ] && [ $num1 -ge $num3 ]; then
+    echo "$num1 is the largest."
+elif [ $num2 -ge $num1 ] && [ $num2 -ge $num3 ]; then
+    echo "$num2 is the largest."
+else
+    echo "$num3 is the largest."
+fi
+
+
+------------------------------------------------------------------------------
+#!/bin/bash
+<<Block_comment
+# Script: Print Numbers in Reverse Order
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+num=5
+
+while [ $num -ge 1 ]; do
+    echo -n "$num "
+    num=$((num - 1))
+done
+
+echo
+
+
+------------------------------------------------------------------------------
+#!/bin/bash
+<<Block_comment
+# Script: Print Number in Reverse Order
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+read -p "Enter a number: " num
+reversed=""
+
+while [ $num -gt 0 ]; do
+    digit=$((num % 10))
+    reversed="${reversed}${digit}"
+    num=$((num / 10))
+done
+
+echo "Reversed number: $reversed"
+
+
+------------------------------------------------------------------------------
+#!/bin/bash
+<<Block_comment
+# Script: Sum of Digits of a Number
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+read -p "Enter a number: " num
+sum=0
+
+while [ $num -gt 0 ]; do
+    digit=$((num % 10))
+    sum=$((sum + digit))
+    num=$((num / 10))
+done
+
+echo "Sum of digits: $sum"
+
+
+------------------------------------------------------------------------------
+#!/bin/bash
+<<Block_comment
+# Script: Print File Contents with Line Limit
+# Author: Kartabya Krishna
+# Reg No: 210968244
+# Week: 3
+Block_comment
+
+read -p "Enter file name: " filename
+read -p "Enter number of lines from beginning: " begin_lines
+read -p "Enter number of lines from end: " end_lines
+
+echo "First $begin_lines lines from $filename:"
+head -n $begin_lines $filename
+
+echo "Last $end_lines lines from $filename:"
+tail -n $end_lines $filename
+
+
+------------------------------------------------------------------------------
