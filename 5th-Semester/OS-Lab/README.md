@@ -36,6 +36,7 @@ You can navigate to each week's content by clicking on the respective links. Eac
 
 If you have any improvements, suggestions, or contributions to make to this repository, please feel free to create a pull request or submit an issue.
 
-We hope this repository provides you with a valuable resource for your Operating System Lab at MIT Manipal College. The knowledge and skills you gain from this lab will be fundamental for your computer science journey. Best of luck with your studies!
+We hope this repository provides you with a valuable resource for your Operating System Lab at MIT Manipal College. The knowledge and skills you gain from this lab will be fundamental for your computer science journey. Best of luck with your studies! 
 
+Enjoy!
 Happy coding!
