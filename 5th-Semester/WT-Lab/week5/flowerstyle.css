@@ -1,0 +1,106 @@
+body{
+    overflow:hidden;
+}
+
+.flowerbox{
+    background-color: rgb(255, 155, 213);
+    width:800px;
+    height:800px;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    margin: auto;
+    border-radius: 10%;
+    box-shadow: 0 0 50px rgb(16, 212, 104);
+}
+
+.petal1{
+    background-color: rgb(255, 33, 163);
+    width:200px;
+    height:200px;
+    display: block;
+    position: relative;
+    margin: auto;
+    border-radius: 10% 90% 1%;
+    top:200px;
+    left:-100px;
+    animation: p2 15s ease-in-out infinite;
+}
+
+.petal2{
+    background-color: rgb(255, 33, 163);
+    width:200px;
+    height:200px;
+    display: block;
+    position: relative;
+    margin: auto;
+    border-radius: 10% 90% 1%;
+    rotate: 90deg;
+    right:-110px;
+    animation: p2 15s ease-in-out infinite;
+}
+.petal3{
+    background-color: rgb(255, 33, 163);
+    width:200px;
+    height:200px;
+    display: block;
+    position: relative;
+    margin: auto;
+    border-radius: 10% 90% 1%;
+    rotate: 180deg;
+    top: 10px;
+    right:-110px;
+    animation: p2 15s ease-in-out infinite;
+}
+.petal4{
+    background-color: rgb(255, 33, 163);
+    width:200px;
+    height:200px;
+    display: block;
+    position: relative;
+    margin: auto;
+    border-radius: 10% 90% 1%;
+    rotate: 270deg;
+    left:-100px;
+    bottom:190px;
+    animation: p2 15s ease-in-out infinite;
+}
+
+.circle{
+    background-color: rgb(255, 104, 242);
+    border-radius: 50%;
+    width:200px;
+    height:200px;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    margin: auto;
+}
+
+.rbox{
+    animation: rbox 15s ease-in-out infinite;
+}
+
+@keyframes rbox{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes p2{
+    0%{
+        transform: translateX(50px) translateY(125px);
+    }
+    100%{
+        transform: translateX(5px) translateY(0px);
+    }
+}
