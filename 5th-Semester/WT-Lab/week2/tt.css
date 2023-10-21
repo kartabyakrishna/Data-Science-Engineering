@@ -1,0 +1,33 @@
+
+.tt{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 1%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    height:500px;
+    width:1200px;
+}
+
+h1{
+    font-size: 50px;
+}
+
+.fac{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%; 
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+table{
+    border:1px solid black;
+    text-align: center;
+    border-collapse: collapse;
+    padding: 10px;
+}

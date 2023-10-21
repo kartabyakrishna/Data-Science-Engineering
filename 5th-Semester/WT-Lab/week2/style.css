@@ -1,0 +1,128 @@
+html, body{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+body h1{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    margin-left:auto;
+    margin-right:auto;
+    border:1px solid;
+    height:1500px;
+    width:1400px;
+    text-align: center;
+    padding: 10px;
+}
+
+.container .personal{
+    padding: 20px;
+    float:left;
+    width:33%;
+    height:200px;
+    /* border :1px solid black; */
+    text-align: left;
+}
+
+.container .codestats{
+    padding: 20px;
+    margin-left: 10px;
+    float:left;
+    height:200px;
+    width:33%;
+    /* border :1px solid black; */
+    text-align: left;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+.container .ach{
+    margin-top: 10px;
+    float:left;
+    width: 33%;
+    padding: 20px;
+    /* height:200px; */
+    text-align: left;
+    /* border: 1px solid black; */
+    font-size: 20px;
+    text-justify: distribute;
+}
+
+.container .pic{
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+    width: 300px;
+    float: right;
+    margin: 10px;
+}
+
+.container .pic img{
+    height: 400px;
+    width:250px;
+    display: flex;
+    align-items: center;
+    position:absolute;
+    float:right;
+}
+
+.container .edu{
+    float:left;
+    margin: 10px;
+    width: 33%;
+    padding: 20px;
+    text-align: left;
+    font-size: 20px;
+    text-justify: distribute;
+    /* border: 1px solid black; */
+}
+
+.container .skills{
+    float:left;
+    /* border:1px solid black; */
+    width:350px;
+    text-align: left;
+    font-size: 20px;
+    padding:10px
+}
+
+.container .PRJ{
+    margin-top: 10px;
+    float:left;
+    width: 33%;
+    padding: 20px;
+    /* height:200px; */
+    text-align: left;
+    /* border: 1px solid black; */
+    font-size: 20px;
+    text-justify: distribute;
+}
+
+.container .PRJ2{
+    margin-top: 10px;
+    margin-left: 10px;
+    float:left;
+    width: 33%;
+    padding: 20px;
+    /* height:200px; */
+    text-align: left;
+    /* border: 1px solid black; */
+    font-size: 20px;
+    text-justify: distribute;
+}
+
+.container .certs{
+    margin-top: 10px;
+    margin-left: 10px;
+    float:left;
+    width: 330px;
+    padding: 20px;
+    /* height:200px; */
+    text-align: left;
+    /* border: 1px solid black; */
+    font-size: 20px;
+    text-justify: distribute;
+}
