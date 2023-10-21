@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>MOUSE COORDINATES</h1>
+        <canvas id="canvas" height="800px" width="1900px"></canvas>
+        <div id="coordinates" class="coordinates">
+            MOUSE CO ORD <span id="X"> 0</span>,<span id="Y"> 0</span>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const mx = document.getElementById("X");
+        const my = document.getElementById("Y");
+        canvas.addEventListener("mousemove",(event)=>{
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.round(event.clientX - rect.left);
+            const y = Math.round(event.clientY - rect.top);
+
+            mx.textContent = x;
+            my.textContent = y;
+        })
+    </script>
+</body>
+</html>
