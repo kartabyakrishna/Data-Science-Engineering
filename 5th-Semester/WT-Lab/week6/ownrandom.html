@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>GUESSING GAME</h2>
+        <p>GUESS A NUMBER BETWEEN 1 and 10</p>
+        <label><input type="number" class="text" id="num"></label>
+        <button type="submit" id="but1">SUBMIT</button>
+        <div id="field"></div>
+    </div>
+
+    <script>
+        var but1 = document.getElementById("but1");
+        var field = document.getElementById("field");
+        var num1 = document.getElementById("num");
+        var cnt = 5;
+        but1.addEventListener("click",function(){
+            var num = Math.floor(Math.random()*10)+1;         
+            //because Math.random produces a random number between 0 and 1 so mulitply it to get a 2 digit number and add 1 to get the ranged value between 1 and 100
+            console.log(num);
+            console.log(num1.value);
+            if(num1.value==num){
+                field.style.color = "green";
+                field.innerHTML = "CORRECT";
+                but1.innerHTML = "SUBMIT";
+                but1.disabled=true
+                cnt=5;
+            }
+            else{
+                if(cnt>0){
+                    field.style.color = "red";
+                    field.innerHTML = "WRONG GUESS! LMAO TRY AGAIN BITCH TRIES LEFT:"+cnt+"";
+                    // setTimeout(() => {
+                    //     field.innerHTML = "";
+                    // }, 1000);
+                    cnt--;
+                }
+                else{
+                    field.style.color = "red";
+                    field.innerHTML = "PLAY AGAIN";
+                    num1.disabled=true; 
+                    but1.disabled=true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

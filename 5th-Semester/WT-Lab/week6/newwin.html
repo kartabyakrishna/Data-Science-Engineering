@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="but1">CLICK HERE TO CREATE A NEW BROWSER WINDOW</button>
+    <script>
+        but1 = document.getElementById("but1");
+        but1.addEventListener("click",function(){
+            window.open("path.html","NEW WIN","width=400,height=400")
+        })
+    </script>
+</body>
+</html>
