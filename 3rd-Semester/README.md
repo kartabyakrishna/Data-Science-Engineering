@@ -72,3 +72,4 @@ Notes, slides, codes and resources for 3rd semester courses in BTech Data Scienc
 - `Synchronization  1.pdf`: Synchronization
 - `Inter thread communication_221106_210343.pdf`: Thread Communication
 
+The 3rd semester introduces students to more advanced CS concepts building up on core fundamentals. This repository seeks to make study resources for such courses readily available to students for seamless learning. Methodistically organized resources provide in-depth understanding of 3rd sem topics. Students are welcome to utilize these materials to gain expertise and provide suggestions for improvement.
