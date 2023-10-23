@@ -1,11 +1,8 @@
-Sure, here is the README.md formatted properly as Markdown for a repo:
-
-```markdown
 # Deadlock Detection Algorithm 
 
 This program implements the deadlock detection algorithm for a system with multiple processes and resources. The algorithm checks if there is a safe state for the system, where a safe state is one in which all processes can finish execution.
 
-## Question 1
+## Question 2
 
 2. Consider the following snapshot of the system. Write a C program to implement the deadlock detection algorithm.
 
