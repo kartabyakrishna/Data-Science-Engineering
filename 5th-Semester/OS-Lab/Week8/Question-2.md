@@ -4,7 +4,7 @@ This program implements the deadlock detection algorithm for a system with multi
 
 ## Question 2
 
-2. Consider the following snapshot of the system. Write a C program to implement the deadlock detection algorithm.
+### 2. Consider the following snapshot of the system. Write a C program to implement the deadlock detection algorithm.
 
 (a) Is the system in a safe state?
 
