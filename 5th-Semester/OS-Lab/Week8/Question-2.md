@@ -59,3 +59,4 @@ This program uses the deadlock detection algorithm to determine whether the syst
 To use the program, compile and run it. The output will indicate whether the system is in a safe state or not. A message like "The system is in a safe state" means that the system can proceed without deadlocks, while "The system is not in a safe state" signifies a potential deadlock scenario.
 
 Feel free to use this code and explanation for your purposes.
+---
