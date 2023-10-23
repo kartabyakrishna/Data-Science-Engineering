@@ -10,6 +10,34 @@ This program implements the deadlock detection algorithm for a system with multi
 
 (b) Suppose that process P2 makes one additional request for an instance of type C, can the system still be in a safe state?
 
+## System State Tables
+
+### Allocation 
+
+| | A | B | C |
+|-|-|-|-|  
+| P0 | 0 | 1 | 0 |
+| P1 | 2 | 0 | 0 |  
+| P2 | 3 | 0 | 3 |
+| P3 | 2 | 1 | 1 |
+| P4 | 0 | 0 | 2 |
+
+### Request
+
+| | A | B | C |
+|-|-|-|-|
+| P0 | 0 | 0 | 0 |  
+| P1 | 2 | 0 | 2 |
+| P2 | 0 | 0 | 0 |
+| P3 | 1 | 0 | 0 |
+| P4 | 0 | 0 | 2 |
+
+### Available
+
+| A | B | C |
+|-|-|-|
+| 0 | 0 | 0 |
+
 ## Code Snippet
 
 ```c
@@ -78,32 +106,5 @@ To address the additional question in (b), the program simulates process P2 maki
 
 Feel free to use this code and explanation for your purposes.
 
-## System State Tables
-
-### Allocation 
-
-| | A | B | C |
-|-|-|-|-|  
-| P0 | 0 | 1 | 0 |
-| P1 | 2 | 0 | 0 |  
-| P2 | 3 | 0 | 3 |
-| P3 | 2 | 1 | 1 |
-| P4 | 0 | 0 | 2 |
-
-### Request
-
-| | A | B | C |
-|-|-|-|-|
-| P0 | 0 | 0 | 0 |  
-| P1 | 2 | 0 | 2 |
-| P2 | 0 | 0 | 0 |
-| P3 | 1 | 0 | 0 |
-| P4 | 0 | 0 | 2 |
-
-### Available
-
-| A | B | C |
-|-|-|-|
-| 0 | 0 | 0 |
 
 ```
