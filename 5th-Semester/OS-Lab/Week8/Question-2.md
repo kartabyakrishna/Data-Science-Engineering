@@ -105,6 +105,3 @@ The program uses the deadlock detection algorithm to determine whether the syste
 To address the additional question in (b), the program simulates process P2 making one additional request for an instance of type C and checks whether the system remains in a safe state. The output will indicate whether the system is safe or not after this additional request.
 
 Feel free to use this code and explanation for your purposes.
-
-
-```
