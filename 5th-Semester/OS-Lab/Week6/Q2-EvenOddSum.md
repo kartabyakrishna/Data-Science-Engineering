@@ -75,6 +75,4 @@ gcc -o evenOddSum evenOddSum.c
 ```
 
 ### Output
-![image](https://github.com/shrudex/DSE/assets/91502997/2037d60e-7bcf-4d03-a837-02ddfb74a897)
-![image](https://github.com/shrudex/DSE/assets/91502997/c9e01e7b-3f54-41b6-a9aa-84273b6f477c)
 
