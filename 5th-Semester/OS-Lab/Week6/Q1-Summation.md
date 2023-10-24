@@ -44,6 +44,5 @@ gcc -o summation summation.c
 ```
 
 ### Output
-![image](https://github.com/shrudex/DSE/assets/91502997/7fc54f40-7e30-4eb7-88f0-84ad2314352d)
-![image](https://github.com/shrudex/DSE/assets/91502997/084a7365-6916-46db-b7ec-6f4a5ff33b31)
+
 
