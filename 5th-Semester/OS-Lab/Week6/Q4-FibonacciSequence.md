@@ -61,6 +61,4 @@ gcc -o fibonacci fibonacci.c
 ```
 
 ### Output
-![image](https://github.com/shrudex/DSE/assets/91502997/b8da1026-14ef-4e0c-a55e-cdc75a3adf09)
-![image](https://github.com/shrudex/DSE/assets/91502997/4151bb2a-5905-41b8-af92-bb6056cac56b)
 
