@@ -72,6 +72,5 @@ gcc -o primeNumbers primeNumbers.c
 ```
 
 ### Output
-![image](https://github.com/shrudex/DSE/assets/91502997/5fab2f14-17d6-4321-befa-60a0146df219)
-![image](https://github.com/shrudex/DSE/assets/91502997/311f678a-f351-4885-a347-a5bcdf6b62db)
+
 
