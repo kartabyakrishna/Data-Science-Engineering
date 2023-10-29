@@ -54,7 +54,7 @@ Getting into advanced domains like algorithms, databases, ML, and math foundatio
 - [Mathematical Foundation for Data Science-3 (3-Credits)]()
 - [Operating Systems Lab (1-Credit)](./5th-Semester/OS-Lab)
 - [Deep Learning Lab (1-Credit)](./5th-Semester/DL-Lab/)
-- [Web Technologies Lab(2-Credits)](./5th-Semester/WT-Lab)
+- [Web Technologies Lab (2-Credits)](./5th-Semester/WT-Lab)
 
 Core computer science concepts like deep learning, NLP, OS, cloud computing with hands-on labs. 
 
