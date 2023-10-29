@@ -41,7 +41,7 @@ Introduction to key CS concepts like data structures, OOPs, computer architectur
 - Machine Learning
 - Mathematical Foundation for Data Science-2
 - Desigin & Analysis of Algorithms Lab
-- 
+- Machine Learning Lab
 
 Getting into advanced domains like algorithms, databases, ML, and math foundations.
 
