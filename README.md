@@ -52,7 +52,7 @@ Getting into advanced domains like algorithms, databases, ML, and math foundatio
 - [Operating Systems (3-Credits)]()
 - [Cloud Computing (3-Credits)]()
 - [Mathematical Foundation for Data Science-3 (3-Credits)]()
-- [Operating Systems Lab (1-Credit)]()
+- [Operating Systems Lab (1-Credit)](./5th-Semester/OS-Lab)
 - [Deep Learning Lab (1-Credit)](./5th-Semester/DL-Lab/)
 - [Web Technologies Lab(2-Credits)](./5th-Semester/WT-Lab)
 
