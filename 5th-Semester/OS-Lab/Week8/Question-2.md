@@ -182,5 +182,5 @@ This section provides a detailed explanation of how the code works.
 
 The output of the code will indicate whether the system is in a safe state and whether it remains safe after an additional request.
 
-![Alt text](/KartabyaKrishna/Assets/week8_2.png)
+![Alt text](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/week8_2.png)
 

@@ -148,4 +148,4 @@ The C code provided earlier in this conversation implements the Banker's Algorit
 
 The output of the code will either provide a safe sequence or indicate that the given sequence is not safe.
 
-![Alt text](/KartabyaKrishna/Assets/week8_1.png)
+![Alt text](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/week8_1.png)
