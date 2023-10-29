@@ -2,9 +2,7 @@
 
 This program implements the deadlock detection algorithm for a system with multiple processes and resources. The algorithm checks if there is a safe state for the system, where a safe state is one in which all processes can finish execution.
 
-## Question 2
-
-### 2. Consider the following snapshot of the system. Write a C program to implement the deadlock detection algorithm.
+### Ques. Consider the following snapshot of the system. Write a C program to implement the deadlock detection algorithm.
 
 (a) Is the system in a safe state?
 
