@@ -1,4 +1,4 @@
-# Banker's Algorithm - Question 1
+# Banker's Algorithm - Question 8.1
 
 This program implements the Banker's algorithm for deadlock avoidance. It accepts user inputs for resource allocation and request scenarios, and it checks if the system is in a safe state or not.
 
