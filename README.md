@@ -51,7 +51,10 @@ Getting into advanced domains like algorithms, databases, ML, and math foundatio
 - Natural Language Processing
 - Operating Systems
 - Cloud Computing
-- Lab Manuals 
+- Mathematical Foundation for Data Science-3
+- Operating Systems Lab
+- Deep Learning Lab
+- Web Technologies Lab
 
 Core computer science concepts like deep learning, NLP, OS, cloud computing with hands-on labs. 
 
