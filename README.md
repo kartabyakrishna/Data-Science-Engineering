@@ -48,7 +48,7 @@ Getting into advanced domains like algorithms, databases, ML, and math foundatio
 ### [5th Semester](./5th-Semester) 📒
 
 - [Deep Learning (4-Credits)](./5th-Semester/DL)
-- Natural Language Processing
+- [Natural Language Processing (3-Credits)](./5th-Semester/NLP)
 - Operating Systems
 - Cloud Computing
 - Mathematical Foundation for Data Science-3
