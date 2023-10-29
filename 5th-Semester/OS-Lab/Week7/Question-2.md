@@ -65,51 +65,43 @@ int main() {
 ## Output
 ![Alt text](image-4.png)
 
-### Explanation 
+### Readers-Writers Problem
 
-### Bounded Buffer Producer-Consumer Problem
+The Readers-Writers problem models a situation where multiple readers and writers access a shared resource, such as a database. The challenge is to ensure data integrity while allowing multiple readers to access the resource simultaneously or granting exclusive access to a single writer at a time.
 
-#### Problem Description
+### Synchronization Elements
 
-The bounded buffer producer-consumer problem models a situation where multiple producer threads generate data, place it into a shared buffer, and multiple consumer threads retrieve and process this data. The challenge is to ensure that the producers don't overflow the buffer (exceed its capacity) and that consumers don't underflow it (try to consume when the buffer is empty).
+- `sem_t db`: This semaphore controls access to the shared database, allowing only one writer to write at a time. It also enforces mutual exclusion between readers and writers.
 
-#### Synchronization Elements
+- `sem_t mutex`: A mutex semaphore protects the `readcount` variable, ensuring exclusive access when readers modify the count.
 
-This code implements the solution using semaphores:
+- `int readcount`: This variable keeps track of the number of readers currently accessing the database. It is protected by the `mutex` semaphore.
 
-- **empty**: Represents the number of empty slots in the buffer.
-- **full**: Represents the number of slots that contain data in the buffer.
-- **mutex**: Ensures mutual exclusion when accessing the buffer.
+### Implementation Overview
 
-#### Implementation Overview
+#### Writer
+- The `writer` function represents a writer thread.
+- It waits on the `db` semaphore, ensuring exclusive access to the database.
+- Once granted access, the writer performs its writing operation and then releases the `db` semaphore, allowing other writers or readers to access the database.
 
-The code defines two types of threads, one for the producer and one for the consumer. The producer generates data and adds it to the buffer, ensuring it doesn't exceed the buffer's capacity. The consumer retrieves and processes data from the buffer while avoiding buffer underflow. The threads are synchronized using semaphores to coordinate access to the shared buffer.
+#### Reader
+- The `reader` function represents a reader thread.
+- It first acquires the `mutex` semaphore to update the `readcount` variable.
+- If it's the first reader (`readcount == 1`), it also waits on the `db` semaphore to ensure exclusive access when writers are not active.
+- After updating the `readcount`, it releases the `mutex` semaphore, allowing other readers to increment it.
+- The reader performs its reading operation on the shared resource and updates the `readcount` again before releasing the `mutex` semaphore.
+- If the reader is the last to leave, it signals that it has finished reading, releasing the `db` semaphore.
 
-#### Usage
+#### Main Function
+- In the `main` function, the user is prompted to enter the number of readers and writers.
+- Threads for readers and writers are created and run concurrently.
+- The code ensures that readers and writers are created and joined correctly.
+- Finally, semaphores are destroyed to release resources.
 
-1. **Compile**: Compile the code using the following command:
-    ```
-    gcc bounded_buffer.c -o bounded_buffer -lpthread
-    ```
+### Usage
+- Compile the code using a C compiler.
+- Run the executable.
+- Enter the number of readers and writers as prompted.
+- The program will demonstrate the Readers-Writers problem solution, allowing multiple readers or one writer to access the shared resource at any given time.
 
-2. **Run**: Execute the compiled program:
-    ```
-    ./bounded_buffer
-    ```
-
-3. The program will create producer and consumer threads that run concurrently. Threads will run for a specified duration (e.g., 10 seconds) and then exit gracefully.
-
-#### Customization
-
-You can customize this code to fit your specific requirements by modifying the following parameters:
-
-- `BUFFER_SIZE`: Define the size of the buffer.
-- Data generation in the `producer` function: Adjust the data generation logic to match your use case.
-
-#### Cleanup
-
-The program performs cleanup and destroys the semaphores when it finishes execution.
-
----
-
-This README provides an overview of a practical solution to the bounded buffer producer-consumer problem using semaphores in C. It ensures efficient coordination between producers and consumers while avoiding buffer overflows and underflows.
+This code provides a practical solution to the Readers-Writers problem using pthreads and semaphores to manage concurrent access to a shared resource while maintaining data integrity. It can serve as a valuable example for synchronization in multi-threaded programs.
