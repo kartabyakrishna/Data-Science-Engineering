@@ -28,6 +28,7 @@ Core courses to build your base in math, programming, electronics, and engineeri
 - Object Oriented Programming 
 - Computer System Architecture
 - Introduction to Data Analytics
+- Mathematical Foundation for Data Science-1
 - Object Oriented Programming Lab
 - Data Structures Lab 
 
