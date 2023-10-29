@@ -17,11 +17,9 @@ This program implements the Banker's algorithm for deadlock avoidance. It accept
 ## Solution
 
 ```cpp
-#include <iostream>
-using namespace std;
+#include <stdio.h>
 
 int main() {
-    // P0, P1, P2, P3, P4 are the Process names here
     int n, m, i, j, k;
     n = 5; // Number of processes
     m = 3; // Number of resources
@@ -47,12 +45,12 @@ int main() {
     // Available Resources
     int avail[3] = { 3, 3, 2 };
 
-    int f[n], ans[n], ind = 0;
+    int f[5], ans[5], ind = 0;
     for (k = 0; k < n; k++) {
         f[k] = 0;
     }
 
-    int need[n][m];
+    int need[5][3];
     for (i = 0; i < n; i++) {
         for (j = 0; j < m; j++)
             need[i][j] = max[i][j] - alloc[i][j];
@@ -83,17 +81,19 @@ int main() {
     for (int i = 0; i < n; i++) {
         if (f[i] == 0) {
             flag = 0;
-            cout << "The given sequence is not safe";
+            printf("The given sequence is not safe\n");
             break;
         }
     }
 
     if (flag == 1) {
-        cout << "Following is the SAFE Sequence" << endl;
+        printf("Following is the SAFE Sequence\n");
         for (i = 0; i < n - 1; i++)
-            cout << " P" << ans[i] << " ->";
-        cout << " P" << ans[n - 1] << endl;
+            printf(" P%d ->", ans[i]);
+        printf(" P%d\n", ans[n - 1]);
     }
 
     return 0;
 }
+
+```
