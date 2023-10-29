@@ -25,9 +25,9 @@ Core courses to build your base in math, programming, electronics, and engineeri
 ### [3rd Semester](./3rd-Semester) 📗
 
 - Data Structures
-- Computer Architecture
 - Object Oriented Programming 
-- Statistics
+- Computer System Architecture
+- Introduction to Data Analytics
 - Lab Manuals
 
 Introduction to key CS concepts like data structures, OOPs, computer architecture, and statistics.
