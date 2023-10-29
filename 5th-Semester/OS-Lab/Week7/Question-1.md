@@ -12,49 +12,71 @@ int max;
 sem_t full, empty;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
+// Producer thread function
 void *producer(void *param) {
     int in = 0;
     int i;
     for (i = 0; i < max; i++) {
+        // Wait for an empty slot in the buffer
         sem_wait(&empty);
+        // Lock the mutex to access the shared buffer
         pthread_mutex_lock(&mutex);
+        // Produce an item and add it to the buffer
         queue[in] = i + 1;
         in = (in + 1) % capacity;
         printf("Produced %d\n", i + 1);
+        // Unlock the mutex and signal that the buffer is now full
         pthread_mutex_unlock(&mutex);
         sem_post(&full);
     }
 }
 
+// Consumer thread function
 void *consumer(void *param) {
     int out = 0;
     int i;
     for (i = 0; i < max; i++) {
+        // Wait for a full slot in the buffer
         sem_wait(&full);
+        // Lock the mutex to access the shared buffer
         pthread_mutex_lock(&mutex);
+        // Consume an item from the buffer
         printf("Consumed %i\n", queue[out]);
         out = (out + 1) % capacity;
+        // Unlock the mutex and signal that the buffer is now empty
         pthread_mutex_unlock(&mutex);
         sem_post(&empty);
     }
 }
 
 int main() {
+    // Get the buffer size and the number of items to produce from the user
     printf("Enter the size of the buffer: ");
     scanf("%d", &capacity);
     printf("Enter the number of items to produce: ");
     scanf("%d", &max);
+
+    // Allocate memory for the buffer
     queue = malloc(capacity * sizeof(int));
-    pthread_t threads[2];
+
+    // Initialize semaphores and mutex
     sem_init(&full, 0, 0);
     sem_init(&empty, 0, capacity);
+
+    // Create producer and consumer threads
+    pthread_t threads[2];
     pthread_create(&threads[0], 0, producer, 0);
     pthread_create(&threads[1], 0, consumer, 0);
+
+    // Wait for threads to finish
     pthread_join(threads[0], 0);
     pthread_join(threads[1], 0);
+
+    // Cleanup: Destroy semaphores
     sem_destroy(&full);
     sem_destroy(&empty);
 }
+
 
 ```
 ## Output
