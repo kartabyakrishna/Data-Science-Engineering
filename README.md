@@ -12,7 +12,7 @@ So let's get started! Choose your semester below.
 
 ## Semester-wise Contents 
 
-### [2nd Semester](./2nd-Semester) 📘
+## [2nd Semester](./2nd-Semester) 📘
 
 - Mathematics 
 - Programming Fundamentals
@@ -22,7 +22,7 @@ So let's get started! Choose your semester below.
 
 Core courses to build your base in math, programming, electronics, and engineering graphics. 
 
-### [3rd Semester](./3rd-Semester) 📗
+## [3rd Semester](./3rd-Semester) 📗
 
 - Data Structures
 - Object Oriented Programming 
@@ -34,7 +34,7 @@ Core courses to build your base in math, programming, electronics, and engineeri
 
 Introduction to key CS concepts like data structures, OOPs, computer architecture, and statistics.
 
-### [4th Semester](./4th-Semester) 📕
+## [4th Semester](./4th-Semester) 📕
 
 - Desigin & Analysis of Algorithms
 - Database Systems
@@ -45,7 +45,7 @@ Introduction to key CS concepts like data structures, OOPs, computer architectur
 
 Getting into advanced domains like algorithms, databases, ML, and math foundations.
 
-### [5th Semester](./5th-Semester) 📒
+## [5th Semester](./5th-Semester) 📒
 
 - [Deep Learning (4-Credits)](./5th-Semester/DL)
 - [Natural Language Processing (3-Credits)](./5th-Semester/NLP)
@@ -58,7 +58,7 @@ Getting into advanced domains like algorithms, databases, ML, and math foundatio
 
 Core computer science concepts like deep learning, NLP, OS, cloud computing with hands-on labs. 
 
-### [6th Semester](./6th-Semester) 📓
+## [6th Semester](./6th-Semester) 📓
 
 - Artificial Intelligence
 - Big Data
