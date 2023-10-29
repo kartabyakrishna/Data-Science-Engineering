@@ -9,28 +9,51 @@
 sem_t db, mutex;
 int readcount = 0;
 
+// Writer thread function
 void *writer(void *a) {
     int arg = (int)(intptr_t)a;
+
+    // Wait for exclusive access to the database
     sem_wait(&db);
+
     printf("W - Writer %d is operating\n", arg);
+    // Simulate a writing operation here
     printf("W - Writer %d done\n", arg);
+
+    // Release the database for other writers and readers
     sem_post(&db);
 }
 
+// Reader thread function
 void *reader(void *a) {
     int arg = (int)(intptr_t)a;
+
+    // Acquire a mutex to modify the readcount
     sem_wait(&mutex);
     readcount++;
+
+    // If it's the first reader, request access to the database
     if (readcount == 1)
         sem_wait(&db);
+
+    // Release the mutex for other readers to increment readcount
     sem_post(&mutex);
+
     printf("R - Reader %d is operating\n", arg);
+    // Simulate a reading operation here
+
+    // Acquire the mutex again to update readcount
     sem_wait(&mutex);
     readcount--;
+
+    // If no more readers, release the database for writers
     if (readcount == 0)
         sem_post(&db);
-    printf("R - Reader %d done\n", arg);
+
+    // Release the mutex
     sem_post(&mutex);
+
+    printf("R - Reader %d done\n", arg);
 }
 
 int main() {
@@ -40,7 +63,9 @@ int main() {
     pthread_t readers[r], writers[w];
     sem_init(&mutex, 0, 1);
     sem_init(&db, 0, 1);
+
     int i = 0;
+    // Create reader and writer threads
     while (i < r || i < w) {
         if (i < r)
             pthread_create(&readers[i], NULL, reader, (void *)(intptr_t)(i + 1));
@@ -48,7 +73,9 @@ int main() {
             pthread_create(&writers[i], NULL, writer, (void *)(intptr_t)(i + 1));
         i++;
     }
+
     i = 0;
+    // Wait for threads to finish
     while (i < r || i < w) {
         if (i < r)
             pthread_join(readers[i], NULL);
@@ -56,10 +83,14 @@ int main() {
             pthread_join(writers[i], NULL);
         i++;
     }
+
+    // Cleanup: Destroy semaphores
     sem_destroy(&mutex);
     sem_destroy(&db);
+    
     return 0;
 }
+
 
 ```
 ## Output
