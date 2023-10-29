@@ -36,10 +36,10 @@ Introduction to key CS concepts like data structures, OOPs, computer architectur
 
 ### [4th Semester](./4th-Semester) 📕
 
-- Algorithms
+- Desigin & Analysis of Algorithms
 - Database Systems
 - Machine Learning
-- Mathematics 
+- Mathematical Foundation for Data Science-2
 - Lab Manuals
 
 Getting into advanced domains like algorithms, databases, ML, and math foundations.
