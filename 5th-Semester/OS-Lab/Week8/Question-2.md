@@ -178,7 +178,7 @@ This section provides a detailed explanation of how the code works.
 
 2. An additional resource request is made by process P2. The code then checks if the system remains in a safe state after the request.
 
-## Output (to be added)
+## Output
 
 The output of the code will indicate whether the system is in a safe state and whether it remains safe after an additional request.
 
