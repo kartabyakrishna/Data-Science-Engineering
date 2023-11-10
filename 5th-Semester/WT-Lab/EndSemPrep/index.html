@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Input Form</title>
+</head>
+<body>
+    <form id="userForm">
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" name="username">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="userDetails"></div>
+
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var username = document.getElementById("username").value;
+
+            // Create an XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "process.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("userDetails").innerHTML = xhr.responseText;
+                }
+            };
+
+            // Send the username data to process.php
+            xhr.send("username=" + username);
+        });
+    </script>
+</body>
+</html>
