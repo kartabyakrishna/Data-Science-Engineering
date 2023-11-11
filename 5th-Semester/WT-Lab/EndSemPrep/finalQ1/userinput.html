@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Input</title>
+</head>
+<body>
+    <h1>User Information Lookup</h1>
+    <form id="userForm" action="process.php" method="post">
+        <label for="username">Enter Username: </label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Get User Info</button>
+    </form>
+
+    <div id="userDetails" style="display: none;">
+        <h2>User Details</h2>
+        <p><strong>Username: </strong><span id="userInfoUsername"></span></p>
+        <p><strong>Email: </strong><span id="userInfoEmail"></span></p>
+        <p><strong>Phone Number: </strong><span id="userInfoPhone"></span></p>
+        <p><strong>Designation: </strong><span id="userInfoDesignation"></span></p>
+    </div>
+
+    <div id="userAddedMessage" style="display: none;">
+        <p>User added to session storage!</p>
+    </div>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const userDetailsContainer = document.getElementById('userDetails');
+            const userInfoUsername = document.getElementById('userInfoUsername');
+            const userInfoEmail = document.getElementById('userInfoEmail');
+            const userInfoPhone = document.getElementById('userInfoPhone');
+            const userInfoDesignation = document.getElementById('userInfoDesignation');
+            const userAddedMessage = document.getElementById('userAddedMessage');
+
+            // Check if username is already in session storage
+            const existingUser = sessionStorage.getItem('username');
+            if (existingUser === username) {
+                userDetailsContainer.style.display = 'block';
+                return;
+            }
+
+            // Create a new XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'process.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response) {
+                        userInfoUsername.textContent = response.username;
+                        userInfoEmail.textContent = response.email;
+                        userInfoPhone.textContent = response.phone;
+                        userInfoDesignation.textContent = response.designation;
+                        // Store username in session storage
+                        sessionStorage.setItem('username', username);
+                        userDetailsContainer.style.display = 'block';
+                        userAddedMessage.style.display = 'none';
+                    } else {
+                        userDetailsContainer.style.display = 'none';
+                        userAddedMessage.style.display = 'block';
+                        // Store username in session storage
+                        sessionStorage.setItem('username', username);
+                    }
+                }
+            };
+
+            xhr.send(`username=${username}`);
+        });
+    </script>
+</body>
+</html>

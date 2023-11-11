@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details Form</title>
+    <style>
+        @media (min-width: 992px) {
+            .form-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .form-container input, .form-container select {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .form-container input, .form-container select {
+                width: 75%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .form-container input, .form-container select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>User Details Form</h2>
+    <form action="process.php" method="post">
+        <div class="form-container">
+            <div>
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" required><br><br>
+            </div>
+            <div>
+                <label for="email">Email ID:</label>
+                <input type="email" name="email" required><br><br>
+            </div>
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" name="dob" required><br><br>
+            </div>
+            <div>
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" name="phone_number" required><br><br>
+            </div>
+            <div>
+                <label for="designation">Designation:</label>
+                <input type="text" name="designation" required><br><br>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

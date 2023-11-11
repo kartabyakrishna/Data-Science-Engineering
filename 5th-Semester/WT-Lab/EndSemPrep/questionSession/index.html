@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details Form</title>
+    <style>
+        @media (min-width: 992px) {
+            .form-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .form-container input, .form-container select {
+                width: 100%;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 991px) {
+            .form-container input, .form-container select {
+                width: 75%;
+            }
+        }
+        @media (max-width: 767px) {
+            .form-container input, .form-container select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>User Details Form</h2>
+    <form action="process.php" method="post" onsubmit="return validateForm()">
+        <div class="form-container">
+            <div>
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name" required><br><br>
+                <span id="first_name_error" class="error"></span>
+            </div>
+            <div>
+                <label for="email">Email ID:</label>
+                <input type="email" name="email" id="email" required><br><br>
+                <span id="email_error" class="error"></span>
+            </div>
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" name="dob" id="dob" required><br><br>
+                <span id="dob_error" class="error"></span>
+            </div>
+            <div>
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" name="phone_number" id="phone_number" required><br><br>
+                <span id="phone_number_error" class="error"></span>
+            </div>
+            <div>
+                <label for="designation">Designation:</label>
+                <input type="text" name="designation" id="designation" required><br><br>
+                <span id="designation_error" class="error"></span>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function validateForm() {
+            var firstName = document.getElementById("first_name").value;
+            var email = document.getElementById("email").value;
+            var dob = document.getElementById("dob").value;
+            var phone = document.getElementById("phone_number").value;
+            var designation = document.getElementById("designation").value;
+            var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            var phoneRegex = /^\d{10}$/;
+            
+            var errors = 0;
+            
+            if (firstName === "") {
+                document.getElementById("first_name_error").textContent = "First Name is required";
+                errors++;
+            } else {
+                document.getElementById("first_name_error").textContent = "";
+            }
+            
+            if (!emailRegex.test(email)) {
+                document.getElementById("email_error").textContent = "Invalid Email";
+                errors++;
+            } else {
+                document.getElementById("email_error").textContent = "";
+            }
+            
+            if (dob === "") {
+                document.getElementById("dob_error").textContent = "Date of Birth is required";
+                errors++;
+            } else {
+                document.getElementById("dob_error").textContent = "";
+            }
+            
+            if (!phoneRegex.test(phone)) {
+                document.getElementById("phone_number_error").textContent = "Invalid Phone Number";
+                errors++;
+            } else {
+                document.getElementById("phone_number_error").textContent = "";
+            }
+            
+            if (designation === "") {
+                document.getElementById("designation_error").textContent = "Designation is required";
+                errors++;
+            } else {
+                document.getElementById("designation_error").textContent = "";
+            }
+            
+            return errors === 0;
+        }
+    </script>
+</body>
+</html>
