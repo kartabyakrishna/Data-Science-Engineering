@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="hdstyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>FREE HAND DRAWING</h1>
+        <canvas id="canva" width="1900" height="800"></canvas>
+        <div class="controls">
+            <button id="but1">CLEAR</button>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById("canva");
+        const ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "red";
+        const b1 = document.getElementById("but1");
+        let flag = false;
+        let prevX,prevY;
+        canvas.addEventListener('mousedown',(event)=>{
+            flag = true;
+            prevX = event.clientX - canvas.getBoundingClientRect().left;
+            prevY = event.clientY - canvas.getBoundingClientRect().top;
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+        });
+        canvas.addEventListener('mousemove',(event)=>{
+            if (!flag) return;
+            const x = event.clientX - canvas.getBoundingClientRect().left;
+            const y = event.clientY - canvas.getBoundingClientRect().top;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            prevX = x;
+            prevY = y;
+        });
+        canvas.addEventListener('mouseup',(event)=>{
+            flag=false;
+            ctx.closePath();
+        })
+
+        b1.addEventListener("click",function(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+        })
+    </script>
+</body>
+</html>

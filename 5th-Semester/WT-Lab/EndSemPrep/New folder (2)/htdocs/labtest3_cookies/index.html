@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input Form</title>
+    <script>
+        function submitForm() {
+            var username = document.getElementById('username').value;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Configure it: GET-request for the URL /process.php
+            xhr.open('GET', 'process.php?username=' + username, true);
+
+            // Define the function to handle the response
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Display the user details in the result div
+                    document.getElementById('result').innerHTML = xhr.responseText;
+                }
+            };
+
+            // Send the request
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="submitForm(); return false;">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="result"></div>
+</body>
+</html>

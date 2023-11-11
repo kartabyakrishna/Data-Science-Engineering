@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="mstyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>MOUSE COORDINATES</h1>
+        <canvas id="canvas" height="800px" width="1900px"></canvas>
+        <div id="coordinates" class="coordinates">
+            MOUSE CO-ORDINATES:<span id="X">0px</span>,<span id="Y">0px</span>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const mx = document.getElementById("X");
+        const my = document.getElementById("Y");
+        canvas.addEventListener("mousemove",(event)=>{
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.round(event.clientX - rect.left);
+            const y = Math.round(event.clientY - rect.top);
+
+            mx.textContent = x+"px";
+            my.textContent = y+"px";
+        })
+    </script>
+</body>
+</html>

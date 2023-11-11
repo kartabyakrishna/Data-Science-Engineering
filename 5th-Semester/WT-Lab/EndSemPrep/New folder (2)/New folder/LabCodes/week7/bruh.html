@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>WELCOME TO JAVASCRIPT</h1>
+        <div id="wlcm"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            const msg = document.getElementById("wlcm");
+
+            const user = prompt("Enter name");
+            const name = getcookie('user');
+            const time = getcookie('expire');
+
+            if(user){
+                setcookie('user',user,365);
+            }
+            else if(name){
+                user = name;
+            }
+
+            if(user){
+                const curr = new Date().toLocaleDateString();
+                msg.textContent = "WELCOME "+user.toUpperCase();
+                console.log(user);
+                console.log(time);
+            }
+        }); 
+
+        function setcookie(name,value,days){
+            const exp = new Date();
+            exp.setTime(exp.getTime()+(days*24*60*60));
+            document.cookie=`${name}=${value};
+            expire=${exp.toUTCString()};
+            path=/`;
+        }
+
+        function getcookie(name){
+            const cname = `${name}=`;
+            const cookies = document.cookie.split(';');
+
+            for(let i=0;i<cookies.length;i++){
+                let cookie = cookies[i].trim();
+                if(cookie.startsWith(cname)){
+                    return cookie.substring(cname.length,cookie.length);
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>

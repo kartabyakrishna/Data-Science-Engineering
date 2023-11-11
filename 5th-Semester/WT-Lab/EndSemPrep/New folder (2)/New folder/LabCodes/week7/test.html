@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>DIGITAL CLOCK</h1>
+        <div id="clock" class="clock">00:00:00</div>
+    </div>
+    <script>
+        function updateclk(){
+            const clk = document.getElementById("clock");
+            const now = new Date();
+            const hour = String(now.getHours()).padStart(2,'0');
+            const minutes = String(now.getMinutes()).padStart(2,'0');
+            const seconds = String(now.getSeconds()).padStart(2,'0');
+            const time = `${hour}:${minutes}:${seconds}`;
+            clk.textContent = time;
+        }
+        setInterval(() => {
+            updateclk();
+        }, 1000);
+    </script>
+</body>
+</html>

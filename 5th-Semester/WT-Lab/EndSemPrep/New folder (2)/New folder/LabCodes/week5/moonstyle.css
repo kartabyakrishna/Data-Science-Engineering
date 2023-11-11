@@ -1,0 +1,47 @@
+body{
+    background-color: black;
+    overflow: hidden;
+}
+.star{
+    border-radius: 50%;
+    background-color: white;
+    width:300px;
+    height:300px;
+    display: block;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+}
+
+.planet{
+    width:900px;
+    height:900px;
+    display: block;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+    animation:moon 10s ease-in-out infinite;
+}
+
+.planet div{
+    border-radius: 50%;
+    background-color: black;
+    width:298px;
+    height:298px;
+    display: block;
+}
+
+@keyframes moon{
+    0%{
+        transform: translateX(50px) translateY(50px);
+    }
+    100%{
+        transform: translateX(600px) translateY(600px);
+    }
+}

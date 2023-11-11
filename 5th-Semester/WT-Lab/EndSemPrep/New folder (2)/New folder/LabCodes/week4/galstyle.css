@@ -1,0 +1,102 @@
+body{
+    background-color: black;
+    color: white;
+    font-family: Russo One;
+}
+.navbar{
+    vertical-align: middle;
+    height:10%;
+    width:100%;
+    font-size: 40px;
+    float:left;
+    background-color: rgb(80, 80, 80);
+    color: white;
+}
+
+.navbar a{
+    vertical-align: middle; 
+    float:right;
+    border-radius: 75%;
+    position: top;
+    text-decoration: none;
+    margin-left:30px;
+    color: white;
+    transition: color 0.5s ease-out 50ms,background-color 0.5s ease-out 50ms;
+}
+
+.navbar a:hover{
+    color: #14d0ff;
+    background-color: rgb(118, 118, 118);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+  }
+
+.imglist {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    background-color: rgb(136, 136, 136);
+}
+  
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+}
+  
+.image {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+  
+.image:hover {
+    transform: scale(1.1);
+}
+  
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.imglist a:target {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.imglist a:target img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+@media (min-width: 992px) {
+    .imglist {
+      grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    }
+}
+  
+@media (min-width: 768px) and (max-width: 991px) {
+    .imglist {
+      grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+    }
+}
+  
+@media (max-width: 767px) {
+    .imglist {
+      grid-template-columns: repeat(auto-fill, minmax(65%, 1fr));
+    }
+}

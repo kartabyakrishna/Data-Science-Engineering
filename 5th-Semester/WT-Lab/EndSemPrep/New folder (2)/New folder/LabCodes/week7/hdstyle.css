@@ -1,0 +1,33 @@
+*{
+    background-color: black;
+}
+
+h1{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 40px;
+    color: white;
+}
+
+#canva{
+    border: 1px white solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+#but1{
+    color: white;
+    border: 1px white solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    height: 50px;
+    width: 200px;
+    font-size: 40px;
+}

@@ -1,0 +1,243 @@
+body{
+    background-color: black;
+    overflow: hidden;
+}
+.sun{
+    display: block;
+    height:100px;
+    width:100px;
+    background-color: yellow;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    margin: auto;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+}
+
+.merc{
+    display: block;
+    width: 250px;
+    height: 250px;
+    border: 1px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+    animation: merc 3s linear infinite;
+}
+
+.merc div{
+    position: relative;
+    top:11px;
+    left:11px;
+    border-radius: 50%;
+    background-color: orange;
+    height:50px;
+    width:50px;
+    animation: merc 5s linear infinite;
+}
+
+.venus{
+    display: block;
+    border-radius: 50%;
+    width:400px;
+    height:400px;
+    border: 1px solid white;
+    animation: merc 6s linear infinite;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position: absolute;
+    margin: auto;
+}
+
+.venus div{
+    position: relative;
+    top:20px;
+    left:20px;
+    border-radius: 50%;
+    background-color: blue;
+    height:80px;
+    width:80px;
+    animation: merc 5s linear infinite;
+}
+
+.earth{
+    border-radius: 50%;
+    border:solid white 1px;
+    width:550px;
+    height:550px;
+    display: block;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position: absolute;
+    animation: merc 9s linear infinite;
+}
+
+.earth div{
+    position: relative;
+    border-radius: 50%;
+    background-color: green;
+    width: 80px;
+    height: 80px;
+    animation: merc 5s linear infinite;
+    top: 35px;
+    left:35px;
+}
+
+.mars{
+    display: block;
+    position: absolute;
+    width:690px;
+    height:690px;
+    border-radius: 50%;
+    border:solid 1px white;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    animation: merc 12s linear infinite;
+}
+
+.mars div{
+    border-radius: 50%;
+    background-color: brown;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top:80px;
+    left:80px;
+    animation: merc 5s linear infinite;
+}
+
+.jupiter{
+    display: block;
+    position: absolute;
+    width:790px;
+    height:790px;
+    border-radius: 50%;
+    border:solid 1px white;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    animation: merc 15s linear infinite;
+}
+
+.jupiter div{
+    border-radius: 50%;
+    background-color: rgb(224, 107, 29);
+    height: 70px;
+    width: 70px;
+    position: relative;
+    z-index:99;
+    top:80px;
+    left:80px;
+    animation: merc 5s linear infinite;
+}
+
+.saturn{
+    display: block;
+    position: absolute;
+    width:840px;
+    height:840px;
+    border-radius: 50%;
+    border:solid 1px white;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    animation: merc 18s linear infinite;
+}
+
+.saturn div{
+    border-radius: 50%;
+    background-color: rgb(41, 79, 185);
+    height: 60px;
+    width: 60px;
+    position: relative;
+    z-index: 999;
+    top:90px;
+    left:90px;
+    animation: merc 5s linear infinite;
+}
+
+.uranus{
+    display: block;
+    position: absolute;
+    width:900px;
+    height:900px;
+    border-radius: 50%;
+    border:solid 1px white;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    animation: merc 21s linear infinite;
+}
+
+.uranus div{
+    border-radius: 50%;
+    background-color: rgb(50, 140, 192);
+    height: 60px;
+    width: 60px;
+    position: relative;
+    top:97px;
+    left:97px;
+    animation: merc 5s linear infinite;
+}
+
+.neptune{
+    display: block;
+    position: absolute;
+    width:950px;
+    height:950px;
+    border-radius: 50%;
+    border:solid 1px white;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    animation: merc 24s linear infinite;
+}
+
+.neptune div{
+    border-radius: 50%;
+    background-color: rgb(59, 95, 255);
+    height: 70px;
+    width: 70px;
+    position: relative;
+    top:100px;
+    left:100px;
+    animation: merc 5s linear infinite;
+}
+
+
+
+
+@keyframes merc {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
