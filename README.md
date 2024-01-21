@@ -60,11 +60,14 @@ Core computer science concepts like deep learning, NLP, OS, cloud computing with
 
 ## [6th Semester](./6th-Semester) 📓
 
-- Artificial Intelligence
-- Big Data
-- Parallel Programming
-- Mathematics
-- Lab Manuals
+- [Artificial Intelligence (4-Credits)](./6th-Semester/AI-Lab)
+- [Big Data Analytics (4-Credits)]
+- [Parallel Programming (4-Credits)]
+- [Operations Research (3-Credits)]
+- [Data Privacy & Securtiy (3-Credits)]
+- [Artificial Intelligence Lab (1-Credit)]
+- [Big Data Analytics Lab (1-Credit)]
+- [Parallel Programming Lab (1-Credit)]
 
 Advanced courses in AI, big data systems, parallel programming, and mathematical foundations.
 
