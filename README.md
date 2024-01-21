@@ -78,7 +78,7 @@ Advanced courses in AI, big data systems, parallel programming, and mathematical
 
 Choose from electives like Robotics, Computer Vision, Blockchain, IoT, Supply Chain Analytics etc.
 
-### [8th Semester](./8th-Semester) 📕
+## [8th Semester](./8th-Semester) 📕
 
 - Industrial Training 
 - BTech Project
