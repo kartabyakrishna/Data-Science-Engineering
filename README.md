@@ -71,7 +71,7 @@ Core computer science concepts like deep learning, NLP, OS, cloud computing with
 
 Advanced courses in AI, big data systems, parallel programming, and mathematical foundations.
 
-### [7th Semester](./7th-Semester) 📔
+## [7th Semester](./7th-Semester) 📔
 
 - 5 Electives 
 - 1 Open Elective
