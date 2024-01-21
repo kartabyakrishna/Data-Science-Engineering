@@ -86,39 +86,45 @@ def main():
 
 def shortest_path(source, target):
     """
-    Returns shortest list of (movie_id, person_id) pairs 
-    that connect source to target.
-    Returns None if no path exists.
+    Returns the shortest list of (movie_id, person_id) pairs
+    that connect the source to the target using Breadth-First Search.
+
+    If no possible path, returns None.
     """
+    # Create initial node for the source person
+    start = Node(state=source, parent=None, action=None)
 
+    # Initialize the frontier using a queue
     frontier = QueueFrontier()
-    frontier.add(Node(source, None, None))
+    frontier.add(start)
 
+    # Initialize an empty explored set
     explored = set()
 
     while True:
-        
         if frontier.empty():
-           return None
-           
+            return None
+
+        # Choose a node from the frontier
         node = frontier.remove()
-        
+
+        # If node is the target, return the path
         if node.state == target:
-           path = []
-           while node.parent is not None:
-               path.append(node.action)
-               node = node.parent
-           path.reverse()
-           return path
-           
-        explored.add(node.state)  
+            path = []
+            while node.parent is not None:
+                path.append((node.action, node.state))
+                node = node.parent
+            path.reverse()
+            return path
 
-        for movie_id, person_id in neighbors_for_person(node.state):
-            if not frontier.contains_state(person_id) and person_id not in explored:
-                frontier.add(Node(person_id, node, (movie_id, node.state)))
+        # Mark node as explored
+        explored.add(node.state)
 
-    return None
-
+        # Add neighbors to the frontier
+        for action, state in neighbors_for_person(node.state):
+            if state not in explored and not frontier.contains_state(state):
+                child = Node(state=state, parent=node, action=action)
+                frontier.add(child)
 
 def person_id_for_name(name):
     """
