@@ -1,5 +1,8 @@
 
-### 1) Reverse Digits of an Integer Array
+### 1) Write a program in C to reverse the digits of the following integer array of size 9. Initialize the input array to the following values.
+### Example : 
+### Input array: `18, 523, 301, 1234, 2, 14, 108, 150, 1928`
+### Output array: `81, 325, 103, 4321, 2, 41, 801, 51, 8291`
 ```c
 #include <stdio.h>
 
@@ -36,7 +39,7 @@ int main() {
 }
 ```
 
-### 2) Calculator Simulation
+### 2) Write a program in C to simulate the all the operations of a calculator. Given inputs A and B, find the output for A+B, A-B, A*B and A/B.
 ```c
 #include <stdio.h>
 
@@ -65,7 +68,9 @@ int main() {
 }
 ```
 
-### 3) Toggle Characters in a String
+### 3) Write a program in C to toggle the character of a given string.
+### Example: 
+### suppose the string is `HeLLo`, then the output should be `hEllO`.
 ```c
 #include <stdio.h>
 
@@ -92,7 +97,9 @@ int main() {
 }
 ```
 
-### 4) Pattern Generation from Input Word
+### 4) Write a C program to read a word of length N and produce the pattern as shown in the example.
+### Example: 
+### Input: `PCBD` Output: `PCCBBBDDDD`
 ```c
 #include <stdio.h>
 
@@ -121,7 +128,8 @@ int main() {
 Certainly! Here are the C programs for the scenarios you provided:
 
 ### 5) Write a C program to read two strings S1 and S2 of same length and produce the resultant string as shown below.
-##### S1: `string` S2:`length` Resultant String: `slternigntgh`
+### Example: 
+### S1: `string` S2:`length` Resultant String: `slternigntgh`
 ```c
 #include <stdio.h>
 
@@ -186,7 +194,7 @@ int main() {
 
 ### 7) Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
 
-**Example :**
+### Example: 
 
 | **A** |   |   |   |   |
 |-------|---|---|---|---|
@@ -348,7 +356,7 @@ int main() {
 ```
 
 ### 9) Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
-Example: 
+### Example: 
 | **A** |    |    |
 |---|----|----|
 | p | C  | a  |
