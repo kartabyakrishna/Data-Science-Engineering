@@ -184,6 +184,23 @@ int main() {
 ```
 
 ### 7) Matrix Operations with Diagonal Elements and Row Values
+
+| **A** |   |   |   |   |
+|-------|---|---|---|---|
+| 1 | 2 | 3 | 4 | 5 |
+| 5 | 4 | 3 | 2 | 4 |
+|10 | 3 | 13| 14| 15|
+|11 | 2 | 11| 33| 44|
+| 1 |12 | 5 | 4 | 6 |
+
+| **B** |   |   |   |   |
+|-------|---|---|---|---|
+| 0 | 1 | 1 | 1 | 1 |
+|5| 0 | 2 | 2 | 2 |
+|15|15 | 0 | 3 | 3 |
+|44 |44 |44 | 0 | 2 |
+| 12 |12 |12 |12 | 0 |
+
 ```c
 #include <stdio.h>
 
@@ -250,7 +267,7 @@ int main() {
 }
 ```
 
-### 8)Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
+### 8) Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 | **A** |     |     |     |     |
 |-------|-----|-----|-----|-----|
 |   1   |  2  |  3  |  4  |     |
