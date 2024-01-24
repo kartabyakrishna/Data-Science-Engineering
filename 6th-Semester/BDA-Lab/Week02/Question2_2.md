@@ -92,6 +92,13 @@ if current_key:
 ### Reducer Explanation
 
 The Reducer processes the key-value pairs emitted by the Mapper. It accumulates the values based on their positions and matrix, performing matrix addition and subtraction. The output is in the format `(row,col)   result`.
+
+## Output
+
+This should output the result of matrix operations using MapReduce.
+```
+
+```
 # Subtraction
 ## Mapper
 
@@ -150,6 +157,94 @@ if current_key:
 
   print(f'{current_key}\t{a_val - b_val}')
 ```
+
+## Output
+
+This should output the result of matrix operations using MapReduce.
+```
+
+```
+# Transpose
+## Mapper
+```python
+#!/usr/bin/env python
+import sys
+
+# Mapper function for matrix transpose
+for line in sys.stdin:
+    # Split the input line into words
+    words = line.strip().split(',')
+
+    # Extract matrix information
+    matrix_name = words[0]
+    row = int(words[1])
+    col = int(words[2])
+    value = int(words[3])
+
+    # Output key-value pair for each element in the matrix
+    # Key: (matrix_name, col), Value: (row, value)
+    print(f'{matrix_name},{col}\t{row},{value}')
+
+```
+## Reducer
+```python
+#!/usr/bin/env python
+import sys
+
+# Reducer function for matrix transpose
+current_key = None
+values = []
+
+for line in sys.stdin:
+    # Split the input line into key and value
+    key, value = line.strip().split('\t')
+    matrix_name, col = key.split(',')
+    row, element_value = value.split(',')
+
+    # Check if the key has changed
+    if current_key is None:
+        current_key = key
+        values.append((row, element_value))
+    elif current_key == key:
+        values.append((row, element_value))
+    else:
+        # Output the transposed matrix element
+        for val in values:
+            print(f'{matrix_name},{val[0]},{col}\t{val[1]}')
+        
+        # Reset values for the new key
+        current_key = key
+        values = [(row, element_value)]
+
+# Output the last transposed matrix element
+for val in values:
+    print(f'{matrix_name},{val[0]},{col}\t{val[1]}')
+
+```
+
+## Output
+
+This should output the result of matrix operations using MapReduce.
+```
+a,0,1   10
+a,1,1   40
+a,2,1   70
+a,0,2   20
+a,1,2   50
+a,2,2   80
+b,0,0   30
+b,1,0   60
+b,2,0   90
+b,0,1   1
+b,1,1   4
+b,2,1   7
+b,0,2   2
+b,1,2   5
+b,2,2   8
+b,0,2   3
+b,1,2   6
+b,2,2   9
+```
 ## Testing
 
 To check if the Mapper and Reducer are working, use the following commands:
@@ -159,9 +254,3 @@ cat input2_2.txt | python3 mapper2_2.py
 cat input2_2.txt | python3 mapper2_2.py | sort | python3 reducer2_2.py
 ```
 
-## Output
-
-This should output the result of matrix operations using MapReduce.
-```
-
-```
