@@ -60,12 +60,13 @@ student_details = []
 for line in sys.stdin:
     key, value = line.strip().split('\t')
     registration, marks = value.split(',')
-    student_details.append((registration, int(marks)))
+    student_details.append((key, registration, int(marks)))
 
 if student_details:
     student_details.sort()
-    for registration, marks in student_details:
-        print(f'{registration},{marks}')
+    for name, registration, marks in student_details:
+        print(f'{registration},{name},{marks}')
+
 ```
 
 ### Reducer Explanation
@@ -82,4 +83,26 @@ cat input3.txt | python3 mapper3.py | sort | python3 reducer3.py
 ```
 
 This should output the sorted student details based on their names.
-
+```
+(base) PS C:\Users\Kartabya Krishna\Desktop\New folder (2)> cat input.txt | python mapper.py | sort | python reducer.py
+1004,Alice,55
+1003,Bob,75
+1005,Charlie,90
+1007,David,63
+1006,Eve,82
+1008,Frank,78
+1009,Grace,92
+1010,Henry,60
+1011,Isabel,70
+1012,Jack,80
+1002,Jane,68
+1001,John,45
+1013,Kate,88
+1014,Liam,50
+1015,Mia,72
+1016,Noah,65
+1017,Olivia,85
+1018,Peter,58
+1019,Quinn,76
+1020,Riley,95
+```
