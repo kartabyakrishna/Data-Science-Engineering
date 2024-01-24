@@ -84,7 +84,6 @@ cat input3.txt | python3 mapper3.py | sort | python3 reducer3.py
 
 This should output the sorted student details based on their names.
 ```
-(base) PS C:\Users\Kartabya Krishna\Desktop\New folder (2)> cat input.txt | python mapper.py | sort | python reducer.py
 1004,Alice,55
 1003,Bob,75
 1005,Charlie,90
