@@ -307,7 +307,7 @@ int main() {
 
 ### 9) Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
 Example: 
-|  A  |
+A Matrix : 
 |------|   
 p|C|a|P|    
 e|X|a|M|
