@@ -95,7 +95,7 @@ The Reducer processes the key-value pairs emitted by the Mapper. It accumulates 
 
 ## Testing
 
-To check if the Mapper and Reducer are working, use the following commands:
+To check if the Mapper and Reducer are working, use the following commands
 
 ```bash
 cat input3_2.txt | python3 mapper3_2.py
