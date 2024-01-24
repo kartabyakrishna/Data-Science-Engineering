@@ -370,7 +370,7 @@ int main() {
 | 4 | 3  | 2  |
 
 
-Output string STR: `pCCaaaaPPPeeXXXXaaaMM`
+### Output string STR: `pCCaaaaPPPeeXXXXaaaMM`
 
 ```c
 #include <stdio.h>
