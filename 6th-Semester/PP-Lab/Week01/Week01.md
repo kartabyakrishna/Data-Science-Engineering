@@ -312,6 +312,7 @@ p C a P      1 2 4 3
 e X a M      2 4 3 2
 Output string STR: pCCaaaaPPPeeXXXXaaaMM
 
+```c
 #include <stdio.h>
 
 #define SIZE 2
