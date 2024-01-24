@@ -37,10 +37,22 @@ Create a file named `mapper3_1.py` and paste the following Python code:
 
 import sys
 
+# Input comes from standard input (stdin)
 for line in sys.stdin:
-    if "EmpNo" not in line:
-        _, _, unit, _, salary = line.strip().split(',')
-        print(f'{unit}\t{salary}')
+    # Remove leading and trailing whitespaces
+    line = line.strip()
+    
+    # Split the line into fields
+    fields = line.split(',')
+    
+    # Check if the line has the expected number of fields
+    if len(fields) == 5:
+        # Extract relevant information
+        emp_no, emp_name, unit, designation, salary = fields
+        
+        # Output the unit and salary as key-value pairs, separated by a tab
+        print(f"{unit}\t{salary}")
+
 ```
 
 ### Mapper Explanation
@@ -56,15 +68,45 @@ Create a file named `reducer3_1.py` and paste the following Python code:
 
 import sys
 
-current_key = None
+current_unit = None
 total_salary = 0
 
+# Input comes from standard input (stdin)
 for line in sys.stdin:
-    key, value = line.strip().split('\t')
-    total_salary += int(value)
+    # Remove leading and trailing whitespaces
+    line = line.strip()
 
-if current_key:
-    print(f'{current_key}\t{total_salary}')
+    # Skip the header line
+    if line.startswith("EmpNo,EmpName,Unit,Designation,Salary"):
+        continue
+    
+    # Split the line into key and value
+    unit, salary = line.split('\t')
+    
+    try:
+        # Convert salary to an integer
+        salary = int(salary)
+    except ValueError:
+        # Skip lines where salary cannot be converted to an integer
+        continue
+    
+    # Check if the current unit is the same as the previous line
+    if current_unit == unit:
+        # Add the salary to the total for the current unit
+        total_salary += salary
+    else:
+        # Output the unit and total salary for the previous unit
+        if current_unit is not None:
+            print(f"{current_unit}\t{total_salary}")
+        
+        # Update the current unit and reset the total salary
+        current_unit = unit
+        total_salary = salary
+
+# Output the unit and total salary for the last unit
+if current_unit is not None:
+    print(f"{current_unit}\t{total_salary}")
+
 ```
 
 ### Reducer Explanation
