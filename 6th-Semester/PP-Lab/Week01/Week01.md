@@ -305,8 +305,13 @@ int main() {
 }
 ```
 
-### 9) Character Matrix and Integer Matrix String Generation
-```c
+#### 9) Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
+Example: 
+   A            B
+p C a P      1 2 4 3
+e X a M      2 4 3 2
+Output string STR: pCCaaaaPPPeeXXXXaaaMM
+
 #include <stdio.h>
 
 #define SIZE 2
