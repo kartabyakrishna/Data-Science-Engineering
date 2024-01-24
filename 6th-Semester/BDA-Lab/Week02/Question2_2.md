@@ -123,13 +123,13 @@ hdoop@hadoop-client:~$ cat input.txt |python3 mapper2.py
 ```
 ```
 hdoop@hadoop-client:~$ cat input.txt | python3 mapper2.py | sort | python3 reducer2.py
-0,0	9
-0,1	18
-0,2	27
-1,0	36
-1,1	45
-1,2	54
-2,0	63
-2,1	72
-2,2	81
+0,0	300
+0,1	360
+0,2	420
+1,0	660
+1,1	810
+1,2	960
+2,0	1020
+2,1	1260
+2,2	1500
 ```
