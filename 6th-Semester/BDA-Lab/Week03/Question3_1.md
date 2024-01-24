@@ -111,7 +111,7 @@ if current_unit is not None:
 
 ### Reducer Explanation
 
-The Reducer processes the key-value pairs emitted by the Mapper. It accumulates the total salary for each unit. The output is in the format `unit   total_salary`.
+The Reducer processes the key-value pairs emitted by the Mapper. It accumulates the total salary for each unit. The output is in the format `Unit   Total_Salary`.
 
 ## Testing
 
