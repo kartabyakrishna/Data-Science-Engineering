@@ -79,5 +79,14 @@ To check if the Mapper and Reducer are working, use the following commands:
 cat input4.txt | python3 mapper4.py
 cat input4.txt | python3 mapper4.py | sort | python3 reducer4.py
 ```
-
+## Output
 This should output the total salary for each unit.
+```
+CLOUD   80000
+ECSSAP  140000
+FNPR    111000
+FSADM   60000
+ICS     24000
+IMST    86000
+MFGADM  40000
+```
