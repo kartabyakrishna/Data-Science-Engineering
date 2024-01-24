@@ -12,6 +12,7 @@
 Create a file named `input2_2.txt` and paste the following content:
 
 ```plaintext
+a,0,0,10
 a,0,1,20
 a,0,2,30
 a,1,0,40
@@ -59,26 +60,29 @@ Create a file named `reducer2_2.py` and paste the following Python code:
 import sys
 
 current_key = None
-current_sum = 0
+current_values = []
 
 for line in sys.stdin:
     key, value = line.strip().split('\t')
+    row, col = key.split(',')
     matrix, val = value.split(',')
     val = int(val)
 
     if current_key == key:
-        if matrix == 'a':
-            current_sum += val
-        elif matrix == 'b':
-            current_sum -= val
+        current_values.append((matrix, val))
     else:
         if current_key:
-            print(f'{current_key}\t{current_sum}')
+            # Multiply corresponding elements and accumulate the sum
+            result = sum(val_a * val_b for (matrix_a, val_a), (matrix_b, val_b) in current_values)
+            print(f'{current_key}\t{result}')
         current_key = key
-        current_sum = val
+        current_values = [(matrix, val)]
 
+# Print the last key's result
 if current_key:
-    print(f'{current_key}\t{current_sum}')
+    result = sum(val_a * val_b for (matrix_a, val_a), (matrix_b, val_b) in current_values)
+    print(f'{current_key}\t{result}')
+
 ```
 
 ### Reducer Explanation
