@@ -2,7 +2,7 @@
 
 ## Input Data
 
-Create a file named `input4.txt` and paste the following content:
+Create a file named `input3_1.txt` and paste the following content:
 
 ```plaintext
 EmpNo,EmpName,Unit,Designation,Salary
@@ -23,14 +23,14 @@ EmpNo,EmpName,Unit,Designation,Salary
 To create the input file, open a terminal and run the following command:
 
 ```bash
-sudo gedit input4.txt
+sudo gedit input3_1.txt
 ```
 
 Paste the above content into the text editor and save the file.
 
 ## Mapper
 
-Create a file named `mapper4.py` and paste the following Python code:
+Create a file named `mapper3_1.py` and paste the following Python code:
 
 ```python
 #!/usr/bin/env python
@@ -49,7 +49,7 @@ The Mapper reads input lines, extracts unit and salary information, and outputs 
 
 ## Reducer
 
-Create a file named `reducer4.py` and paste the following Python code:
+Create a file named `reducer3_1.py` and paste the following Python code:
 
 ```python
 #!/usr/bin/env python
