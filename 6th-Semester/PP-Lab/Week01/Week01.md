@@ -183,7 +183,9 @@ int main() {
 }
 ```
 
-### 7) Matrix Operations with Diagonal Elements and Row Values
+### 7) Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
+
+**Example :**
 
 | **A** |   |   |   |   |
 |-------|---|---|---|---|
