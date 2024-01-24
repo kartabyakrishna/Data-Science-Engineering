@@ -250,7 +250,29 @@ int main() {
 }
 ```
 
-### 8) Matrix Operations - 1's Complement and D Matrix
+### 8)Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
+| **A** |     |     |     |     |
+|-------|-----|-----|-----|-----|
+|   1   |  2  |  3  |  4  |     |
+|   6   |  5  |  8  |  3  |     |
+|   2   |  4  |  10 |  1  |     |
+|   9   |  1  |  2  |  5  |     |
+
+| **B** |    |      |      |     |
+|-------|----|------|------|-----|
+|   1   |  2 |   3  |   4  |     |
+|   6   | **10** |**111**|   3  |     |
+|   2   | **11** |**101**|   1  |     |
+|   9   |  1 |   2  |   5  |     |
+
+| **D** |     |     |     |     |
+|-------|-----|-----|-----|-----|
+|   1   |  2  |  3  |  4  |     |
+|   6   |  **2**  |  **7**  |  3  |     |
+|   2   |  **3**  |  **5**  |  1  |     |
+|   9   |  1  |  2  |  5  |     |
+
+
 ```c
 #include <stdio.h>
 
@@ -307,13 +329,13 @@ int main() {
 
 ### 9) Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
 Example: 
-| A |    |    |
+| **A** |    |    |
 |---|----|----|
 | p | C  | a  |
 | e | X  | a  |
 | P | a  | M  |
 
-| B |    |    |
+| **B** |    |    |
 |---|----|----|
 | 1 | 2  | 4  |
 | 2 | 3  | 2  |
