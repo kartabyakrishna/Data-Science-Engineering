@@ -120,7 +120,8 @@ int main() {
 ```
 Certainly! Here are the C programs for the scenarios you provided:
 
-### 5) Concatenate Alternate Characters from Two Strings
+### 5) Write a C program to read two strings S1 and S2 of same length and produce the resultant string as shown below.
+##### S1: `string` S2:`length` Resultant String: `slternigntgh`
 ```c
 #include <stdio.h>
 
@@ -149,7 +150,7 @@ int main() {
 }
 ```
 
-### 6) Matrix-Vector Product
+### 6) Write a C program to perform Matrix times vector product operation.
 ```c
 #include <stdio.h>
 
