@@ -101,5 +101,12 @@ To check if the Mapper and Reducer are working, use the following commands:
 cat input3_2.txt | python3 mapper3_2.py
 cat input3_2.txt | python3 mapper3_2.py | sort | python3 reducer3_2.py
 ```
-
+## Output
 This should output the average, minimum, and maximum recorded temperatures by year.
+```
+2010    44.5    44      45
+2011    42.0    42      42
+2012    30.0    30      30
+2013    43.0    42      44
+2014    41.0    38      44
+```
