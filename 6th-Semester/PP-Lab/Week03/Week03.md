@@ -249,26 +249,26 @@ Press any key to continue . . .
 
 ## Q4: Write a parallel program using OpenMP that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 ## Example:
-| **A** |     |     |     |     |
-|-------|-----|-----|-----|-----|
-|   1   |  2  |  3  |  4  |     |
-|   6   |  5  |  8  |  3  |     |
-|   2   |  4  |  10 |  1  |     |
-|   9   |  1  |  2  |  5  |     |
+| **A** |     |     |     |     
+|-------|-----|-----|-----|
+|   1   |  2  |  3  |  4  |     
+|   6   |  5  |  8  |  3  |     
+|   2   |  4  |  10 |  1  |     
+|   9   |  1  |  2  |  5  |     
 
-| **B** |    |      |      |     |
-|-------|----|------|------|-----|
-|   1   |  2 |   3  |   4  |     |
-|   6   | **10** |**111**|   3  |     |
-|   2   | **11** |**101**|   1  |     |
-|   9   |  1 |   2  |   5  |     |
+| **B** |    |      |      |    
+|-------|----|------|------|
+|   1   |  2 |   3  |   4  |     
+|   6   | **10** |**111**|   3  |     
+|   2   | **11** |**101**|   1  |     
+|   9   |  1 |   2  |   5  |     
 
-| **D** |     |     |     |     |
-|-------|-----|-----|-----|-----|
-|   1   |  2  |  3  |  4  |     |
-|   6   |  **2**  |  **7**  |  3  |     |
-|   2   |  **3**  |  **5**  |  1  |     |
-|   9   |  1  |  2  |  5  |     |
+| **D** |     |     |     | 
+|-------|-----|-----|-----|
+|   1   |  2  |  3  |  4  |     
+|   6   |  **2**  |  **7**  |  3  |     
+|   2   |  **3**  |  **5**  |  1  |     
+|   9   |  1  |  2  |  5  |
 
 ### Program: matrix_operations.cpp
 ```cpp
