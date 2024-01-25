@@ -1,6 +1,4 @@
-# OpenMP Lab Programs
-
-## Q1: 1) Write an OpenMP program to implement Matrix multiplication.
+## Q1: Write an OpenMP program to implement Matrix multiplication.
 ### a. Analyze the speedup and efficiency of the parallelized code.
 ### b. Vary the size of your matrices from 200, 400, 600, 800 and 1000 and measure the runtime with one thread and four threads.
 ### c. For each matrix size, change the number of threads from 2,4,6 and 8 and plot the speedup versus the number of threads. Compute the efficiency.
