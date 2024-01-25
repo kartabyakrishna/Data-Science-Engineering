@@ -396,19 +396,11 @@ int main() {
 ### Output:
 ```plaintext
 Enter 9 numbers
-1234
-123
-54
-856
-467
-35
-84
-2
-455
-Input array: 1234 123 54 856 467 35 84 2 455
-Output array: 4321 321 45 658 764 53 48 2 554
+18 523 301 1234 2 14 108 150 1928
+Input array: 18 523 301 1234 2 14 108 150 1928
+Output array: 81 325 103 4321 2 41 801 51 8291
 
 --------------------------------
-Process exited after 9.44 seconds with return value 0
+Process exited after 26.27 seconds with return value 0
 Press any key to continue . . .
 ```
