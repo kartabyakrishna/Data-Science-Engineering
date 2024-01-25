@@ -1,6 +1,9 @@
 # OpenMP Lab Programs
 
-## Q1: Matrix Multiplication
+## Q1: 1) Write an OpenMP program to implement Matrix multiplication.
+### a. Analyze the speedup and efficiency of the parallelized code.
+### b. Vary the size of your matrices from 200, 400, 600, 800 and 1000 and measure the runtime with one thread and four threads.
+### c. For each matrix size, change the number of threads from 2,4,6 and 8 and plot the speedup versus the number of threads. Compute the efficiency.
 
 ### Program: matrix_mult.c
 ```c
@@ -87,7 +90,7 @@ Process exited after 9.012 seconds with return value 0
 Press any key to continue . . .
 ```
 
-## Q2: Matrix-Vector Multiplication
+## Q2: Write an OpenMP program to perform Matrix times vector multiplication. Vary the matrix and vector size and analyze the speedup and efficiency of the parallelized code.
 
 ### Program: matrix_vector_mult.cpp
 ```cpp
@@ -168,7 +171,7 @@ Process exited after 5.278 seconds with return value 0
 Press any key to continue . . .
 ```
 
-## Q3: Matrix Manipulation
+## Q3: Write an OpenMp program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B. Analyze the speedup and efficiency of the parallelized code.
 
 ### Program: matrix_manipulation.c
 ```c
@@ -246,7 +249,28 @@ Process exited after 0.1528 seconds with return value 0
 Press any key to continue . . .
 ```
 
-## Q4: Advanced Matrix Operations
+## Q4: Write a parallel program using OpenMP that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
+## Example:
+| **A** |     |     |     |     |
+|-------|-----|-----|-----|-----|
+|   1   |  2  |  3  |  4  |     |
+|   6   |  5  |  8  |  3  |     |
+|   2   |  4  |  10 |  1  |     |
+|   9   |  1  |  2  |  5  |     |
+
+| **B** |    |      |      |     |
+|-------|----|------|------|-----|
+|   1   |  2 |   3  |   4  |     |
+|   6   | **10** |**111**|   3  |     |
+|   2   | **11** |**101**|   1  |     |
+|   9   |  1 |   2  |   5  |     |
+
+| **D** |     |     |     |     |
+|-------|-----|-----|-----|-----|
+|   1   |  2  |  3  |  4  |     |
+|   6   |  **2**  |  **7**  |  3  |     |
+|   2   |  **3**  |  **5**  |  1  |     |
+|   9   |  1  |  2  |  5  |     |
 
 ### Program: matrix_operations.cpp
 ```cpp
@@ -328,7 +352,9 @@ Process exited after 0.277 seconds with return value 0
 Press any key to continue . . .
 ```
 
-## Q5: Reverse Digits in an Array
+## Q5: Write a parallel program in OpenMP to reverse the digits of the following integer array of size 9. Initialize the input array to the following values:
+### a. Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
+### b. Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
 ### Program: reverse_digits.c
 ```c
