@@ -12,16 +12,6 @@ So let's get started! Choose your semester below.
 
 ## Semester-wise Contents 
 
-## [2nd Semester](./2nd-Semester) 📘
-
-- Mathematics 
-- Programming Fundamentals
-- Electronics
-- Graphics
-- Lab Manuals
-
-Core courses to build your base in math, programming, electronics, and engineering graphics. 
-
 ## [3rd Semester](./3rd-Semester) 📗
 
 - Data Structures
