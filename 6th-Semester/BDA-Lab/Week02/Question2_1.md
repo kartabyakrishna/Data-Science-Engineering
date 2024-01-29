@@ -1,4 +1,4 @@
-# Hadoop MapReduce Example
+# 1.Consider the text file (consider larger file size) of your choice and perform word count using MapReduce technique.
 
 This guide will walk you through setting up a simple Hadoop MapReduce job using Python. Ensure you have VMware Player installed and configured.
 
