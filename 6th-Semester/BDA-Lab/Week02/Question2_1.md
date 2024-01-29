@@ -89,7 +89,8 @@ ata ata
    ```bash
    cat input.txt | python3 mapper.py
    ```
-    ```plaintext
+   
+```plaintext
 ata     1
 ata     1
 ata     1
@@ -108,13 +109,13 @@ no      1
 no      1
 yes     1
 yes     1
-    ```
+```
 7. To run the Reducer, sort the output, and check the final result:
    ```bash
    cat input.txt | python3 mapper.py | sort | python3 reducer.py
    ```
 
-   ```plaintext
+```plaintext
 ata     3
 bye     2
 hello   3
@@ -122,4 +123,4 @@ hi      3
 kia     2
 no      3
 yes     2
-   ```
+```
