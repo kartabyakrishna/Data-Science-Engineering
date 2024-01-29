@@ -1,4 +1,4 @@
-# MapReduce Computing Average, Minimum, and Maximum Recorded Temperature by Year
+# Q2. Consider the following sample text file to compute the the average, minimum and maximum recorded temperature by year wise using concept of Map Reduce.
 
 ## Input Data
 
