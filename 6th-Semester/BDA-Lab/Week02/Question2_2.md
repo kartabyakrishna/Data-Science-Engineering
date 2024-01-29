@@ -55,7 +55,8 @@ for line in sys.stdin:
 
 ```
 ## Reducer
-```pyhton
+
+```python
 #!/usr/bin/python3
 
 import sys
