@@ -13,6 +13,13 @@ This guide will walk you through setting up a simple Hadoop MapReduce job using 
    # Use nano to create and edit the file
    sudo nano input.txt
    ```
+   ```plaintext
+hi hi 
+hello hello kia kia no 
+yes yes hi hello bye ata
+no no bye 
+ata ata
+   ```
 
 3. Put the `input.txt` file into the Hadoop Distributed File System (HDFS):
    ```bash
@@ -82,8 +89,37 @@ This guide will walk you through setting up a simple Hadoop MapReduce job using 
    ```bash
    cat input.txt | python3 mapper.py
    ```
-
+    ```plaintext
+ata     1
+ata     1
+ata     1
+bye     1
+bye     1
+hello   1
+hello   1
+hello   1
+hi      1
+hi      1
+hi      1
+kia     1
+kia     1
+no      1
+no      1
+no      1
+yes     1
+yes     1
+    ```
 7. To run the Reducer, sort the output, and check the final result:
    ```bash
    cat input.txt | python3 mapper.py | sort | python3 reducer.py
+   ```
+
+   ```plaintext
+ata     3
+bye     2
+hello   3
+hi      3
+kia     2
+no      3
+yes     2
    ```
