@@ -1,4 +1,4 @@
-# MapReduce Sorting by Student Name
+# Q3. Create a text file containing the 20 student details such as registration number, name and marks (ex: 1001, john,45 ) .Write a MapReduce program to sort data by student name.
 
 ## Input Data
 
