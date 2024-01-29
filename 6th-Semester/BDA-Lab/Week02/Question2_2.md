@@ -1,4 +1,7 @@
-# Matrix Operations using MapReduce
+# Q2. Perform Matrix operations using MapReduce by considering 3 * 3 matrix and perform following operations:
+- i. Matrix addition and subtraction
+- ii. Matrix Multiplication
+- iii. Matrix transpose
 
 ## Setup
 
