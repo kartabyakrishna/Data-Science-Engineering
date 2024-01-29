@@ -31,6 +31,101 @@ b,2,0,7
 b,2,1,8
 b,2,2,9
 ```
+# Method 1
+## Mapper
+```python
+#!/usr/bin/python3
+import sys
+
+#cache_info = open("cache.txt").readLines()[0].split(",")
+row_a, col_b = 3,3
+
+for line in sys.stdin:
+        matrix_index, row, col, value = line.rstrip().split(",")
+        if matrix_index == "a":
+                        key = row + "," + col
+                        print ("%s\t%s\t%s"%(matrix_index,key,value))
+
+        else:
+                        key = row + "," + col
+                        print ("%s\t%s\t%s"%(matrix_index,key,value))
+
+```
+## Reducer
+```pyhton
+#!/usr/bin/python3
+
+import sys
+
+a = {}
+b = {}
+for line in sys.stdin:
+    line = line.strip()
+    key, pos, value = line.split('\t')
+    p = pos.split(',')
+    if key == 'a':
+        a[(int(p[0]), int(p[1]))] = int(value)
+    elif key == 'b':
+        b[(int(p[0]), int(p[1]))] = int(value)
+
+add = {}
+sub = {}
+mul = {}
+result = 0
+
+print("Addition of two matrices is :")
+for i in range(0, 3):
+    for j in range(0, 3):
+        add[(i, j)] = a[(i, j)] + b[(i, j)]
+        print("{0}  ".format(add[(i, j)]), end="")
+    print()
+
+print("\nSubtraction :")
+for i in range(0, 3):
+    for j in range(0, 3):
+        sub[(i, j)] = a[(i, j)] - b[(i, j)]
+        print("{0}  ".format(sub[(i, j)]), end="")
+    print()
+
+print("\nMultiplication :")
+for i in range(0, 3):
+    for j in range(0, 3):
+        for k in range(0, 3):
+            result = result + a[(i, k)] * b[(k, j)]
+        mul[(i, j)] = result
+        result = 0
+        print("{0}  ".format(mul[(i, j)]), end="")
+    print()
+
+print("\nTranspose of the product matrix :")
+for i in range(0, 3):
+    for j in range(0, 3):
+        print("{0}  ".format(mul[(j, i)]), end="")
+    print()
+```
+## Output
+```plaintext
+Addition of two matrices is :
+11  22  33
+44  55  66
+77  88  99
+
+Subtraction :
+9  18  27
+36  45  54
+63  72  81
+
+Multiplication :
+300  360  420
+660  810  960
+1020  1260  1500
+
+Transpose of the product matrix :
+300  660  1020
+360  810  1260
+420  960  1500
+```
+# Method 2
 # Addition
 ## Mapper
 
