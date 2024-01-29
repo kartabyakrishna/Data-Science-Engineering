@@ -26,7 +26,7 @@ Introduction to key CS concepts like data structures, OOPs, computer architectur
 
 ## [4th Semester](./4th-Semester) 📕
 
-- Desigin & Analysis of Algorithms
+- Design & Analysis of Algorithms
 - Database Systems
 - Machine Learning
 - Mathematical Foundation for Data Science-2
