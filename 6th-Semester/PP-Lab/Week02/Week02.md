@@ -94,11 +94,91 @@ Efficiency: 0.000000
 
 ### 2) Write a program in C to simulate the all the operations of a calculator. Given inputs A and B, find the output for A+B, A-B, A*B and A/B.
 ```c
-d
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+    double A, B;
+
+    // Input values
+    printf("Enter value for A: ");
+    scanf("%lf", &A);
+    printf("Enter value for B: ");
+    scanf("%lf", &B);
+
+    // Serial execution
+    double start_serial = omp_get_wtime();
+
+    // Perform operations
+    printf("A + B = %.2f\n", A + B);
+    printf("A - B = %.2f\n", A - B);
+    printf("A * B = %.2f\n", A * B);
+
+    // Check for division by zero
+    if (B != 0) {
+        printf("A / B = %.2f\n", A / B);
+    } else {
+        printf("Cannot divide by zero.\n");
+    }
+
+    double end_serial = omp_get_wtime();
+    printf("Serial Execution Time: %f seconds\n", end_serial - start_serial);
+
+    // Reset values for parallel version
+    double A_parallel, B_parallel;
+    A_parallel = A;
+    B_parallel = B;
+
+    // Parallel execution
+    double start_parallel = omp_get_wtime();
+
+    // Perform operations in parallel
+    #pragma omp parallel sections
+    {
+        #pragma omp section
+        printf("A + B (Parallel) = %.2f\n", A_parallel + B_parallel);
+
+        #pragma omp section
+        printf("A - B (Parallel) = %.2f\n", A_parallel - B_parallel);
+
+        #pragma omp section
+        printf("A * B (Parallel) = %.2f\n", A_parallel * B_parallel);
+
+        #pragma omp section
+        {
+            if (B_parallel != 0) {
+                printf("A / B (Parallel) = %.2f\n", A_parallel / B_parallel);
+            } else {
+                printf("Cannot divide by zero in parallel.\n");
+            }
+        }
+    }
+
+    double end_parallel = omp_get_wtime();
+    printf("Parallel Execution Time: %f seconds\n", end_parallel - start_parallel);
+
+    printf("Speedup: %f\n", (end_serial - start_serial) / (end_parallel - start_parallel));
+    printf("Efficiency: %f\n", ((end_serial - start_serial) / (end_parallel - start_parallel)) / omp_get_max_threads());
+
+    return 0;
+}
 ```
 ### Output
 ```plaintext
-f
+Enter value for A: 25
+Enter value for B: 69
+A + B = 94.00
+A - B = -44.00
+A * B = 1725.00
+A / B = 0.36
+Serial Execution Time: 0.000000 seconds
+A + B (Parallel) = 94.00
+A - B (Parallel) = -44.00
+A * B (Parallel) = 1725.00
+A / B (Parallel) = 0.36
+Parallel Execution Time: 0.001000 seconds
+Speedup: 0.000000
+Efficiency: 0.000000
 ```
 
 ### 3) Write a program in C to toggle the character of a given string.
