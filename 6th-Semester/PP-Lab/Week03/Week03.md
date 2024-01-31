@@ -351,8 +351,8 @@ Press any key to continue . . .
 ```
 
 ## Q5: Write a parallel program in OpenMP to reverse the digits of the following integer array of size 9. Initialize the input array to the following values:
-### a. Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
-### b. Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
+### a. Input array: `18, 523, 301, 1234, 2, 14, 108, 150, 1928`
+### b. Output array: `81, 325, 103, 4321, 2, 41, 801, 51, 8291`
 
 ### Program: reverse_digits.c
 ```c
