@@ -1,4 +1,4 @@
-
+# NOT FINAL !!!!!!!!
 ### 1) Write a program in C to reverse the digits of the following integer array of size 9. Initialize the input array to the following values.
 ### Example : 
 ### Input array: `18, 523, 301, 1234, 2, 14, 108, 150, 1928`
@@ -185,22 +185,151 @@ Efficiency: 0.000000
 ### Example: 
 ### suppose the string is `HeLLo`, then the output should be `hEllO`.
 ```c
-d
+#include <stdio.h>
+#include <omp.h>
+
+void toggleCharactersSerial(char str[], int length) {
+    for (int i = 0; i < length; ++i) {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] += ('a' - 'A');
+        } else if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] -= ('a' - 'A');
+        }
+    }
+}
+
+void toggleCharactersParallel(char str[], int length) {
+    #pragma omp parallel for
+    for (int i = 0; i < length; ++i) {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] += ('a' - 'A');
+        } else if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] -= ('a' - 'A');
+        }
+    }
+}
+
+int main() {
+    char str[] = "HeLLo";
+    int length = 5;  // Length of the input string
+
+    // Serial execution
+    double start_serial = omp_get_wtime();
+    toggleCharactersSerial(str, length);
+    double end_serial = omp_get_wtime();
+
+    // Display the result
+    printf("Toggled string (Serial): %s\n", str);
+    printf("Serial Execution Time: %f seconds\n", end_serial - start_serial);
+
+    // Reset string for parallel version
+    char strParallel[] = "HeLLo";
+
+    // Parallel execution
+    double start_parallel = omp_get_wtime();
+    toggleCharactersParallel(strParallel, length);
+    double end_parallel = omp_get_wtime();
+
+    // Display the result
+    printf("Toggled string (Parallel): %s\n", strParallel);
+    printf("Parallel Execution Time: %f seconds\n", end_parallel - start_parallel);
+
+    // Calculate speedup and efficiency
+    double speedup = (end_serial - start_serial) / (end_parallel - start_parallel);
+    double efficiency = speedup / omp_get_max_threads();
+
+    printf("Speedup: %f\n", speedup);
+    printf("Efficiency: %f\n", efficiency);
+
+    return 0;
+}
 ```
 ### Output
 ```plaintext
-f
+Toggled string (Serial): hEllO
+Serial Execution Time: 0.000000 seconds
+Toggled string (Parallel): hEllO
+Parallel Execution Time: 0.001000 seconds
+Speedup: 0.000000
+Efficiency: 0.000000
 ```
 
 ### 4) Write a C program to read a word of length N and produce the pattern as shown in the example.
 ### Example: 
 ### Input: `PCBD` Output: `PCCBBBDDDD`
 ```c
-d
+#include <stdio.h>
+#include <string.h>
+#include <omp.h>
+
+void printPatternSerial(char word[], int length) {
+    for (int i = 0; i < length; ++i) {
+        for (int j = 0; j <= i; ++j) {
+            printf("%c", word[i]);
+        }
+    }
+    printf("\n");
+}
+
+void printPatternParallel(char word[], int length) {
+    #pragma omp parallel for
+    for (int i = 0; i < length; ++i) {
+        for (int j = 0; j <= i; ++j) {
+            printf("%c", word[i]);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    char word[20];
+
+    // Input word
+    printf("Enter a word: ");
+    scanf("%s", word);
+
+    int length = strlen(word);
+
+    // Serial execution
+    double start_serial = omp_get_wtime();
+    printPatternSerial(word, length);
+    double end_serial = omp_get_wtime();
+
+    // Display the result
+    printf("Serial Execution Time: %f seconds\n", end_serial - start_serial);
+
+    // Reset word for parallel version
+    char wordParallel[20];
+    strcpy(wordParallel, word);
+
+    // Parallel execution
+    double start_parallel = omp_get_wtime();
+    printPatternParallel(wordParallel, length);
+    double end_parallel = omp_get_wtime();
+
+    // Display the result
+    printf("Parallel Execution Time: %f seconds\n", end_parallel - start_parallel);
+
+    // Calculate speedup and efficiency
+    double speedup = (end_serial - start_serial) / (end_parallel - start_parallel);
+    double efficiency = speedup / omp_get_max_threads();
+
+    printf("Speedup: %f\n", speedup);
+    printf("Efficiency: %f\n", efficiency);
+
+    return 0;
+}
+
 ```
 ### Output
 ```plaintext
-f
+Enter a word: PCBD
+PCCBBBDDDD
+Serial Execution Time: 0.000000 seconds
+CCBBBPDDDD
+Parallel Execution Time: 0.001000 seconds
+Speedup: 0.000000
+Efficiency: 0.000000
 ```
 
 ### 5) Write a C program to read two strings S1 and S2 of same length and produce the resultant string as shown below.
