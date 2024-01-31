@@ -1,10 +1,10 @@
-# Week 4
-```c
+# Q1. 
 
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-#include <time.h>
+#include <time.h>SSE
 #include <math.h>
 
 void selection_sort(int arr[], int n) {
@@ -60,6 +60,151 @@ int main() {
         }
     }
 
+    return 0;
+}
+
+```
+# Q2. 
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+ 
+#define MAX_SIZE 100
+ 
+// function to swap two elements in an array
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+ 
+// function to perform insertion sort on an array
+void insertion_sort(int arr[], int n) {
+    int i, j, key;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+ 
+        // Move elements of arr[0..i-1], that are greater than key, to one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+ 
+// function to perform quick sort on an array
+void quick_sort(int arr[], int low, int high) {
+    if (low < high) {
+        // Select a pivot element and partition the array around it
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j <= high - 1; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(&arr[i], &arr[j]);
+            }
+        }
+        swap(&arr[i + 1], &arr[high]);
+ 
+        // Recursively sort the two partitions
+        #pragma omp task shared(arr)
+        quick_sort(arr, low, i);
+        #pragma omp task shared(arr)
+        quick_sort(arr, i + 2, high);
+    }
+}
+ 
+// function to merge two sorted arrays into a single sorted array
+void merge(int arr[], int l, int m, int r) {
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+ 
+    // create temporary arrays
+    int L[n1], R[n2];
+ 
+    // copy data to temporary arrays
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+ 
+    // merge the two arrays
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+ 
+    // copy the remaining elements of L[], if there are any
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+ 
+    // copy the remaining elements of R[], if there are any
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+ 
+int main() {
+    int arr[MAX_SIZE], n, i;
+ 
+    // get the size of the array from the user
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+ 
+    // get the elements of the array from the user
+    printf("Enter the elements of the array:\n");
+    for (i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+ 
+    // set the number of threads to use
+    omp_set_num_threads(2);
+ 
+    // sort the first half of the array using insertion sort and the second half using quick sort
+    #pragma omp parallel shared(arr)
+    {
+        #pragma omp sections nowait
+        {
+            #pragma omp section
+            {
+                insertion_sort(arr, n/2);
+            }
+ 
+            #pragma omp section
+            {
+                quick_sort(arr, n/2 + 1, n-1);
+            }
+        }
+    }
+ 
+    // merge the two sorted halves of the array
+    merge(arr, 0, n/2, n-1);
+ 
+    // print the sorted array
+    printf("\nSorted array:\n");
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+ 
     return 0;
 }
 
