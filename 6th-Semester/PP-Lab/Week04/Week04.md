@@ -1,4 +1,3 @@
-# NOT FINAL !!
 # Q1. 
 
 ```c
