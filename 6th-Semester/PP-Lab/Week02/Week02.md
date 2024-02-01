@@ -65,7 +65,7 @@ int main() {
     // Parallel execution
     double start_parallel = omp_get_wtime();
     reverseDigitsParallel(arr, size);
-    double end_parallel = omp_get_wtime();
+    double end_parallel = omp_get_wtime()
 
     // Display the reversed array
     printf("Output array (Parallel): ");
