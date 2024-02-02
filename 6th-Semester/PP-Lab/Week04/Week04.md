@@ -1,4 +1,4 @@
-# Q1. 
+# Q1. Write a parallel program using OpenMP to implement the Selection sort algorithm. Compute the efficiency and plot the speed up for varying input size and thread number.
 
 ```c
 #include <stdio.h>
@@ -64,7 +64,7 @@ int main() {
 }
 
 ```
-# Q2. 
+# Q2. Write a parallel program using openMP to implement the following: Take an array of input size m. Divide the array into two parts and sort the first half using insertion sort and second half using quick sort. Use two threads to perform these tasks. Use merge sort to combine the results of these two sorted arrays.
 
 ```c
 #include <stdio.h>
@@ -205,6 +205,88 @@ int main() {
         printf("%d ", arr[i]);
     printf("\n");
  
+    return 0;
+}
+
+```
+# Q3.Write a parallel program using OpenMP to implement sequential search algorithm. Compute the efficiency and plot the speed up for varying input size and thread number.
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+#define ARRAY_SIZE 1000 // Define the size of the array
+
+// Function to perform sequential search on an array
+int sequential_search(int *arr, int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i;
+        }
+    }
+    return -1; // Not found
+}
+
+// Function to perform parallel search on an array
+int parallel_search(int *arr, int size, int target, int num_threads) {
+    int index = -1;
+
+    #pragma omp parallel num_threads(num_threads)
+    {
+        int local_index = -1;
+
+        #pragma omp for
+        for (int i = 0; i < size; i++) {
+            if (arr[i] == target) {
+                local_index = i;
+            }
+        }
+
+        #pragma omp critical
+        {
+            if (local_index != -1 && index == -1) {
+                index = local_index;
+            }
+        }
+    }
+
+    return index;
+}
+
+int main() {
+    int predefined_array[ARRAY_SIZE];
+    int target = 777; // Target element to search for
+
+    // Initialize the predefined array with random values
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        predefined_array[i] = rand() % 1000;
+    }
+
+    // Set the number of threads to use
+    int num_threads_list[] = {2, 4, 8}; // Varying number of threads
+
+    for (int i = 0; i < sizeof(num_threads_list) / sizeof(num_threads_list[0]); i++) {
+        int num_threads = num_threads_list[i];
+        int size = ARRAY_SIZE;
+
+        // Size of the predefined array
+        double start_time = omp_get_wtime();
+        int result = parallel_search(predefined_array, size, target, num_threads);
+        double end_time = omp_get_wtime();
+
+        printf("Search Result with %d threads: %d\n", num_threads, result);
+        printf("Search Time with %d threads: %f seconds\n", num_threads, end_time - start_time);
+
+        // Compute efficiency and speedup
+        double sequential_time = end_time - start_time;
+        double parallel_time = end_time - start_time;
+        double efficiency = sequential_time / (num_threads * parallel_time);
+        double speedup = sequential_time / parallel_time;
+
+        printf("Efficiency with %d threads: %f\n", num_threads, efficiency);
+        printf("Speedup with %d threads: %f\n", num_threads, speedup);
+    }
+
     return 0;
 }
 
