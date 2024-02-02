@@ -214,68 +214,150 @@ int main() {
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <sys/time.h>
 
-// Sequential search algorithm
-int sequentialSearch(int *arr, int size, int target) {
-    for (int i = 0; i < size; ++i) {
-        if (arr[i] == target) {
-            return i;  // Return the index if found
-        }
-    }
-    return -1;  // Return -1 if not found
+#define MAX_SIZE 100
+
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-// Parallel search algorithm using OpenMP
-int parallelSearch(int *arr, int size, int target, int num_threads) {
-    int index = -1;
+void insertion_sort(int arr[], int n) {
+    int i, j, key;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
 
-    #pragma omp parallel for num_threads(num_threads)
-    for (int i = 0; i < size; ++i) {
-        if (arr[i] == target) {
-            #pragma omp critical
-            {
-                if (index == -1 || i < index) {
-                    index = i;
-                }
+void quick_sort(int arr[], int low, int high) {
+    if (low < high) {
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j <= high - 1; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(&arr[i], &arr[j]);
             }
         }
+        swap(&arr[i + 1], &arr[high]);
+
+        #pragma omp task shared(arr)
+        quick_sort(arr, low, i);
+        #pragma omp task shared(arr)
+        quick_sort(arr, i + 2, high);
+    }
+}
+
+void merge(int arr[], int l, int m, int r) {
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    int L[n1], R[n2];
+
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
     }
 
-    return index;
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
 }
 
 int main() {
-    int max_size = 1000000;
-    int target = 42;  // Change the target value as needed
+    int arr[MAX_SIZE], n, i;
 
-    printf("Size\tThreads\tTime\tSpeedup\tEfficiency\n");
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
 
-    for (int size = 1000; size <= max_size; size *= 10) {
-        for (int num_threads = 1; num_threads <= 8; num_threads *= 2) {
-            int *arr = (int *)malloc(size * sizeof(int));
+    printf("Enter the elements of the array:\n");
+    for (i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
 
-            // Initialize array with random values
-            for (int i = 0; i < size; ++i) {
-                arr[i] = rand() % 100;
+    double serial_start_time = omp_get_wtime();
+
+    insertion_sort(arr, n);
+    quick_sort(arr, 0, n - 1);
+    merge(arr, 0, n / 2, n - 1);
+
+    double serial_end_time = omp_get_wtime();
+    double serial_execution_time = serial_end_time - serial_start_time;
+
+    printf("\nSorted array (serial):\n");
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+
+    printf("Serial Execution Time: %lf seconds\n", serial_execution_time);
+
+    double parallel_start_time = omp_get_wtime();
+
+    omp_set_num_threads(2);
+
+    #pragma omp parallel shared(arr)
+    {
+        #pragma omp sections nowait
+        {
+            #pragma omp section
+            {
+                insertion_sort(arr, n / 2);
             }
 
-            double start_time = omp_get_wtime();
-
-            // Uncomment one of the search methods below to test
-            // int index = sequentialSearch(arr, size, target);
-            int index = parallelSearch(arr, size, target, num_threads);
-
-            double end_time = omp_get_wtime();
-
-            free(arr);
-
-            double elapsed_time = end_time - start_time;
-            double speedup = elapsed_time / (end_time - start_time);
-            double efficiency = speedup / num_threads;
-
-            printf("%d\t%d\t%f\t%f\t%f\n", size, num_threads, elapsed_time, speedup, efficiency);
+            #pragma omp section
+            {
+                quick_sort(arr, n / 2, n - 1);
+            }
         }
     }
+
+    merge(arr, 0, n / 2, n - 1);
+
+    double parallel_end_time = omp_get_wtime();
+    double parallel_execution_time = parallel_end_time - parallel_start_time;
+
+    printf("\nSorted array (parallel):\n");
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+
+    printf("Parallel Execution Time: %lf seconds\n", parallel_execution_time);
+
+    double speedup = serial_execution_time / parallel_execution_time;
+    double efficiency = speedup / omp_get_max_threads();
+
+    printf("Speedup: %lf\n", speedup);
+    printf("Efficiency: %lf\n", efficiency);
 
     return 0;
 }
