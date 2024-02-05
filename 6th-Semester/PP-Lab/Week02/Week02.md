@@ -345,11 +345,65 @@ f
 
 ### 6) Write a C program to perform Matrix times vector product operation.
 ```c
-d
+#include <stdio.h>
+#include <omp.h>
+#include <time.h>
+
+int main() {
+    int matrix[3][3] = {{1, 5, 2}, {1, 5, 6}, {7, 8, 10}};
+    int vector[3] = {1, 1, 8};
+    int result[3] = {0};
+
+    // Sequential version
+    clock_t start_time_seq = clock();
+
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j)
+            result[i] += matrix[i][j] * vector[j];
+    }
+
+    clock_t end_time_seq = clock();
+    double execution_time_seq = ((double)(end_time_seq - start_time_seq)) / CLOCKS_PER_SEC;
+
+    printf("Sequential Execution Time: %f seconds\n", execution_time_seq);
+
+    // Parallel version
+    clock_t start_time_par = clock();
+
+    #pragma omp parallel for
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j)
+            result[i] += matrix[i][j] * vector[j];
+    }
+
+    clock_t end_time_par = clock();
+    double execution_time_par = ((double)(end_time_par - start_time_par)) / CLOCKS_PER_SEC;
+
+    printf("Parallel Execution Time: %f seconds\n", execution_time_par);
+
+    // Speedup and Efficiency calculations
+    double speedup = execution_time_seq / execution_time_par;
+    double efficiency = speedup / omp_get_max_threads();  // Number of threads
+
+    printf("Speedup: %f\n", speedup);
+    printf("Efficiency: %f\n", efficiency);
+
+    // Print Resultant Vector
+    printf("Resultant Vector: ");
+    for (int i = 0; i < 3; ++i)
+        printf("%d ", result[i]);
+
+    return 0;
+}
+
 ```
 ### Output
 ```plaintext
-f
+Sequential Execution Time: 0.000000 seconds
+Parallel Execution Time: 0.000000 seconds
+Speedup: -1.#IND00
+Efficiency: -1.#IND00
+Resultant Vector: 44 108 190
 ```
 
 ### 7) Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
@@ -404,11 +458,82 @@ f
 
 
 ```c
-d
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+    int M, N;
+
+    // Read matrix dimensions
+    printf("Enter the number of rows (M): ");
+    scanf("%d", &M);
+    printf("Enter the number of columns (N): ");
+    scanf("%d", &N);
+
+    int A[M][N], B[M][N], D[M][N];
+
+    printf("Enter matrix A of size %dx%d:\n", M, N);
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < N; ++j) {
+            scanf("%d", &A[i][j]);
+        }
+    }
+
+    double start_time = omp_get_wtime();
+
+    #pragma omp parallel for shared(A, B) collapse(2)
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if (i == 0 || j == 0 || i == M - 1 || j == N - 1) {
+                B[i][j] = A[i][j]; 
+            } else {
+                B[i][j] = ~A[i][j];
+            }
+        }
+    }
+
+    double end_time = omp_get_wtime();
+    double parallel_execution_time = end_time - start_time;
+
+    printf("\nMatrix B (1's complement for non-border elements):\n");
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < N; ++j) {
+            printf("%d ", B[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Calculate speedup and efficiency
+    int num_threads = omp_get_max_threads();
+    double serial_execution_time = parallel_execution_time / num_threads;
+    double speedup = serial_execution_time / parallel_execution_time;
+    double efficiency = speedup / num_threads;
+
+    printf("\nParallel Execution Time: %f seconds\n", parallel_execution_time);
+    printf("Serial Execution Time: %f seconds\n", serial_execution_time);
+    printf("Speedup: %f\n", speedup);
+    printf("Efficiency: %f\n", efficiency);
+
+    return 0;
+}
+
 ```
 ### Output
 ```plaintext
-f
+Enter the number of rows (M): 3
+Enter the number of columns (N): 3
+Enter matrix A of size 3x3:
+1 5 8 1 0 6 7 0 5
+
+Matrix B (1's complement for non-border elements):
+1 5 8
+1 -1 6
+7 0 5
+
+Parallel Execution Time: 0.000000 seconds
+Serial Execution Time: 0.000000 seconds
+Speedup: -1.#IND00
+Efficiency: -1.#IND00
 ```
 
 ### 9) Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
