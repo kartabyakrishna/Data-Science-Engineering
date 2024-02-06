@@ -14,24 +14,25 @@ So let's get started! Choose your semester below.
 
 ## [3rd Semester](./3rd-Semester) 📗
 
-- Data Structures
-- Object Oriented Programming 
-- Computer System Architecture
-- Introduction to Data Analytics
+- [Data Structures](./3rd-Semester/DS)
+- [Object Oriented Programming](./3rd-Semester/OOP)
+- [Computer System Architecture](./3rd-Semester/CSA)
+- [Introduction to Data Analytics](./3rd-Semester/IDA)
 - Mathematical Foundation for Data Science-1
-- Object Oriented Programming Lab
-- Data Structures Lab 
+- [Object Oriented Programming Lab](./3rd-Semester/OOP-Lab)
+- [Data Structures Lab](./3rd-Semester/DAA-Lab)
 
 Introduction to key CS concepts like data structures, OOPs, computer architecture, and statistics.
 
 ## [4th Semester](./4th-Semester) 📕
 
-- Design & Analysis of Algorithms
-- Database Systems
-- Machine Learning
+- [Design & Analysis of Algorithms](./4th-Semester/DAA)
+- [Database Systems](./4th-Semester/DBS)
+- [Machine Learning](./4th-Semester/ML)
 - Mathematical Foundation for Data Science-2
-- Desigin & Analysis of Algorithms Lab
-- Machine Learning Lab
+- [Desigin & Analysis of Algorithms Lab](./4th-Semester/DAA-Lab)
+- [Database Systems Lab](./4th-Semester/DBS-Lab)
+- [Machine Learning Lab](./4th-Semester/ML-Lab)
 
 Getting into advanced domains like algorithms, databases, ML, and math foundations.
 
