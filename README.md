@@ -21,6 +21,7 @@ So let's get started! Choose your semester below.
 - Mathematical Foundation for Data Science-1
 - [Object Oriented Programming Lab](./3rd-Semester/OOP-Lab)
 - [Data Structures Lab](./3rd-Semester/DAA-Lab)
+- [Introduction to Data Analytics Lab](./3rd-Semester/IDA-Lab)
 
 Introduction to key CS concepts like data structures, OOPs, computer architecture, and statistics.
 
