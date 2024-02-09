@@ -269,7 +269,8 @@ Time taken with Guided Scheduling: 0.084000 seconds
 ## Q5) Write a parallel program using OpenMP to generate the histogram of the given array A. 
 `Hint: To generate histogram, we simply divide the range of the data up into equal sized sub intervals, or bins and determine the number of measurements (frequency) in each 
 bin.`
-Example: `1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3, 4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9`
+#### Example: 
+`1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3, 4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9`
 ```c
 code
 ```
