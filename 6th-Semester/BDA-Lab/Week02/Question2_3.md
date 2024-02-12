@@ -105,3 +105,8 @@ This should output the sorted student details based on their names.
 1019,Quinn,76
 1020,Riley,95
 ```
+### Code for streaming 
+
+```bash
+hadoop jar '/home/hdoop/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar' -file mapper.py -mapper mapper.py -file reducer.py -reducer reducer.py -input /bda244/input.txt -output /bda244/oup1
+```
