@@ -1,98 +1,123 @@
-# NOT FINAL !!!
+# Week 4A -  Pig Execution
 
-# PIG TOOL: Pig Latin
+## A. Run the program locally and test it on Hadoop using a normal text file:
 
-## 1. Objective
-Learn the execution modes and running Pig programs locally and on Hadoop.
+1. **Create an input.txt file:**
+   ```plaintext
+   hi how are you
+   i am good
+   hope you doing good too
+   how about you.
+   i am in manipal
+   studying Btech in Data science.
+   ```
 
-## 2. Resources
-- VMWare stack (Hadoop)
-- __ GB RAM
-- Web browser
-- Hard Disk __ GB
+2. **Transfer to HDFS:**
+   ```bash
+   hdfs dfs -put /home/hdoop/input.txt bda1/
+   ```
 
-## 3. Program Logic
-Focus on data transformations with Apache Pig for tasks like Wordcount and finding the most popular movie.
+3. **Create Pig script file (e.g., pigscript.pig):**
+   ```pig
+   record = LOAD '/bda1/input.txt/';
+   STORE record INTO '/bda1/out';
+   ```
 
-### Execution Modes:
-- **MapReduce Mode (Default):**
-  - Command: `pig –x mapreduce`
+4. **Run Pig script in MapReduce mode:**
+   ```bash
+   pig -x mapreduce pigscript.pig
+   ```
 
-- **Local Mode:**
-  - Command: `pig –x local`
+5. **Check the status of execution:**
+   ```bash
+   hdfs dfs -ls /bda1/out
+   ```
 
-### Running Modes:
-- **Interactive Mode:**
-  - Grunt shell: `grunt>`
+6. **View the output file:**
+   ```bash
+   hdfs dfs -cat /bda1/out/part-m-00000
+   ```
 
-- **Batch Mode:**
-  - Create Pig script with `.pig` extension.
+## B. Write a Pig program to count the number of word occurrences using Python in different modes (local mode, MapReduce mode):
 
-### Execution Steps:
-1. Write Pig statements in a file (e.g., `wordcount.pig`).
-2. Execute script in local or MapReduce mode.
+Create an input file (input_word_count.txt):
+   ```plaintext
+   hello world
+   hello pig
+   world pig
+   ```
 
-### Execution in MapReduce Mode:
-```bash
-pig -x mapreduce wordcount.pig
-```
+Transfer to HDFS:
+   ```bash
+   hdfs dfs -put /home/hdoop/input_word_count.txt bda1/
+   ```
 
-## Sample Pig Program (Wordcount):
+Create a Pig script (word_count.pig):
+   ```pig
+   -- Load data
+   data = LOAD '/bda1/input_word_count.txt' AS (line:CHARARRAY);
 
-### Pig Script (`wordcount.pig`):
-```pig
--- Load input text file
-record = LOAD '/bda1/input.txt' USING PigStorage() AS (line:chararray);
+   -- Tokenize words
+   words = FOREACH data GENERATE FLATTEN(TOKENIZE(line)) AS word;
 
--- Tokenize each line using Python UDF
-tokenized = FOREACH record GENERATE FLATTEN(TOKENIZE_PYTHON(line)) AS word;
+   -- Group by word and count occurrences
+   word_count = GROUP words BY word;
+   word_count_result = FOREACH word_count GENERATE group AS word, COUNT(words) AS count;
 
--- Group and count word occurrences
-word_count = FOREACH (GROUP tokenized BY word) GENERATE group AS word, COUNT(tokenized) AS count;
+   -- Store result
+   STORE word_count_result INTO '/bda1/word_count_out';
+   ```
 
--- Store the result
-STORE word_count INTO '/bda1/wordcount_output';
+Run the Pig script in MapReduce mode:
+   ```bash
+   pig -x mapreduce word_count.pig
+   ```
 
--- Python UDF for tokenization
-DEFINE TOKENIZE_PYTHON org.apache.pig.scripting.jython.JythonFunction 'tokenize.py' SHIP ('/path/to/tokenize.py') CACHE;
-```
+Run the Pig script in Local mode:
+   ```bash
+   pig -x local word_count.pig
+   ```
 
-### Python Script (`tokenize.py`):
-```python
-# tokenize.py
+## C. Execute the Pig script to find the most popular movie in the dataset:
 
-@outputSchema("word:chararray")
-def tokenize(line):
-    words = line.split()
-    return [word.lower() for word in words]
-```
+Download input files:
+   ```bash
+   wget https://raw.githubusercontent.com/ashaypatil11/hadoop/main/movies.item
+   wget https://raw.githubusercontent.com/ashaypatil11/hadoop/main/ratings.data
+   ```
 
-### Execution Steps:
-1. Upload input file to HDFS: `hdfs dfs -put /home/hdoop/input.txt bda1/`
-2. Run Pig script: `pig -x mapreduce wordcount.pig`
-3. Check output: `hdfs dfs -cat /bda1/wordcount_output/part-m-00000`
+Transfer to HDFS:
+   ```bash
+   hdfs dfs -put movies.item bda1/
+   hdfs dfs -put ratings.data bda1/
+   ```
 
-## 4A: Pig Execution
-### A. Running Modes
-Consider a normal text file for learning Pig running modes and execution modes. Run the program locally and test it on Hadoop.
+Create a Pig script (most_popular_movie.pig):
+   ```pig
+   -- Load ratings data
+   ratings = LOAD 'ratings.data' USING PigStorage('\t') AS (userID:INT, movieID:INT, rating:DOUBLE, timestamp:INT);
 
-### B. Pig Program for Word Occurrences
-Write a Pig program to count word occurrences using Python in different modes (local mode, MapReduce mode).
+   -- Group ratings by movieID and calculate average rating
+   avg_ratings = GROUP ratings BY movieID;
+   avg_rating_result = FOREACH avg_ratings GENERATE group AS movieID, AVG(ratings.rating) AS avg_rating;
 
-### C. Find Most Popular Movie
-Execute a Pig script to find the most popular movie in the dataset using `ratings.data` and `movies.item`.
+   -- Load movie data
+   movies = LOAD 'movies.item' USING PigStorage('|') AS (movieID:INT, title:CHARARRAY, release_date:CHARARRAY, video_release_date:CHARARRAY, IMDb_URL:CHARARRAY, unknown:INT, Action:INT, Adventure:INT, Animation:INT, Childrens:INT, Comedy:INT, Crime:INT, Documentary:INT, Drama:INT, Fantasy:INT, Film_Noir:INT, Horror:INT, Musical:INT, Mystery:INT, Romance:INT, Sci_Fi:INT, Thriller:INT, War:INT, Western:INT);
 
-#### Steps and Code:
-```bash
-# Download dataset
-wget https://raw.githubusercontent.com/ashaypatil11/hadoop/main/movies.item
-wget https://raw.githubusercontent.com/ashaypatil11/hadoop/main/ratings.data
+   -- Join average ratings with movie data
+   joined_data = JOIN avg_rating_result BY movieID, movies BY movieID;
 
-# Pig script to find most popular movie
-# (code not provided, as it requires understanding dataset and specific logic)
-```
+   -- Order by average rating in descending order
+   ordered_data = ORDER joined_data BY avg_rating_result::avg_rating DESC;
 
-Feel free to adapt the Pig script for wordcount to Python as needed for your specific use case.
-```
+   -- Get the most popular movie
+   most_popular_movie = LIMIT ordered_data 1;
 
-Replace `'/path/to/tokenize.py'` with the actual path to your Python script for tokenization.
+   -- Display the result
+   DUMP most_popular_movie;
+   ```
+
+Run the Pig script in MapReduce mode:
+   ```bash
+   pig -x mapreduce most_popular_movie.pig
+   ```
