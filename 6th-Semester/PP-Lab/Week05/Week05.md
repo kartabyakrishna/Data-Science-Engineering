@@ -105,11 +105,119 @@ Efficiency: -1.#IND00
 #### d. Master 
 #### e. Locks 
 ```c
+#include <omp.h>
+#include <stdio.h>
 
+int main() {
+  int n = 100;
+  int sum = 0;
+
+  #pragma omp parallel
+  {
+    #pragma omp critical
+    {
+      sum += 1;
+      printf("After critical: %d\n", sum);
+    }
+
+    #pragma omp atomic
+    sum += 1;
+    printf("After atomic: %d\n", sum);
+
+    #pragma omp for reduction(+:sum)
+    for(int i=0; i<n; i++) {
+      sum += i;
+    }
+    printf("After reduction: %d\n", sum);
+
+    #pragma omp master
+    {
+      sum += 1;
+      printf("After master: %d\n", sum);
+    }
+
+    omp_lock_t lock;
+    omp_init_lock(&lock);
+    omp_set_lock(&lock);
+    sum += 1; 
+    omp_unset_lock(&lock);
+    omp_destroy_lock(&lock);
+    printf("After lock: %d\n", sum);
+  }
+
+  printf("Final Sum = %d\n", sum);
+
+  return 0;
+}
 ```
 ### Output
 ```plaintext
-output
+After critical: 1
+After atomic: 2
+After critical: 3
+After atomic: 74
+After critical: 75
+After atomic: 195
+After critical: 196
+After atomic: 365
+After critical: 366
+After atomic: 550
+After critical: 551
+After atomic: 771
+After critical: 772
+After atomic: 1028
+After critical: 1029
+After atomic: 1321
+After critical: 1322
+After atomic: 1650
+After critical: 1651
+After atomic: 2051
+After critical: 2052
+After atomic: 2416
+After critical: 2417
+After atomic: 2889
+After critical: 2890
+After atomic: 3398
+After critical: 3399
+After atomic: 3421
+After critical: 3422
+After atomic: 3858
+After critical: 3859
+After atomic: 4403
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After reduction: 4982
+After master: 4995
+After reduction: 4982
+After reduction: 4982
+After lock: 4983
+After lock: 4984
+After lock: 4985
+After lock: 4986
+After lock: 4987
+After lock: 4988
+After lock: 4989
+After lock: 4990
+After lock: 4991
+After lock: 4992
+After lock: 4993
+After lock: 4994
+After reduction: 4982
+After lock: 4996
+After lock: 4997
+After lock: 4998
+After lock: 4999
+Final Sum = 4999
 ```
 ## Q3) Write a parallel program using OpenMP to implement the Odd-even transposition sort. Vary the input size and analyse the program efficiency.
 ```c
@@ -272,9 +380,60 @@ bin.`
 #### Example: 
 `1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3, 4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9`
 ```c
-code
+#include <stdio.h>
+#include <omp.h>
+
+#define NUM_BINS 10 
+
+int main() {
+
+  float data[20] = {1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3,  
+                   4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9};
+                   
+  int histogram[NUM_BINS] = {0};
+
+  // Find min and max values 
+  float min_val = data[0];
+  float max_val = data[0];
+
+  for (int i = 1; i < 20; i++) {
+    if (data[i] < min_val) min_val = data[i];
+    if (data[i] > max_val) max_val = data[i];
+  }
+
+  // Calculate bin size
+  float bin_size = (max_val - min_val) / NUM_BINS;
+
+  #pragma omp parallel for
+  for (int i = 0; i < 20; i++) {
+    int bin = (int)((data[i] - min_val) / bin_size);
+    
+    #pragma omp critical
+    {
+      histogram[bin]++;
+    }
+  }
+
+  // Print histogram
+  for (int i = 0; i < NUM_BINS; i++) {
+    float bin_start = min_val + i*bin_size;
+    float bin_end = bin_start + bin_size;
+    printf("[%0.1f, %0.1f): %d\n", bin_start, bin_end, histogram[i]);
+  }
+
+  return 0;
+}
 ```
 ### Output
 ```plaintext
-output
+[0.3, 0.8): 5
+[0.8, 1.2): 1
+[1.2, 1.7): 2
+[1.7, 2.1): 1
+[2.1, 2.6): 1
+[2.6, 3.1): 1
+[3.1, 3.5): 2
+[3.5, 4.0): 1
+[4.0, 4.4): 3
+[4.4, 4.9): 1
 ```
