@@ -380,9 +380,60 @@ bin.`
 #### Example: 
 `1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3, 4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9`
 ```c
-code
+#include <stdio.h>
+#include <omp.h>
+
+#define NUM_BINS 10 
+
+int main() {
+
+  float data[20] = {1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3,  
+                   4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9};
+                   
+  int histogram[NUM_BINS] = {0};
+
+  // Find min and max values 
+  float min_val = data[0];
+  float max_val = data[0];
+
+  for (int i = 1; i < 20; i++) {
+    if (data[i] < min_val) min_val = data[i];
+    if (data[i] > max_val) max_val = data[i];
+  }
+
+  // Calculate bin size
+  float bin_size = (max_val - min_val) / NUM_BINS;
+
+  #pragma omp parallel for
+  for (int i = 0; i < 20; i++) {
+    int bin = (int)((data[i] - min_val) / bin_size);
+    
+    #pragma omp critical
+    {
+      histogram[bin]++;
+    }
+  }
+
+  // Print histogram
+  for (int i = 0; i < NUM_BINS; i++) {
+    float bin_start = min_val + i*bin_size;
+    float bin_end = bin_start + bin_size;
+    printf("[%0.1f, %0.1f): %d\n", bin_start, bin_end, histogram[i]);
+  }
+
+  return 0;
+}
 ```
 ### Output
 ```plaintext
-output
+[0.3, 0.8): 5
+[0.8, 1.2): 1
+[1.2, 1.7): 2
+[1.7, 2.1): 1
+[2.1, 2.6): 1
+[2.6, 3.1): 1
+[3.1, 3.5): 2
+[3.5, 4.0): 1
+[4.0, 4.4): 3
+[4.4, 4.9): 1
 ```
