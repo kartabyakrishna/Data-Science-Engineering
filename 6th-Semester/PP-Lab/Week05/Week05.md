@@ -98,6 +98,51 @@ Parallel Time: 0.000000 seconds
 Speedup: -1.#IND00
 Efficiency: -1.#IND00
 ```
+### Explanation
+#### OpenMP Vector Operations Example
+
+The provided C code demonstrates the parallelization of vector addition, subtraction, and multiplication operations using OpenMP. The program compares the performance of the parallel version with the serial version and calculates speedup and efficiency.
+
+#### Overview
+
+1. **Vector Operations Functions:**
+   - Three functions (`vector_addition`, `vector_subtraction`, `vector_multiplication`) perform element-wise vector operations (addition, subtraction, and multiplication).
+   - Each function is parallelized using `#pragma omp parallel for`.
+
+2. **Memory Allocation and Initialization:**
+   - Memory is allocated for vectors `a`, `b`, and result vectors (`result_serial` and `result_parallel`).
+   - Vectors `a` and `b` are initialized with values.
+
+3. **Serial Vector Operations:**
+   - Sequentially performs vector addition, subtraction, and multiplication.
+   - Measures the time taken for serial execution using `omp_get_wtime()`.
+
+4. **Parallel Vector Operations:**
+   - Parallel execution of vector operations using OpenMP tasks.
+   - Each vector operation is launched as a separate task within a single construct.
+   - Measures the time taken for parallel execution using `omp_get_wtime()`.
+
+5. **Speedup and Efficiency Calculation:**
+   - Calculates the speedup by comparing the execution times of the serial and parallel versions.
+   - Efficiency is calculated based on the speedup and the number of threads used.
+
+6. **Results Output:**
+   - Prints the execution times for serial and parallel versions.
+   - Displays the calculated speedup and efficiency.
+
+7. **Memory Deallocation:**
+   - Frees the memory allocated for vectors.
+
+## OpenMP Directives
+
+- `#pragma omp parallel for`: Parallelizes the associated for loop among multiple threads.
+- `#pragma omp parallel`: Creates a parallel region for multithreaded execution.
+- `#pragma omp single`: Specifies that the following code block should be executed by a single thread.
+- `#pragma omp task`: Introduces a task construct, enabling the creation of parallel tasks.
+
+## Conclusion
+
+This code provides a practical example of parallelizing vector operations using OpenMP, showcasing the potential speedup and efficiency gains in parallel computation. The use of tasks in OpenMP allows for efficient parallelization of independent vector operations, leading to improved performance on multicore architectures.
 ## Q2) Write a parallel program using OpenMP to find sum of N numbers using the following constructs/clauses. 
 #### a. Critical section 
 #### b. Atomic 
@@ -219,6 +264,54 @@ After lock: 4998
 After lock: 4999
 Final Sum = 4999
 ```
+### Explanation
+#### OpenMP Synchronization Constructs Example
+
+The provided C code demonstrates the use of various OpenMP synchronization constructs to manage concurrent access to shared resources. The program uses a parallel region to showcase different synchronization mechanisms.
+
+#### Overview
+
+1. **Parallel Region:**
+   - The code begins with a parallel region specified by `#pragma omp parallel`.
+
+2. **Critical Section:**
+   - `#pragma omp critical` is used to create a critical section, ensuring that only one thread at a time can execute the enclosed block of code.
+   - Inside the critical section, the variable `sum` is incremented, and the updated value is printed.
+
+3. **Atomic Operation:**
+   - `#pragma omp atomic` is employed to perform an atomic update on the variable `sum`. This ensures atomicity without the need for a critical section.
+   - The atomic operation increments `sum`, and the updated value is printed.
+
+4. **Parallel For with Reduction:**
+   - `#pragma omp for reduction(+:sum)` parallelizes a for loop with a reduction operation. Each thread computes a local sum, and these local sums are combined at the end using the specified reduction operation.
+   - The loop iterates from 0 to `n-1`, adding each `i` to the shared variable `sum`.
+
+5. **Master Region:**
+   - `#pragma omp master` designates a region of code that should only be executed by the master thread (the thread with ID 0). Inside the master region, the variable `sum` is incremented, and the updated value is printed.
+
+6. **Locks:**
+   - An OpenMP lock (`omp_lock_t`) is initialized using `omp_init_lock`.
+   - `omp_set_lock` acquires the lock, protecting the critical section where `sum` is updated.
+   - `omp_unset_lock` releases the lock, allowing other threads to acquire it.
+   - `omp_destroy_lock` cleans up the lock after its use.
+   - The critical section within the lock increments `sum`, and the updated value is printed.
+
+7. **Final Output:**
+   - The program prints the final value of the variable `sum` after all parallel operations.
+
+## OpenMP Directives
+
+- `#pragma omp parallel`: Creates a parallel region for multithreaded execution.
+- `#pragma omp critical`: Defines a critical section, allowing only one thread to execute it at a time.
+- `#pragma omp atomic`: Performs an atomic operation on the specified variable.
+- `#pragma omp for reduction(+:sum)`: Parallelizes a for loop with a reduction operation.
+- `#pragma omp master`: Indicates a code block to be executed only by the master thread.
+- Lock-related functions (`omp_init_lock`, `omp_set_lock`, `omp_unset_lock`, `omp_destroy_lock`): Initialize, acquire, release, and destroy an OpenMP lock.
+
+## Conclusion
+
+This code illustrates how OpenMP synchronization constructs can be employed to manage shared resources and avoid data race conditions in a parallel computing environment. The use of critical sections, atomic operations, parallel for loops with reduction, master regions, and locks showcases different techniques for synchronizing threads in a parallel program.
+
 ## Q3) Write a parallel program using OpenMP to implement the Odd-even transposition sort. Vary the input size and analyse the program efficiency.
 ```c
 #include <stdio.h>
@@ -309,6 +402,46 @@ Sorted array:
 0 5 24 27 34 41 45 58 61 62 64 67 69 78 81
 Time taken: 0.015000 seconds
 ```
+### Explanation
+## Odd-Even Transposition Sort using OpenMP
+
+### Overview
+
+The provided C code implements the Odd-Even Transposition Sort algorithm in a parallelized manner using OpenMP. This sorting algorithm is particularly suitable for parallelization due to its simplicity and inherent parallel structure.
+
+### Odd-Even Transposition Sort Algorithm
+
+1. **Overview:**
+   - The Odd-Even Transposition Sort is a simple parallel sorting algorithm that works by repeatedly iterating through the array in two phases: odd and even.
+   - In each phase, adjacent elements are compared and swapped if necessary, leading to a partially sorted array after each iteration.
+
+2. **Parallelization Approach:**
+   - The parallelization is achieved using OpenMP directives.
+   - The `#pragma omp parallel for` directive parallelizes the loop iterations among multiple threads.
+   - The `private(i, temp)` clause ensures private copies of loop variables `i` and `temp` for each thread.
+   - The `shared(a)` clause indicates that the array `a` is shared among all threads.
+
+3. **Even and Odd Phases:**
+   - In the even phase, adjacent elements with even indices are compared and swapped if needed.
+   - In the odd phase, adjacent elements with odd indices are compared and swapped if needed.
+
+### OpenMP Directives
+
+- `#pragma omp parallel for`: Parallelizes the associated for loop among multiple threads.
+- `private(i, temp)`: Declares private copies of loop variables `i` and `temp` for each thread.
+- `shared(a)`: Specifies that the array `a` is shared among all threads.
+
+### Input and Output
+
+- The user inputs the size of the array (`n`) at runtime.
+- The array is initialized with random values between 0 and 99.
+- The unsorted array is displayed.
+- The time taken for sorting using Odd-Even Transposition Sort is measured and displayed.
+- The sorted array is displayed.
+
+### Conclusion
+
+This code provides a practical example of parallelizing a sorting algorithm using OpenMP, demonstrating how parallel patterns can be incorporated into algorithms to enhance performance. The Odd-Even Transposition Sort is particularly suited for parallelization due to its simple structure and regular data access patterns.
 
 ## Q4) Write an OpenMP program to find the Summation of integers from a given interval. Analyze the performance of various iteration scheduling strategies.
 ```c
@@ -373,6 +506,27 @@ Time taken with Dynamic Scheduling: 21.003000 seconds
 Sum using Guided Scheduling: 500000000500000000
 Time taken with Guided Scheduling: 0.084000 seconds
 ```
+### Explanation
+
+The C code above demonstrates the usage of different OpenMP scheduling techniques for parallelizing a summation task. The goal is to calculate the sum of integers from 1 to N in parallel.
+
+## Code Overview
+
+1. **Static Scheduling:**
+   - Static scheduling divides the loop into fixed-sized chunks assigned to threads at compile time.
+   - `#pragma omp parallel for schedule(static)` parallelizes the loop with static scheduling.
+   - Static scheduling is effective when iterations have uniform execution times.
+
+2. **Dynamic Scheduling:**
+   - Dynamic scheduling divides the loop into chunks assigned dynamically at runtime.
+   - `#pragma omp parallel for schedule(dynamic)` enables dynamic scheduling.
+   - This is suitable when iteration times vary, allowing load balancing among threads.
+
+3. **Guided Scheduling:**
+   - Guided scheduling is similar to dynamic scheduling but with decreasing chunk sizes over time.
+   - `#pragma omp parallel for schedule(guided)` specifies guided scheduling.
+   - It adapts to varying workloads and can enhance load balancing.
+
 
 ## Q5) Write a parallel program using OpenMP to generate the histogram of the given array A. 
 `Hint: To generate histogram, we simply divide the range of the data up into equal sized sub intervals, or bins and determine the number of measurements (frequency) in each 
@@ -437,3 +591,10 @@ int main() {
 [4.0, 4.4): 3
 [4.4, 4.9): 1
 ```
+### Explanation
+
+1. **OpenMP Directive:** The `#pragma omp parallel for` directive is used to parallelize the for loop. This allows the iterations of the loop to be executed concurrently by multiple threads.
+
+2. **Critical Section:** Since multiple threads are updating the `histogram` array simultaneously, a critical section (`#pragma omp critical`) is used to ensure that only one thread can update the histogram at a time. This prevents race conditions and ensures the correctness of the histogram results.
+
+3. **Parallelization Strategy:** Each thread independently calculates the bin index for its assigned data points, and then updates the corresponding bin in the histogram array. The critical section ensures that these updates are done safely in a mutually exclusive manner.

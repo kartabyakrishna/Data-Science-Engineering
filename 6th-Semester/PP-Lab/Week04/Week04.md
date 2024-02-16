@@ -1,3 +1,4 @@
+# NOT FINAL
 ## Q1. Write a parallel program using OpenMP to implement the Selection sort algorithm. Compute the efficiency and plot the speed up for varying input size and thread number.
 
 ```c
