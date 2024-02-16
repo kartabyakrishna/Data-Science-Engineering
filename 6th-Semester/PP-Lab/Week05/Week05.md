@@ -1,4 +1,4 @@
-## Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
+# Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
 
 ```c
 #include <stdio.h>
@@ -143,12 +143,12 @@ The provided C code demonstrates the parallelization of vector addition, subtrac
 ## Conclusion
 
 This code provides a practical example of parallelizing vector operations using OpenMP, showcasing the potential speedup and efficiency gains in parallel computation. The use of tasks in OpenMP allows for efficient parallelization of independent vector operations, leading to improved performance on multicore architectures.
-## Q2) Write a parallel program using OpenMP to find sum of N numbers using the following constructs/clauses. 
-#### a. Critical section 
-#### b. Atomic 
-#### c. Reduction 
-#### d. Master 
-#### e. Locks 
+# Q2) Write a parallel program using OpenMP to find sum of N numbers using the following constructs/clauses. 
+### a. Critical section 
+### b. Atomic 
+### c. Reduction 
+### d. Master 
+### e. Locks 
 ```c
 #include <omp.h>
 #include <stdio.h>
@@ -312,7 +312,7 @@ The provided C code demonstrates the use of various OpenMP synchronization const
 
 This code illustrates how OpenMP synchronization constructs can be employed to manage shared resources and avoid data race conditions in a parallel computing environment. The use of critical sections, atomic operations, parallel for loops with reduction, master regions, and locks showcases different techniques for synchronizing threads in a parallel program.
 
-## Q3) Write a parallel program using OpenMP to implement the Odd-even transposition sort. Vary the input size and analyse the program efficiency.
+# Q3) Write a parallel program using OpenMP to implement the Odd-even transposition sort. Vary the input size and analyse the program efficiency.
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -443,7 +443,7 @@ The provided C code implements the Odd-Even Transposition Sort algorithm in a pa
 
 This code provides a practical example of parallelizing a sorting algorithm using OpenMP, demonstrating how parallel patterns can be incorporated into algorithms to enhance performance. The Odd-Even Transposition Sort is particularly suited for parallelization due to its simple structure and regular data access patterns.
 
-## Q4) Write an OpenMP program to find the Summation of integers from a given interval. Analyze the performance of various iteration scheduling strategies.
+# Q4) Write an OpenMP program to find the Summation of integers from a given interval. Analyze the performance of various iteration scheduling strategies.
 ```c
 #include <stdio.h>
 #include <omp.h>
@@ -528,7 +528,7 @@ The C code above demonstrates the usage of different OpenMP scheduling technique
    - It adapts to varying workloads and can enhance load balancing.
 
 
-## Q5) Write a parallel program using OpenMP to generate the histogram of the given array A. 
+# Q5) Write a parallel program using OpenMP to generate the histogram of the given array A. 
 `Hint: To generate histogram, we simply divide the range of the data up into equal sized sub intervals, or bins and determine the number of measurements (frequency) in each 
 bin.`
 #### Example: 
