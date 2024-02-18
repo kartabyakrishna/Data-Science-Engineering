@@ -67,7 +67,42 @@ int main() {
 ```
 ## Output
 ```plaintext
+Selection Sort using OpenMP
 
+Number of threads: 16
+
+Input size      Threads Execution Time  Efficiency      Speedup
+10000           1       0.189000        1.000000        1.000000
+10000           2       0.325000        0.290769        0.581538
+10000           3       0.351000        0.179487        0.538461
+10000           4       0.378000        0.125000        0.500000
+10000           5       0.413000        0.091525        0.457627
+10000           6       0.445000        0.070786        0.424719
+10000           7       0.508000        0.053150        0.372047
+10000           8       0.565000        0.041814        0.334513
+10000           9       0.577000        0.036395        0.327556
+10000           10      0.632000        0.029905        0.299050
+10000           11      0.663000        0.025915        0.285068
+10000           12      0.710000        0.022183        0.266197
+10000           13      0.748000        0.019436        0.252674
+10000           14      0.798000        0.016917        0.236842
+10000           15      0.849000        0.014841        0.222615
+10000           16      0.885000        0.013347        0.213559
+20000           1       0.496000        1.000000        1.000000
+20000           2       0.736000        0.336957        0.673913
+20000           3       0.773000        0.213885        0.641656
+20000           4       0.828000        0.149758        0.599034
+20000           5       0.875000        0.113371        0.566857
+20000           6       0.918000        0.090051        0.540305
+20000           7       1.016000        0.069741        0.488189
+20000           8       1.100000        0.056364        0.450909
+20000           9       1.184000        0.046547        0.418919
+20000           10      1.259000        0.039396        0.393963
+20000           11      1.347000        0.033475        0.368226
+20000           12      1.415000        0.029211        0.350530
+20000           13      1.502000        0.025402        0.330226
+20000           14      1.596000        0.022198        0.310777
+20000           15      1.691000        0.019555        0.293318
 ```
 # Q2. Write a parallel program using openMP to implement the following: Take an array of input size m. Divide the array into two parts and sort the first half using insertion sort and second half using quick sort. Use two threads to perform these tasks. Use merge sort to combine the results of these two sorted arrays.
 
@@ -225,7 +260,19 @@ int main() {
 ```
 ## Output
 ```plaintext
+Enter the size of the array: 10
+Enter the elements of the array:
+6 9 2 1 5 6 4 9 10 2
 
+Sorted array (serial):
+1 2 2 4 5 6 6 9 9 10
+Serial Execution Time: 0.000000 seconds
+
+Sorted array (parallel):
+1 2 2 4 5 6 6 9 9 10
+Parallel Execution Time: 0.000000 seconds
+Speedup: -1.#IND00
+Efficiency: -1.#IND00
 ```
 # Q3.Write a parallel program using OpenMP to implement sequential search algorithm. Compute the efficiency and plot the speed up for varying input size and thread number.
 ```c
@@ -300,5 +347,21 @@ int main() {
 ```
 ## Output
 ```plaintext
-
+Size    Threads Time    Speedup Efficiency
+1000    1       0.000000        -1.#IND00       -1.#IND00
+1000    2       0.000000        -1.#IND00       -1.#IND00
+1000    4       0.001000        1.000000        0.250000
+1000    8       0.000000        -1.#IND00       -1.#IND00
+10000   1       0.000000        -1.#IND00       -1.#IND00
+10000   2       0.000000        -1.#IND00       -1.#IND00
+10000   4       0.001000        1.000000        0.250000
+10000   8       0.000000        -1.#IND00       -1.#IND00
+100000  1       0.000000        -1.#IND00       -1.#IND00
+100000  2       0.003000        1.000000        0.500000
+100000  4       0.004000        1.000000        0.250000
+100000  8       0.003000        1.000000        0.125000
+1000000 1       0.008000        1.000000        1.000000
+1000000 2       0.029000        1.000000        0.500000
+1000000 4       0.028000        1.000000        0.250000
+1000000 8       0.029000        1.000000        0.125000
 ```
