@@ -104,8 +104,37 @@ Input size      Threads Execution Time  Efficiency      Speedup
 20000           14      1.596000        0.022198        0.310777
 20000           15      1.691000        0.019555        0.293318
 ```
-#### Explanation
+### Explanation
+#### Overview
 
+This C code demonstrates the parallelization of the selection sort algorithm using OpenMP. Selection sort is a simple sorting algorithm, and this code focuses on parallelizing its core comparison operations. The goal is to evaluate the impact of parallelization on the sorting algorithm's performance, especially in scenarios with varying input sizes and thread counts.
+
+#### Parallelization of Selection Sort
+
+The primary emphasis is on parallelizing the inner loop of the selection sort algorithm, responsible for finding the minimum element in the unsorted portion of the array. The `#pragma omp parallel for` directive is strategically applied to this loop, enabling concurrent execution of comparisons by multiple threads. This parallelization aims to enhance the algorithm's efficiency by leveraging the capabilities of multicore processors.
+
+#### Execution Time Measurement
+
+The `get_execution_time` function is responsible for measuring the execution time of the parallelized selection sort algorithm. It dynamically sets the number of OpenMP threads using `omp_set_num_threads` and utilizes `omp_get_wtime()` to record the start and end times accurately. This time measurement is crucial for evaluating the performance gains achieved through parallelization.
+
+#### Main Function and Parallel Execution
+
+The `main` function orchestrates the entire process. It iterates over different input sizes and thread counts, initializing arrays with random values. For each configuration, the selection sort algorithm is executed both sequentially and in parallel. The resulting execution times, along with efficiency and speedup metrics, are then presented in a tabular format.
+
+#### OpenMP Directives for Parallelization
+
+- **`#pragma omp parallel for`**: This directive is applied to the inner loop of the selection sort function, parallelizing the element-wise comparisons. It allows multiple threads to simultaneously identify the minimum element in different sections of the array.
+
+- **`omp_set_num_threads`**: Dynamically sets the number of threads for OpenMP parallel regions. This flexibility is crucial for experimenting with different thread counts and observing their impact on performance.
+
+### Results Output
+
+The program generates a table that illustrates the performance characteristics of the selection sort algorithm under varying conditions. The table includes details such as input size, number of threads, execution time for both serial and parallel executions, efficiency, and speedup. These metrics provide insights into how well the algorithm scales with increased computational resources.
+
+#### Conclusion
+
+In conclusion, this code serves as an educational example showcasing how parallelization with OpenMP can be applied to a sorting algorithm. By focusing on the selection sort and its key comparison operations, it aims to help students understand the practical aspects of parallel programming and the potential benefits of leveraging multiple threads in sorting tasks.
+#
 # Q2. Write a parallel program using openMP to implement the following: Take an array of input size m. Divide the array into two parts and sort the first half using insertion sort and second half using quick sort. Use two threads to perform these tasks. Use merge sort to combine the results of these two sorted arrays.
 
 ```c
@@ -276,6 +305,52 @@ Parallel Execution Time: 0.000000 seconds
 Speedup: -1.#IND00
 Efficiency: -1.#IND00
 ```
+### Explanation
+#### Overview
+
+This C code implements a hybrid parallel sorting algorithm that combines insertion sort, quicksort, and merge sort. The program allows the user to input an array, performs serial sorting using insertion sort, quicksort, and merge sort, and then compares the serial and parallel execution times. OpenMP directives are used for parallelization, with specific focus on sections of the sorting algorithms that can benefit from parallel processing.
+
+#### Sorting Functions
+
+1. **Insertion Sort (`insertion_sort`):**
+   - A simple sorting algorithm where each element is sequentially placed in its correct position.
+   - Primarily used for sorting a portion of the array in parallel.
+
+2. **Quick Sort (`quick_sort`):**
+   - A divide-and-conquer sorting algorithm that recursively divides the array into subarrays and sorts them.
+   - Parallelized using OpenMP tasks, with each task handling a separate subarray.
+
+3. **Merge Function (`merge`):**
+   - Combines two sorted subarrays into a single sorted array.
+   - Utilized to merge the results of the parallel quicksort.
+
+#### Execution Time Measurement Functions
+
+- **`omp_get_wtime`:** Measures the execution time before and after the sorting processes to calculate both serial and parallel execution times.
+
+#### Main Function
+
+- Initializes an array based on user input.
+- Performs serial sorting using insertion sort, quicksort, and merge sort.
+- Measures the serial execution time and prints the sorted array.
+- Initiates parallel sorting using OpenMP directives for insertion sort and quicksort.
+- Merges the results in the main thread.
+- Measures the parallel execution time, prints the sorted array, and calculates speedup and efficiency.
+
+#### OpenMP Directives for Parallelization
+
+- **`#pragma omp sections`:** Defines sections that can be executed concurrently in parallel.
+- **`#pragma omp section`:** Specifies individual sections within the sections construct, each handling a specific sorting algorithm.
+
+#### Results Output
+
+- Displays the sorted array and the execution times for both serial and parallel executions.
+- Calculates and presents the speedup and efficiency achieved through parallel processing.
+
+#### Conclusion
+
+This code exemplifies a hybrid parallel sorting approach, leveraging OpenMP for parallelizing insertion sort and quicksort. By combining these algorithms and utilizing parallelism where suitable, the program aims to improve sorting efficiency, providing insights into the potential benefits of parallelization in sorting tasks.
+
 # Q3.Write a parallel program using OpenMP to implement sequential search algorithm. Compute the efficiency and plot the speed up for varying input size and thread number.
 ```c
 #include <stdio.h>
@@ -367,3 +442,43 @@ Size    Threads Time    Speedup Efficiency
 1000000 4       0.028000        1.000000        0.250000
 1000000 8       0.029000        1.000000        0.125000
 ```
+### Explanation
+#### Overview
+
+This C code implements both a sequential and parallel search algorithm to find a target value within an array. The search algorithms are tested using an array of varying sizes, and the program measures and compares the execution times, speedup, and efficiency for different thread counts using OpenMP directives.
+
+#### Sequential Search Function
+
+- **`sequentialSearch`:**
+  - Implements a basic sequential search algorithm to find the target value within an array.
+  - Returns the index of the target if found, or -1 if not found.
+
+#### Parallel Search Function
+
+- **`parallelSearch`:**
+  - Utilizes OpenMP to parallelize the search algorithm.
+  - Employs the `#pragma omp parallel for` directive to distribute the search across multiple threads.
+  - Uses a critical section to update the index safely when the target is found.
+
+#### Main Function
+
+- Iterates over different array sizes and thread counts for testing.
+- Initializes an array with random values.
+- Measures the execution time for both the sequential and parallel search algorithms.
+- Computes speedup and efficiency metrics.
+- Outputs a table summarizing the results for analysis.
+
+#### OpenMP Directives for Parallelization
+
+- **`#pragma omp parallel for` and `#pragma omp critical`:**
+  - Parallelizes the for loop in the search algorithm.
+  - Critical section ensures that multiple threads safely update the index variable without conflicts.
+
+#### Results Output
+
+- The program outputs a table containing the array size, number of threads, execution time, speedup, and efficiency for both sequential and parallel search algorithms.
+
+#### Conclusion
+
+- The code provides a comparative analysis of sequential and parallel search algorithms using OpenMP.
+- The table output allows for a clear understanding of how the parallelized version performs with varying array sizes and thread counts, aiding in the evaluation of speedup and efficiency.
