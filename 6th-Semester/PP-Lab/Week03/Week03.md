@@ -54,7 +54,6 @@ int main() {
     return 0;
 }
 ```
-
 ### Output:
 ```plaintext
 Matrix size: 200 x 200
@@ -87,6 +86,34 @@ Matrix size: 1000 x 1000
 Process exited after 9.012 seconds with return value 0
 Press any key to continue . . .
 ```
+### Program Explanation:
+
+#### **Objective:**
+The program performs matrix multiplication with varying matrix sizes and analyzes the execution time for different numbers of threads using OpenMP.
+
+#### **Implementation:**
+- The program iterates over different matrix sizes specified in the `n_sizes` array.
+- For each matrix size:
+  - Allocates memory for matrices A, B, and C.
+  - Initializes matrices A and B with random values.
+  - Performs matrix multiplication using the `matrix_mult` function with both serial and parallel execution.
+  - Records and prints the execution times for each combination of matrix size and number of threads.
+
+#### **Matrix Multiplication Function: `matrix_mult`**
+- The function takes pointers to matrices A, B, and C, along with the matrix size `n`.
+- Utilizes OpenMP parallelism with `#pragma omp parallel for` to parallelize the outer loop, distributing the workload among multiple threads.
+- Computes the matrix multiplication of A and B, storing the result in matrix C.
+
+#### **Parallelization:**
+- The main loop iterates over matrix sizes and the number of threads.
+- OpenMP is used to set the number of threads and parallelize the matrix multiplication loop.
+
+#### **Analysis:**
+- The program prints the matrix size and, for each size, the execution time for both serial and parallel executions with varying numbers of threads.
+
+### **Conclusion:**
+- The program provides insights into the impact of parallelization on the execution time of matrix multiplication for different matrix sizes and thread counts.
+- The output helps analyze the scalability of the parallelized code across different computational resources.
 
 ## Q2: Write an OpenMP program to perform Matrix times vector multiplication. Vary the matrix and vector size and analyze the speedup and efficiency of the parallelized code.
 
@@ -168,6 +195,34 @@ Matrix size: 10000, execution time (serial): 0.334 seconds, execution time (para
 Process exited after 5.278 seconds with return value 0
 Press any key to continue . . .
 ```
+### Program Explanation:
+
+#### **Objective:**
+The program performs matrix-vector multiplication with varying matrix sizes and analyzes the speedup and efficiency of the parallelized code using OpenMP.
+
+#### **Implementation:**
+- The program iterates over different matrix sizes specified in the `sizes` array.
+- For each matrix size:
+  - It allocates memory for matrices A and vectors x, y.
+  - Initializes matrix A with random values and vector x with 1.0.
+  - Performs matrix-vector multiplication sequentially to obtain the result vector `y` (serial execution).
+  - Performs the same multiplication in parallel using OpenMP with the specified number of threads.
+  - Records and prints the execution times for both serial and parallel executions.
+  - Calculates and stores the speedup for each matrix size.
+
+#### **Parallelization:**
+- OpenMP is utilized for parallelizing the matrix-vector multiplication loop with `#pragma omp parallel for`.
+- The number of threads is set using `omp_set_num_threads` to control parallel execution.
+
+#### **Analysis:**
+- The program prints execution times for both serial and parallel executions for each matrix size.
+- Speedup is calculated as the ratio of the serial execution time to the parallel execution time.
+- Efficiency is calculated as the speedup divided by the number of threads.
+
+### **Conclusion:**
+- The program provides insights into the performance improvements achieved through parallelization for matrix-vector multiplication with varying matrix sizes.
+- Speedup and efficiency metrics help evaluate the scalability of the parallelized code in utilizing multiple threads.
+#
 
 ## Q3: Write an OpenMp program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B. Analyze the speedup and efficiency of the parallelized code.
 
@@ -246,7 +301,31 @@ Matrix B:
 Process exited after 0.1528 seconds with return value 0
 Press any key to continue . . .
 ```
+### Program Explanation:
 
+#### **Objective:**
+The program aims to perform matrix manipulation on a 5x5 matrix A and produce a resultant matrix B with specific properties. It uses OpenMP to parallelize the matrix manipulation process.
+
+#### **Matrix Manipulation Function: `matrix_manipulation`**
+- The function takes two matrices, A and B, as input.
+- It uses OpenMP parallelism with `#pragma omp parallel for` to parallelize the outer loop, distributing the workload among multiple threads.
+- For each row `i` in the matrices, it processes each element in the row based on the following conditions:
+  - If the element is on the principal diagonal (i == j), it sets the corresponding element in B to 0.
+  - If the element is below the principal diagonal (i < j), it replaces it with the minimum value of the row in matrix A with the same row number.
+  - If the element is above the principal diagonal (i > j), it replaces it with the maximum value of the row in matrix A with the same row number.
+
+#### **Main Function:**
+- Initializes matrix A with random values.
+- Calls the `matrix_manipulation` function to compute matrix B based on the specified rules.
+- Prints both matrices A and B for verification.
+
+#### **Parallelism:**
+- The code employs parallelism in the `matrix_manipulation` function using OpenMP directives. The parallelization is achieved by distributing the iterations of the outer loop among available threads.
+
+### **Conclusion:**
+The program demonstrates the parallelization of matrix manipulation operations using OpenMP. It sets principal diagonal elements of matrix B to 0 and replaces each element based on conditions involving the minimum and maximum values of rows in matrix A. Parallelizing such matrix operations can lead to performance improvements, especially when dealing with larger matrices, by leveraging multiple threads for concurrent computation. The output matrices A and B are then printed for verification.
+
+#
 ## Q4: Write a parallel program using OpenMP that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 ## Example:
 | **A** |     |     |     |     
@@ -349,7 +428,29 @@ Matrix D:
 Process exited after 0.277 seconds with return value 0
 Press any key to continue . . .
 ```
+### Explanation:
 
+1. **Matrix A Initialization:**
+   - A 4x4 matrix A is initialized with the provided values, representing the input matrix.
+
+2. **OpenMP Parallel Region:**
+   - The code enters a parallel region using `#pragma omp parallel for`, parallelizing the outer loop that iterates over the rows of the matrices. This allows concurrent execution of operations on different rows by multiple threads.
+
+3. **Matrix B Calculation:**
+   - Within the parallel region, each element of matrix B is computed independently based on the following conditions:
+     - If the element is a non-border element (not on the first or last row or column), its value in B is set to the 1's complement of the corresponding element in matrix A.
+     - If the element is a border element, its value in B remains the same as in matrix A.
+
+4. **Matrix D Calculation:**
+   - Simultaneously, within the parallel region, matrix D is computed based on the given logic:
+     - Diagonal elements in D are set to 1.
+     - Off-diagonal elements are set to the absolute difference between their row and column indices plus 1.
+
+5. **Display Matrices:**
+   - After the parallel region, the program displays the original matrix A and the computed matrices B and D.
+
+In summary, the program takes advantage of parallel processing with OpenMP to efficiently perform operations on matrices. It calculates matrix B by replacing non-border elements of matrix A with their 1's complement, and it generates matrix D based on a specific logic. The parallelization allows for improved performance, especially when dealing with large matrices, by leveraging multiple threads to concurrently handle different portions of the computation.
+#
 ## Q5: Write a parallel program in OpenMP to reverse the digits of the following integer array of size 9. Initialize the input array to the following values:
 ### a. Input array: `18, 523, 301, 1234, 2, 14, 108, 150, 1928`
 ### b. Output array: `81, 325, 103, 4321, 2, 41, 801, 51, 8291`
@@ -404,3 +505,24 @@ Output array: 81 325 103 4321 2 41 801 51 8291
 Process exited after 26.27 seconds with return value 0
 Press any key to continue . . .
 ```
+### Explanation:
+
+1. **`reverseDigits` Function:**
+   - The function takes an input array of integers, an output array, and the size of the array.
+   - It uses OpenMP parallelism (`#pragma omp parallel for`) to parallelize the loop that iterates over the elements of the array.
+   - Inside the loop, it reverses the digits of each integer and stores the result in the output array.
+
+2. **`main` Function:**
+   - Defines arrays `input` and `output` to store the original and reversed integers, respectively.
+   - Reads 9 integers from the user and stores them in the `input` array.
+   - Calls the `reverseDigits` function to reverse the digits in parallel.
+   - Prints the original and reversed arrays.
+
+3. **OpenMP Directives:**
+   - `#pragma omp parallel for`: Specifies that the associated for-loop should be executed in parallel by multiple threads.
+
+4. **Input and Output:**
+   - The user is prompted to enter 9 numbers.
+   - The program then displays the original and reversed arrays.
+
+This program demonstrates how to apply parallel processing to efficiently reverse the digits of integers in an array using OpenMP directives.
