@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-#include <time.h>SSE
+#include <time.h>
 #include <math.h>
 
 void selection_sort(int arr[], int n) {
