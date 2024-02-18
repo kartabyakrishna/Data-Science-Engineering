@@ -104,6 +104,8 @@ Input size      Threads Execution Time  Efficiency      Speedup
 20000           14      1.596000        0.022198        0.310777
 20000           15      1.691000        0.019555        0.293318
 ```
+#### Explanation
+
 # Q2. Write a parallel program using openMP to implement the following: Take an array of input size m. Divide the array into two parts and sort the first half using insertion sort and second half using quick sort. Use two threads to perform these tasks. Use merge sort to combine the results of these two sorted arrays.
 
 ```c
