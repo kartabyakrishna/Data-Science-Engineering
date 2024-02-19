@@ -11,7 +11,7 @@ Alice spent 20.75 on lunch.
 My current balance is -5.09 .
 ```
 #### mapper.py
-```pyhton
+```python
 #!/usr/bin/env python
 
 import sys
