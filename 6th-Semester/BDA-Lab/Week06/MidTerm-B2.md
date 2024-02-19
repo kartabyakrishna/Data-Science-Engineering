@@ -1,4 +1,5 @@
 ### Q1) HDFS Commands (0.5W + 1E)x3 + (1W + 2E)x1
+##### 1
 To copy all local files from a local folder to an HDFS (Hadoop Distributed File System) folder, you can use the hdfs dfs command. The syntax is as follows:
 ```bash
 hdfs dfs -copyFromLocal <local-source> <hdfs-destination>
@@ -6,10 +7,12 @@ hdfs dfs -copyFromLocal <local-source> <hdfs-destination>
 hdfs dfs -copyFromLocal /path/to/local/folder/* /user/your_username/hdfs_folder
 
 ```
+##### 2
 To move a directory in HDFS from one location to another, you can use the hdfs dfs -mv command. Here's an example of how you can move the directory called "olddata" to the new location "/bda244/archive":
 ```bash
 hdfs dfs -mv /path/to/olddata /bda244/archive
 ```
+##### 3
 To delete all files and a folder in HDFS, you can use the hdfs dfs -rm and hdfs dfs -rmdir commands. Here's how you can do it:
 ```bash
 # Delete all files in the folder
@@ -18,6 +21,7 @@ hdfs dfs -rm -r /path/to/folder/*
 # Delete the empty folder
 hdfs dfs -rmdir /path/to/folder
 ```
+##### 4
 To merge several files in a folder located at /user/kartaya/small_files/directory in HDFS into a single file named merged_txt.txt, you can use the hadoop fs -getmerge command. Here's an example:
 ```bash
 hadoop fs -getmerge /user/kartabya/small_files/directory merged_txt.txt
