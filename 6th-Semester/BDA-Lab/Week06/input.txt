@@ -1,0 +1,7 @@
+The price of the product is 45.50 .
+John has 3 apples and 2 oranges.
+-10.5 is the temperature in Celsius.
+The stock gained 2.75 yesterday.
+The value of pi is approximately 3.14159 .
+Alice spent 20.75 on lunch.
+My current balance is -5.09 .
