@@ -1,0 +1,1 @@
+## Q) Write a MapReduce program in Python using Hadoop Distributed File System (HDFS) to calculate the average of all numeric values in an input.txt file. The program should filter out non-numeric data. The input file is stored in HDFS, and the output should display the computed average. Ensure that the solution is implemented using the MapReduce paradigm.
