@@ -1,4 +1,4 @@
-### HDFS Commands (0.5W + 1E)x3 + (1W + 2E)x1
+### Q1) HDFS Commands (0.5W + 1E)x3 + (1W + 2E)x1
 To copy all local files from a local folder to an HDFS (Hadoop Distributed File System) folder, you can use the hdfs dfs command. The syntax is as follows:
 ```bash
 hdfs dfs -copyFromLocal <local-source> <hdfs-destination>
@@ -31,7 +31,7 @@ After running the command, you can then copy the merged file back to HDFS if nee
 hadoop fs -copyFromLocal merged_txt.txt /user/kartabya/small_files/
 ```
 
-### Q) Write a MapReduce program in Python using Hadoop Distributed File System (HDFS) to calculate the average of all numeric values in an input.txt file. The program should filter out non-numeric data. The input file is stored in HDFS, and the output should display the computed average. Ensure that the solution is implemented using the MapReduce paradigm. (3W + 10E)
+### Q2) Write a MapReduce program in Python using Hadoop Distributed File System (HDFS) to calculate the average of all numeric values in an input.txt file. The program should filter out non-numeric data. The input file is stored in HDFS, and the output should display the computed average. Ensure that the solution is implemented using the MapReduce paradigm. (3W + 10E)
 #### input.txt
 `Note : This isn't the actual input which was given in the exam.`
 ```plaintext
