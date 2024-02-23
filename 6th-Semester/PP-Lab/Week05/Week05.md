@@ -1,4 +1,4 @@
-Contribution by :- Yashwith Suvarna
+[Contribution by :- Yashwith Suvarna](https://github.com/Yashwith1998)
 # Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
 
 ```c
@@ -463,89 +463,114 @@ This code illustrates how OpenMP synchronization constructs can be employed to m
 #include <stdlib.h>
 #include <omp.h>
 
-void odd_even_sort(int *a, int n) {
-    int phase, i, temp;
+void oddEvenSort(int arr[], int n) {
+    int sorted = 0;
+    while (!sorted) {
+        sorted = 1;
 
-    for (phase = 0; phase < n; ++phase) {
-        if (phase % 2 == 0) {
-            // Even phase
-            #pragma omp parallel for private(i, temp) shared(a)
-            for (i = 1; i < n - 1; i += 2) {
-                if (a[i] > a[i + 1]) {
-                    temp = a[i];
-                    a[i] = a[i + 1];
-                    a[i + 1] = temp;
-                }
-            }
-        } else {
-            // Odd phase
-            #pragma omp parallel for private(i, temp) shared(a)
-            for (i = 0; i < n - 1; i += 2) {
-                if (a[i] > a[i + 1]) {
-                    temp = a[i];
-                    a[i] = a[i + 1];
-                    a[i + 1] = temp;
-                }
+        // Odd phase
+        #pragma omp parallel for shared(arr, n, sorted)
+        for (int i = 1; i < n - 1; i += 2) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                sorted = 0;
             }
         }
+
+        // Even phase
+        #pragma omp parallel for shared(arr, n, sorted)
+        for (int i = 0; i < n - 1; i += 2) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                sorted = 0;
+            }
+        }
+
+        #pragma omp barrier // Synchronize before checking the sorted flag
     }
 }
 
 int main() {
-    int n, i;
-    double start_time, end_time;
+    const int maxN = 100000;
+    int inputSizes[] = {100, 500, 1000, 50000, 100000};
+    
+    for (int k = 0; k < sizeof(inputSizes) / sizeof(inputSizes[0]); ++k) {
+        int n = inputSizes[k];
+        int arr[maxN];
 
-    // Vary the input size
-    printf("Enter the size of the array: ");
-    scanf("%d", &n);
+        // Initialize the array with random values
+        for (int i = 0; i < n; ++i) {
+            arr[i] = rand() % 1000; // Random values between 0 and 999
+        }
 
-    int *arr = (int *)malloc(n * sizeof(int));
+        double s_start_time, s_end_time, p_start_time, p_end_time;
 
-    // Initialize the array with random values
-    for (i = 0; i < n; ++i) {
-        arr[i] = rand() % 100;  // Random values between 0 and 99
+        // Sequential Odd-Even Transposition Sort
+        int seqArr[maxN];
+        for (int i = 0; i < n; ++i) {
+            seqArr[i] = arr[i];
+        }
+        omp_set_num_threads(1); // Set the number of threads for the sequential version
+        s_start_time = omp_get_wtime();
+        oddEvenSort(seqArr, n);
+        s_end_time = omp_get_wtime();
+        printf("Sequential time for N = %d: %lf seconds\n", n, s_end_time - s_start_time);
+
+        // Parallel Odd-Even Transposition Sort
+        for (int i = 0; i < n; ++i) {
+            arr[i] = rand() % 1000; // Re-initialize the array for the parallel version
+        }
+        omp_set_num_threads(8); // Set the number of threads for the parallel version
+        p_start_time = omp_get_wtime();
+        oddEvenSort(arr, n);
+        p_end_time = omp_get_wtime();
+        printf("Parallel time for N = %d: %lf seconds\n", n, p_end_time - p_start_time);
+
+        // Verify if the array is sorted
+        for (int i = 0; i < n - 1; ++i) {
+            if (arr[i] > arr[i + 1]) {
+                printf("Error: The array is not sorted.\n");
+                break;
+            }
+        }
+
+        // Calculate speedup and efficiency
+        double sequential_time = s_end_time - s_start_time;
+        double parallel_time = p_end_time - p_start_time;
+
+        double speedup = sequential_time / parallel_time;
+        double efficiency = speedup / omp_get_max_threads();
+
+        printf("Speedup for N = %d: %lf\n", n, speedup);
+        printf("Efficiency for N = %d: %lf\n", n, efficiency);
+
+        printf("-------------------------------------------\n");
     }
-
-    // Display the unsorted array
-    printf("Unsorted array:\n");
-    for (i = 0; i < n; ++i) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    // Measure time before sorting
-    start_time = omp_get_wtime();
-
-    // Sort the array using Odd-Even Transposition Sort
-    odd_even_sort(arr, n);
-
-    // Measure time after sorting
-    end_time = omp_get_wtime();
-
-    // Display the sorted array
-    printf("\nSorted array:\n");
-    for (i = 0; i < n; ++i) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    // Display the time taken for sorting
-    printf("Time taken: %f seconds\n", end_time - start_time);
-
-    free(arr);
 
     return 0;
 }
+
 ```
 ### Output
 ```plaintext
-Enter the size of the array: 15
-Unsorted array:
-41 67 34 0 69 24 78 58 62 64 5 45 81 27 61
-
-Sorted array:
-0 5 24 27 34 41 45 58 61 62 64 67 69 78 81
-Time taken: 0.015000 seconds
+Sequential time for N = 100: 0.000000 seconds
+Parallel time for N = 100: 0.000000 seconds
+Speedup for N = 100: -1.#IND00
+Efficiency for N = 100: -1.#IND00
+-------------------------------------------
+Sequential time for N = 500: 0.000000 seconds
+Parallel time for N = 500: 0.032000 seconds
+Speedup for N = 500: 0.000000
+Efficiency for N = 500: 0.000000
+-------------------------------------------
+Sequential time for N = 1000: 0.000000 seconds
+Parallel time for N = 1000: 0.063000 seconds
+Speedup for N = 1000: 0.000000
+Efficiency for N = 1000: 0.000000
 ```
 ### Explanation
 ## Odd-Even Transposition Sort using OpenMP
