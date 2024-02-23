@@ -77,7 +77,7 @@ ODD World from process 7
 EVEN Hello from process 10
 ```
 
-===================================================================================
+
 # Q3. Write a program in MPI to simulate simple calculator. Perform each operation using
 different process in parallel.
 ```c
