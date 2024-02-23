@@ -783,7 +783,16 @@ int main() {
 ```
 ### Output
 ```plaintext
-...
+Histogram:
+1 |******************** (20)
+2 |********************* (21)
+3 |****************** (18)
+4 |********************** (22)
+5 |******************* (19)
+Sequential Time: 0.000000 seconds
+Parallel Time: 0.000000 seconds
+Speedup: -1.#IND00
+Efficiency: -1.#IND00
 ```
 ### Explanation
 
