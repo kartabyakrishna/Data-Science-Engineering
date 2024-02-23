@@ -1,4 +1,3 @@
-Contribution by :- [Yashwith Suvarna](https://github.com/Yashwith1998)
 # Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
 
 ```c
