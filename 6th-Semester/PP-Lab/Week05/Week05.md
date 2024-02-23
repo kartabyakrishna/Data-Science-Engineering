@@ -342,6 +342,33 @@ int main() {
 ```
 ### Output
 ```plaintext
+Serial Time: 0.002000 seconds
+Serial Sum: 1784293664
+
+Critical Section Time with 16 threads: 4.525000 seconds
+Critical Section Sum: 1784293664
+Speedup - Critical Section: 0.000442
+Efficiency - Critical Section: 0.000028
+
+Atomic Time with 16 threads: 0.011000 seconds
+Atomic Sum: 1784293664 Speedup - Atomic: 0.181828
+Speedup - Atomic: 0.181828
+Efficiency - Atomic: 0.011364
+
+Reduction Time with 16 threads: 0.002000 seconds
+Reduction Sum: 1784293664
+Speedup - Reduction: 1.000000
+Efficiency - Reduction: 0.062500
+
+Master Time with 16 threads: 0.001000 seconds
+Master Sum: 1784293664
+Speedup - Master: 2.000238
+Efficiency - Master: 0.125015
+
+Locks Time with 16 threads: 4.605000 seconds
+Locks Sum: 1784293664
+Speedup Locks: 0.000434
+Efficiency Locks: 0.000027
 
 ```
 ### Explanation
