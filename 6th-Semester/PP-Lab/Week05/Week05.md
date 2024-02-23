@@ -1,3 +1,4 @@
+Contribution by :- Yashwith Suvarna
 # Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
 
 ```c
@@ -182,50 +183,162 @@ This code provides a practical example of parallelizing vector operations using 
 ### d. Master 
 ### e. Locks 
 ```c
-#include <omp.h>
 #include <stdio.h>
+#include <omp.h>
 
 int main() {
-  int n = 100;
-  int sum = 0;
+    const int N = 100;
+    int sum_serial = 0;
+    int sum_critical = 0;
+    int sum_atomic = 0;
+    int sum_reduction = 0;
+    int sum_master = 0;
+    int sum_locks = 0;
 
-  #pragma omp parallel
-  {
-    #pragma omp critical
+    double serial_time, parallel_time;
+
+    // Serial
+    double start_time = omp_get_wtime();
+    for (int i = 1; i <= N; ++i) {
+        sum_serial += i;
+    }
+    double end_time = omp_get_wtime();
+    serial_time = end_time - start_time;
+    printf("Serial Time: %lf seconds\n", serial_time);
+    printf("Serial Sum: %d\n\n", sum_serial);
+
+    // a. Critical Section
+    int num_threads_critical;
+    #pragma omp parallel
     {
-      sum += 1;
-      printf("After critical: %d\n", sum);
+        #pragma omp single
+        num_threads_critical = omp_get_num_threads();
     }
-
-    #pragma omp atomic
-    sum += 1;
-    printf("After atomic: %d\n", sum);
-
-    #pragma omp for reduction(+:sum)
-    for(int i=0; i<n; i++) {
-      sum += i;
+    start_time = omp_get_wtime();
+    #pragma omp parallel for
+    for (int i = 1; i <= N; ++i) {
+        #pragma omp critical
+        sum_critical += i;
     }
-    printf("After reduction: %d\n", sum);
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Critical Section Time with %d threads: %lf seconds\n", num_threads_critical, parallel_time);
+    printf("Critical Section Sum: %d\n", sum_critical);
 
-    #pragma omp master
+    // Calculate Speedup and Efficiency
+    double speedup_critical = serial_time / parallel_time;
+    double efficiency_critical = speedup_critical / num_threads_critical;
+    printf("Speedup - Critical Section: %lf\n", speedup_critical);
+    printf("Efficiency - Critical Section: %lf\n\n", efficiency_critical);
+
+    // b. Atomic
+    int num_threads_atomic;
+    #pragma omp parallel
     {
-      sum += 1;
-      printf("After master: %d\n", sum);
+        #pragma omp single
+        num_threads_atomic = omp_get_num_threads();
     }
+    start_time = omp_get_wtime();
+    #pragma omp parallel for
+    for (int i = 1; i <= N; ++i) {
+        #pragma omp atomic
+        sum_atomic += i;
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Atomic Time with %d threads: %lf seconds\n", num_threads_atomic, parallel_time);
+    printf("Atomic Sum: %d\n", sum_atomic);
 
+    // Calculate Speedup and Efficiency
+    double speedup_atomic = serial_time / parallel_time;
+    double efficiency_atomic = speedup_atomic / num_threads_atomic;
+    printf("Speedup - Atomic: %lf\n", speedup_atomic);
+    printf("Efficiency - Atomic: %lf\n\n", efficiency_atomic);
+
+    // c. Reduction
+    int num_threads_reduction;
+    #pragma omp parallel
+    {
+        #pragma omp single
+        num_threads_reduction = omp_get_num_threads();
+    }
+    start_time = omp_get_wtime();
+    #pragma omp parallel for reduction(+:sum_reduction)
+    for (int i = 1; i <= N; ++i) {
+        sum_reduction += i;
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Reduction Time with %d threads: %lf seconds\n", num_threads_reduction, parallel_time);
+    printf("Reduction Sum: %d\n", sum_reduction);
+
+    // Calculate Speedup and Efficiency
+    double speedup_reduction = serial_time / parallel_time;
+    double efficiency_reduction = speedup_reduction / num_threads_reduction;
+    printf("Speedup - Reduction: %lf\n", speedup_reduction);
+    printf("Efficiency - Reduction: %lf\n\n", efficiency_reduction);
+
+    // d. Master
+    int num_threads_master;
+    #pragma omp parallel
+    {
+        #pragma omp master
+        {
+            num_threads_master = omp_get_num_threads();
+        }
+    }
+    start_time = omp_get_wtime();
+    #pragma omp parallel
+    {
+        #pragma omp master
+        {
+            for (int i = 1; i <= N; ++i) {
+                sum_master += i;
+            }
+        }
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Master Time with %d threads: %lf seconds\n", num_threads_master, parallel_time);
+    printf("Master Sum: %d\n", sum_master);
+
+    // Calculate Speedup and Efficiency
+    double speedup_master = serial_time / parallel_time;
+    double efficiency_master = speedup_master / num_threads_master;
+    printf("Speedup - Master: %lf\n", speedup_master);
+    printf("Efficiency - Master: %lf\n\n", efficiency_master);
+
+    // e. Locks
+    int num_threads_locks;
     omp_lock_t lock;
     omp_init_lock(&lock);
-    omp_set_lock(&lock);
-    sum += 1; 
-    omp_unset_lock(&lock);
+    #pragma omp parallel
+    {
+        #pragma omp single
+        num_threads_locks = omp_get_num_threads();
+    }
+    start_time = omp_get_wtime();
+    #pragma omp parallel for
+    for (int i = 1; i <= N; ++i) {
+        omp_set_lock(&lock);
+        sum_locks += i;
+        omp_unset_lock(&lock);
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Locks Time with %d threads: %lf seconds\n", num_threads_locks, parallel_time);
+    printf("Locks Sum: %d\n", sum_locks);
+
+    // Calculate Speedup and Efficiency
+    double speedup_locks = serial_time / parallel_time;
+    double efficiency_locks = speedup_locks / num_threads_locks;
+    printf("Speedup - Locks: %lf\n", speedup_locks);
+    printf("Efficiency - Locks: %lf\n\n", efficiency_locks);
+
     omp_destroy_lock(&lock);
-    printf("After lock: %d\n", sum);
-  }
-
-  printf("Final Sum = %d\n", sum);
-
-  return 0;
+    return 0;
 }
+
 ```
 ### Output
 ```plaintext
