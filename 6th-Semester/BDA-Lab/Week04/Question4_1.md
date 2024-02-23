@@ -1,5 +1,3 @@
-# Not Finall !
-
 # Week 4A -  Pig Execution
 
 ## A. Run the program locally and test it on Hadoop using a normal text file:
