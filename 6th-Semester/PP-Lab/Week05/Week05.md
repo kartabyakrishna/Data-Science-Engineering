@@ -342,72 +342,7 @@ int main() {
 ```
 ### Output
 ```plaintext
-After critical: 1
-After atomic: 2
-After critical: 3
-After atomic: 74
-After critical: 75
-After atomic: 195
-After critical: 196
-After atomic: 365
-After critical: 366
-After atomic: 550
-After critical: 551
-After atomic: 771
-After critical: 772
-After atomic: 1028
-After critical: 1029
-After atomic: 1321
-After critical: 1322
-After atomic: 1650
-After critical: 1651
-After atomic: 2051
-After critical: 2052
-After atomic: 2416
-After critical: 2417
-After atomic: 2889
-After critical: 2890
-After atomic: 3398
-After critical: 3399
-After atomic: 3421
-After critical: 3422
-After atomic: 3858
-After critical: 3859
-After atomic: 4403
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After master: 4995
-After reduction: 4982
-After reduction: 4982
-After lock: 4983
-After lock: 4984
-After lock: 4985
-After lock: 4986
-After lock: 4987
-After lock: 4988
-After lock: 4989
-After lock: 4990
-After lock: 4991
-After lock: 4992
-After lock: 4993
-After lock: 4994
-After reduction: 4982
-After lock: 4996
-After lock: 4997
-After lock: 4998
-After lock: 4999
-Final Sum = 4999
+
 ```
 ### Explanation
 #### OpenMP Synchronization Constructs Example
@@ -618,63 +553,100 @@ This code provides a practical example of parallelizing a sorting algorithm usin
 #include <stdio.h>
 #include <omp.h>
 
-#define N 1000000000
+#define N 100000000
 
 int main() {
-    long long sum = 0;
+    int sum = 0;
     int i;
 
-    // Static Scheduling
+    // Sequential summation for comparison
+    double s_start_time_seq = omp_get_wtime();
+    for (i = 1; i <= N; ++i) {
+        sum += i;
+    }
+    double s_end_time_seq = omp_get_wtime();
+    double seq_time = s_end_time_seq - s_start_time_seq;
+    printf("Sequential Sum: %d\n", sum);
+    printf("Sequential Time: %lf seconds\n", seq_time);
+    printf("******************************************\n");
+
+    // Reset sum for parallel summation
+    sum = 0;
+
+    // Parallel summation with different scheduling strategies
+
+    // Static scheduling
     double start_time_static = omp_get_wtime();
     #pragma omp parallel for reduction(+:sum) schedule(static)
     for (i = 1; i <= N; ++i) {
         sum += i;
     }
     double end_time_static = omp_get_wtime();
+    printf("Sum using Static Scheduling: %d\n", sum);
+    printf("Static Scheduling Time: %lf seconds\n", end_time_static - start_time_static);
+    double speedup_static = seq_time / (end_time_static - start_time_static);
+    double efficiency_static = speedup_static / omp_get_max_threads();
+    printf("Speedup (Static): %lf\n", speedup_static);
+    printf("Efficiency (Static): %lf\n", efficiency_static);
+    printf("******************************************\n");
 
-    printf("Sum using Static Scheduling: %lld\n", sum);
-    printf("Time taken with Static Scheduling: %f seconds\n", end_time_static - start_time_static);
-
+    // Reset sum for other strategies
     sum = 0;
 
-    // Dynamic Scheduling
+    // Dynamic scheduling
     double start_time_dynamic = omp_get_wtime();
     #pragma omp parallel for reduction(+:sum) schedule(dynamic)
     for (i = 1; i <= N; ++i) {
         sum += i;
     }
     double end_time_dynamic = omp_get_wtime();
+    printf("Sum using Dynamic Scheduling: %d\n", sum);
+    printf("Dynamic Scheduling Time: %lf seconds\n", end_time_dynamic - start_time_dynamic);
+    double speedup_dynamic = seq_time / (end_time_dynamic - start_time_dynamic);
+    double efficiency_dynamic = speedup_dynamic / omp_get_max_threads();
+    printf("Speedup (Dynamic): %lf\n", speedup_dynamic);
+    printf("Efficiency (Dynamic): %lf\n", efficiency_dynamic);
+    printf("******************************************\n");
 
-    printf("\nSum using Dynamic Scheduling: %lld\n", sum);
-    printf("Time taken with Dynamic Scheduling: %f seconds\n", end_time_dynamic - start_time_dynamic);
-
+    // Reset sum for other strategies
     sum = 0;
 
-    // Guided Scheduling
+    // Guided scheduling
     double start_time_guided = omp_get_wtime();
     #pragma omp parallel for reduction(+:sum) schedule(guided)
     for (i = 1; i <= N; ++i) {
         sum += i;
     }
     double end_time_guided = omp_get_wtime();
-
-    printf("\nSum using Guided Scheduling: %lld\n", sum);
-    printf("Time taken with Guided Scheduling: %f seconds\n", end_time_guided - start_time_guided);
+    printf("Sum using Guided Scheduling: %d\n", sum);
+    printf("Guided Scheduling Time: %lf seconds\n", end_time_guided - start_time_guided);
+    double speedup_guided = seq_time / (end_time_guided - start_time_guided);
+    double efficiency_guided = speedup_guided / omp_get_max_threads();
+    printf("Speedup (Guided): %lf\n", speedup_guided);
+    printf("Efficiency (Guided): %lf\n", efficiency_guided);
 
     return 0;
 }
-
 ```
 ### Output
 ```plaintext
-Sum using Static Scheduling: 500000000500000000
-Time taken with Static Scheduling: 0.093000 seconds
-
-Sum using Dynamic Scheduling: 500000000500000000
-Time taken with Dynamic Scheduling: 21.003000 seconds
-
-Sum using Guided Scheduling: 500000000500000000
-Time taken with Guided Scheduling: 0.084000 seconds
+Sequential Sum: 987459712
+Sequential Time: 0.161000 seconds
+******************************************
+Sum using Static Scheduling: 987459712
+Static Scheduling Time: 0.015000 seconds
+Speedup (Static): 10.733430
+Efficiency (Static): 0.536671
+******************************************
+Sum using Dynamic Scheduling: 987459712
+Dynamic Scheduling Time: 2.045000 seconds
+Speedup (Dynamic): 0.078729
+Efficiency (Dynamic): 0.003936
+******************************************
+Sum using Guided Scheduling: 987459712
+Guided Scheduling Time: 0.006000 seconds
+Speedup (Guided): 26.833148
+Efficiency (Guided): 1.341657
 ```
 ### Explanation
 
@@ -704,62 +676,114 @@ bin.`
 #### Example: 
 `1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3, 4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9`
 ```c
-#include <stdio.h>
-#include <omp.h>
+#define ARRAY_SIZE 100
+#define NUM_BINS 5
 
-#define NUM_BINS 10 
+void print_histogram(int histogram[], int num_bins) {
+    printf("Histogram:\n");
+    for (int i = 0; i < num_bins; ++i) {
+        printf("%d |", i + 1);
+        for (int j = 0; j < histogram[i]; ++j) {
+            printf("*");
+        }
+        printf(" (%d)\n", histogram[i]);
+    }
+}
 
 int main() {
+    // Generate an array of 100 random fractional numbers between 1 to 20
+    double A[ARRAY_SIZE];
+    srand(omp_get_wtime()); // Seed for random number generation
 
-  float data[20] = {1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3,  
-                   4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9};
-                   
-  int histogram[NUM_BINS] = {0};
-
-  // Find min and max values 
-  float min_val = data[0];
-  float max_val = data[0];
-
-  for (int i = 1; i < 20; i++) {
-    if (data[i] < min_val) min_val = data[i];
-    if (data[i] > max_val) max_val = data[i];
-  }
-
-  // Calculate bin size
-  float bin_size = (max_val - min_val) / NUM_BINS;
-
-  #pragma omp parallel for
-  for (int i = 0; i < 20; i++) {
-    int bin = (int)((data[i] - min_val) / bin_size);
-    
-    #pragma omp critical
-    {
-      histogram[bin]++;
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        A[i] = (rand() % 1901 + 100) / 100.0; // Random numbers between 1 and 20 with two decimal places
     }
-  }
 
-  // Print histogram
-  for (int i = 0; i < NUM_BINS; i++) {
-    float bin_start = min_val + i*bin_size;
-    float bin_end = bin_start + bin_size;
-    printf("[%0.1f, %0.1f): %d\n", bin_start, bin_end, histogram[i]);
-  }
+    int histogram[NUM_BINS] = {0};
 
-  return 0;
+    double min_val = A[0];
+    double max_val = A[0];
+
+    // Find the minimum and maximum values in the array
+    for (int i = 1; i < ARRAY_SIZE; ++i) {
+        if (A[i] < min_val) {
+            min_val = A[i];
+        }
+        if (A[i] > max_val) {
+            max_val = A[i];
+        }
+    }
+
+    // Calculate the range of data and width of each bin
+    double range = max_val - min_val;
+    double bin_width = range / NUM_BINS;
+
+    // Sequential execution
+    double start_time_seq = omp_get_wtime();
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        // Determine the bin index for each data point
+        int bin_index = (int)((A[i] - min_val) / bin_width);
+
+        // Ensure the bin index is within the valid range
+        if (bin_index < 0) {
+            bin_index = 0;
+        } else if (bin_index >= NUM_BINS) {
+            bin_index = NUM_BINS - 1;
+        }
+
+        // Increment the corresponding bin
+        histogram[bin_index]++;
+    }
+    double end_time_seq = omp_get_wtime();
+
+    // Print the histogram in a graphical form
+    print_histogram(histogram, NUM_BINS);
+
+    // Reset histogram for parallel execution
+    for (int i = 0; i < NUM_BINS; ++i) {
+        histogram[i] = 0;
+    }
+
+    // Parallel execution
+    double start_time_parallel = omp_get_wtime();
+    #pragma omp parallel for shared(A, histogram, min_val, bin_width)
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        // Determine the bin index for each data point
+        int bin_index = (int)((A[i] - min_val) / bin_width);
+
+        // Ensure the bin index is within the valid range
+        if (bin_index < 0) {
+            bin_index = 0;
+        } else if (bin_index >= NUM_BINS) {
+            bin_index = NUM_BINS - 1;
+        }
+
+        // Increment the corresponding bin in a thread-safe manner
+        #pragma omp atomic
+        histogram[bin_index]++;
+    }
+    double end_time_parallel = omp_get_wtime();
+
+    // Calculate and print execution times
+    double time_seq = end_time_seq - start_time_seq;
+    double time_parallel = end_time_parallel - start_time_parallel;
+
+    printf("Sequential Time: %lf seconds\n", time_seq);
+    printf("Parallel Time: %lf seconds\n", time_parallel);
+
+    // Calculate speedup and efficiency
+    double speedup = time_seq / time_parallel;
+    double efficiency = speedup / omp_get_max_threads();
+
+    printf("Speedup: %lf\n", speedup);
+    printf("Efficiency: %lf\n", efficiency);
+
+    return 0;
 }
 ```
 ### Output
 ```plaintext
-[0.3, 0.8): 5
-[0.8, 1.2): 1
-[1.2, 1.7): 2
-[1.7, 2.1): 1
-[2.1, 2.6): 1
-[2.6, 3.1): 1
-[3.1, 3.5): 2
-[3.5, 4.0): 1
-[4.0, 4.4): 3
-[4.4, 4.9): 1
+...
 ```
 ### Explanation
 
