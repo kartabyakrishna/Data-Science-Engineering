@@ -1,5 +1,5 @@
 # Not Final
-#Q1 . Write a simple MPI program to find out pow (x, rank) for all the processes where 'x' is the
+# Q1 . Write a simple MPI program to find out pow (x, rank) for all the processes where 'x' is the
 integer constant and 'rank' is the rank of the process.
 ```c
 #include <stdio.h>
@@ -33,8 +33,8 @@ Process 0: pow(40, 0) = 1.000000
 Process 4: pow(40, 4) = 2560000.000000
 Process 3: pow(40, 3) = 64000.000000
 ```
-==========================================================================
-#Q2. Write a program in MPI where even ranked process prints "Hello" and odd ranked process
+
+# Q2. Write a program in MPI where even ranked process prints "Hello" and odd ranked process
 prints "World".
 ```c
 #include <stdio.h>
@@ -78,7 +78,7 @@ EVEN Hello from process 10
 ```
 
 ===================================================================================
-#Q3. Write a program in MPI to simulate simple calculator. Perform each operation using
+# Q3. Write a program in MPI to simulate simple calculator. Perform each operation using
 different process in parallel.
 ```c
 #include <stdio.h>
@@ -162,7 +162,7 @@ Process 12: 10.00 + 2.00 = 12.00
 Process 13: 10.00 - 2.00 = 8.00
 ```
 
-#Q4. Write a program in MPI to toggle the character of a given string indexed by the rank of the
+# Q4. Write a program in MPI to toggle the character of a given string indexed by the rank of the
 process. Hint: Suppose the string is HeLLO and there are 5 processes, then process 0
 toggle 'H' to 'h', process 1 toggle 'e' to 'E' and so on.
 ```c
