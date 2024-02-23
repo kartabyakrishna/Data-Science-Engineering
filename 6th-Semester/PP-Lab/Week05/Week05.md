@@ -1,3 +1,4 @@
+Contribution by :- [Yashwith Suvarna](https://github.com/Yashwith1998)
 # Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
 
 ```c
@@ -117,10 +118,18 @@ int main() {
 ```
 ### Output
 ```plaintext
-Serial Time: 0.000000 seconds
-Parallel Time: 0.000000 seconds
-Speedup: -1.#IND00
-Efficiency: -1.#IND00
+Serial Vector Addition Time: 0.000000 seconds
+Parallel Vector Addition Time: 0.000000 seconds
+Speedup - Addition: -1.#IND00
+Efficiency - Addition: -1.#IND00
+Serial Vector Subtraction Time: 0.000000 seconds
+Parallel Vector Subtraction Time: 0.000000 seconds
+Speedup - Subtraction: -1.#IND00
+Efficiency - Subtraction: -1.#IND00
+Serial Vector Multiplication Time: 0.000000 seconds
+Parallel Vector Multiplication Time: 0.000000 seconds
+Speedup - Multiplication: -1.#IND00
+Efficiency - Multiplication: -1.#IND00
 ```
 ### Explanation
 #### OpenMP Vector Operations Example
@@ -174,119 +183,166 @@ This code provides a practical example of parallelizing vector operations using 
 ### d. Master 
 ### e. Locks 
 ```c
-#include <omp.h>
 #include <stdio.h>
+#include <omp.h>
 
 int main() {
-  int n = 100;
-  int sum = 0;
+    const int N = 100;
+    int sum_serial = 0;
+    int sum_critical = 0;
+    int sum_atomic = 0;
+    int sum_reduction = 0;
+    int sum_master = 0;
+    int sum_locks = 0;
 
-  #pragma omp parallel
-  {
-    #pragma omp critical
+    double serial_time, parallel_time;
+
+    // Serial
+    double start_time = omp_get_wtime();
+    for (int i = 1; i <= N; ++i) {
+        sum_serial += i;
+    }
+    double end_time = omp_get_wtime();
+    serial_time = end_time - start_time;
+    printf("Serial Time: %lf seconds\n", serial_time);
+    printf("Serial Sum: %d\n\n", sum_serial);
+
+    // a. Critical Section
+    int num_threads_critical;
+    #pragma omp parallel
     {
-      sum += 1;
-      printf("After critical: %d\n", sum);
+        #pragma omp single
+        num_threads_critical = omp_get_num_threads();
     }
-
-    #pragma omp atomic
-    sum += 1;
-    printf("After atomic: %d\n", sum);
-
-    #pragma omp for reduction(+:sum)
-    for(int i=0; i<n; i++) {
-      sum += i;
+    start_time = omp_get_wtime();
+    #pragma omp parallel for
+    for (int i = 1; i <= N; ++i) {
+        #pragma omp critical
+        sum_critical += i;
     }
-    printf("After reduction: %d\n", sum);
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Critical Section Time with %d threads: %lf seconds\n", num_threads_critical, parallel_time);
+    printf("Critical Section Sum: %d\n", sum_critical);
 
-    #pragma omp master
+    // Calculate Speedup and Efficiency
+    double speedup_critical = serial_time / parallel_time;
+    double efficiency_critical = speedup_critical / num_threads_critical;
+    printf("Speedup - Critical Section: %lf\n", speedup_critical);
+    printf("Efficiency - Critical Section: %lf\n\n", efficiency_critical);
+
+    // b. Atomic
+    int num_threads_atomic;
+    #pragma omp parallel
     {
-      sum += 1;
-      printf("After master: %d\n", sum);
+        #pragma omp single
+        num_threads_atomic = omp_get_num_threads();
     }
+    start_time = omp_get_wtime();
+    #pragma omp parallel for
+    for (int i = 1; i <= N; ++i) {
+        #pragma omp atomic
+        sum_atomic += i;
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Atomic Time with %d threads: %lf seconds\n", num_threads_atomic, parallel_time);
+    printf("Atomic Sum: %d\n", sum_atomic);
 
+    // Calculate Speedup and Efficiency
+    double speedup_atomic = serial_time / parallel_time;
+    double efficiency_atomic = speedup_atomic / num_threads_atomic;
+    printf("Speedup - Atomic: %lf\n", speedup_atomic);
+    printf("Efficiency - Atomic: %lf\n\n", efficiency_atomic);
+
+    // c. Reduction
+    int num_threads_reduction;
+    #pragma omp parallel
+    {
+        #pragma omp single
+        num_threads_reduction = omp_get_num_threads();
+    }
+    start_time = omp_get_wtime();
+    #pragma omp parallel for reduction(+:sum_reduction)
+    for (int i = 1; i <= N; ++i) {
+        sum_reduction += i;
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Reduction Time with %d threads: %lf seconds\n", num_threads_reduction, parallel_time);
+    printf("Reduction Sum: %d\n", sum_reduction);
+
+    // Calculate Speedup and Efficiency
+    double speedup_reduction = serial_time / parallel_time;
+    double efficiency_reduction = speedup_reduction / num_threads_reduction;
+    printf("Speedup - Reduction: %lf\n", speedup_reduction);
+    printf("Efficiency - Reduction: %lf\n\n", efficiency_reduction);
+
+    // d. Master
+    int num_threads_master;
+    #pragma omp parallel
+    {
+        #pragma omp master
+        {
+            num_threads_master = omp_get_num_threads();
+        }
+    }
+    start_time = omp_get_wtime();
+    #pragma omp parallel
+    {
+        #pragma omp master
+        {
+            for (int i = 1; i <= N; ++i) {
+                sum_master += i;
+            }
+        }
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Master Time with %d threads: %lf seconds\n", num_threads_master, parallel_time);
+    printf("Master Sum: %d\n", sum_master);
+
+    // Calculate Speedup and Efficiency
+    double speedup_master = serial_time / parallel_time;
+    double efficiency_master = speedup_master / num_threads_master;
+    printf("Speedup - Master: %lf\n", speedup_master);
+    printf("Efficiency - Master: %lf\n\n", efficiency_master);
+
+    // e. Locks
+    int num_threads_locks;
     omp_lock_t lock;
     omp_init_lock(&lock);
-    omp_set_lock(&lock);
-    sum += 1; 
-    omp_unset_lock(&lock);
+    #pragma omp parallel
+    {
+        #pragma omp single
+        num_threads_locks = omp_get_num_threads();
+    }
+    start_time = omp_get_wtime();
+    #pragma omp parallel for
+    for (int i = 1; i <= N; ++i) {
+        omp_set_lock(&lock);
+        sum_locks += i;
+        omp_unset_lock(&lock);
+    }
+    end_time = omp_get_wtime();
+    parallel_time = end_time - start_time;
+    printf("Locks Time with %d threads: %lf seconds\n", num_threads_locks, parallel_time);
+    printf("Locks Sum: %d\n", sum_locks);
+
+    // Calculate Speedup and Efficiency
+    double speedup_locks = serial_time / parallel_time;
+    double efficiency_locks = speedup_locks / num_threads_locks;
+    printf("Speedup - Locks: %lf\n", speedup_locks);
+    printf("Efficiency - Locks: %lf\n\n", efficiency_locks);
+
     omp_destroy_lock(&lock);
-    printf("After lock: %d\n", sum);
-  }
-
-  printf("Final Sum = %d\n", sum);
-
-  return 0;
+    return 0;
 }
+
 ```
 ### Output
 ```plaintext
-After critical: 1
-After atomic: 2
-After critical: 3
-After atomic: 74
-After critical: 75
-After atomic: 195
-After critical: 196
-After atomic: 365
-After critical: 366
-After atomic: 550
-After critical: 551
-After atomic: 771
-After critical: 772
-After atomic: 1028
-After critical: 1029
-After atomic: 1321
-After critical: 1322
-After atomic: 1650
-After critical: 1651
-After atomic: 2051
-After critical: 2052
-After atomic: 2416
-After critical: 2417
-After atomic: 2889
-After critical: 2890
-After atomic: 3398
-After critical: 3399
-After atomic: 3421
-After critical: 3422
-After atomic: 3858
-After critical: 3859
-After atomic: 4403
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After reduction: 4982
-After master: 4995
-After reduction: 4982
-After reduction: 4982
-After lock: 4983
-After lock: 4984
-After lock: 4985
-After lock: 4986
-After lock: 4987
-After lock: 4988
-After lock: 4989
-After lock: 4990
-After lock: 4991
-After lock: 4992
-After lock: 4993
-After lock: 4994
-After reduction: 4982
-After lock: 4996
-After lock: 4997
-After lock: 4998
-After lock: 4999
-Final Sum = 4999
+
 ```
 ### Explanation
 #### OpenMP Synchronization Constructs Example
@@ -342,89 +398,114 @@ This code illustrates how OpenMP synchronization constructs can be employed to m
 #include <stdlib.h>
 #include <omp.h>
 
-void odd_even_sort(int *a, int n) {
-    int phase, i, temp;
+void oddEvenSort(int arr[], int n) {
+    int sorted = 0;
+    while (!sorted) {
+        sorted = 1;
 
-    for (phase = 0; phase < n; ++phase) {
-        if (phase % 2 == 0) {
-            // Even phase
-            #pragma omp parallel for private(i, temp) shared(a)
-            for (i = 1; i < n - 1; i += 2) {
-                if (a[i] > a[i + 1]) {
-                    temp = a[i];
-                    a[i] = a[i + 1];
-                    a[i + 1] = temp;
-                }
-            }
-        } else {
-            // Odd phase
-            #pragma omp parallel for private(i, temp) shared(a)
-            for (i = 0; i < n - 1; i += 2) {
-                if (a[i] > a[i + 1]) {
-                    temp = a[i];
-                    a[i] = a[i + 1];
-                    a[i + 1] = temp;
-                }
+        // Odd phase
+        #pragma omp parallel for shared(arr, n, sorted)
+        for (int i = 1; i < n - 1; i += 2) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                sorted = 0;
             }
         }
+
+        // Even phase
+        #pragma omp parallel for shared(arr, n, sorted)
+        for (int i = 0; i < n - 1; i += 2) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                sorted = 0;
+            }
+        }
+
+        #pragma omp barrier // Synchronize before checking the sorted flag
     }
 }
 
 int main() {
-    int n, i;
-    double start_time, end_time;
+    const int maxN = 100000;
+    int inputSizes[] = {100, 500, 1000, 50000, 100000};
+    
+    for (int k = 0; k < sizeof(inputSizes) / sizeof(inputSizes[0]); ++k) {
+        int n = inputSizes[k];
+        int arr[maxN];
 
-    // Vary the input size
-    printf("Enter the size of the array: ");
-    scanf("%d", &n);
+        // Initialize the array with random values
+        for (int i = 0; i < n; ++i) {
+            arr[i] = rand() % 1000; // Random values between 0 and 999
+        }
 
-    int *arr = (int *)malloc(n * sizeof(int));
+        double s_start_time, s_end_time, p_start_time, p_end_time;
 
-    // Initialize the array with random values
-    for (i = 0; i < n; ++i) {
-        arr[i] = rand() % 100;  // Random values between 0 and 99
+        // Sequential Odd-Even Transposition Sort
+        int seqArr[maxN];
+        for (int i = 0; i < n; ++i) {
+            seqArr[i] = arr[i];
+        }
+        omp_set_num_threads(1); // Set the number of threads for the sequential version
+        s_start_time = omp_get_wtime();
+        oddEvenSort(seqArr, n);
+        s_end_time = omp_get_wtime();
+        printf("Sequential time for N = %d: %lf seconds\n", n, s_end_time - s_start_time);
+
+        // Parallel Odd-Even Transposition Sort
+        for (int i = 0; i < n; ++i) {
+            arr[i] = rand() % 1000; // Re-initialize the array for the parallel version
+        }
+        omp_set_num_threads(8); // Set the number of threads for the parallel version
+        p_start_time = omp_get_wtime();
+        oddEvenSort(arr, n);
+        p_end_time = omp_get_wtime();
+        printf("Parallel time for N = %d: %lf seconds\n", n, p_end_time - p_start_time);
+
+        // Verify if the array is sorted
+        for (int i = 0; i < n - 1; ++i) {
+            if (arr[i] > arr[i + 1]) {
+                printf("Error: The array is not sorted.\n");
+                break;
+            }
+        }
+
+        // Calculate speedup and efficiency
+        double sequential_time = s_end_time - s_start_time;
+        double parallel_time = p_end_time - p_start_time;
+
+        double speedup = sequential_time / parallel_time;
+        double efficiency = speedup / omp_get_max_threads();
+
+        printf("Speedup for N = %d: %lf\n", n, speedup);
+        printf("Efficiency for N = %d: %lf\n", n, efficiency);
+
+        printf("-------------------------------------------\n");
     }
-
-    // Display the unsorted array
-    printf("Unsorted array:\n");
-    for (i = 0; i < n; ++i) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    // Measure time before sorting
-    start_time = omp_get_wtime();
-
-    // Sort the array using Odd-Even Transposition Sort
-    odd_even_sort(arr, n);
-
-    // Measure time after sorting
-    end_time = omp_get_wtime();
-
-    // Display the sorted array
-    printf("\nSorted array:\n");
-    for (i = 0; i < n; ++i) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    // Display the time taken for sorting
-    printf("Time taken: %f seconds\n", end_time - start_time);
-
-    free(arr);
 
     return 0;
 }
+
 ```
 ### Output
 ```plaintext
-Enter the size of the array: 15
-Unsorted array:
-41 67 34 0 69 24 78 58 62 64 5 45 81 27 61
-
-Sorted array:
-0 5 24 27 34 41 45 58 61 62 64 67 69 78 81
-Time taken: 0.015000 seconds
+Sequential time for N = 100: 0.000000 seconds
+Parallel time for N = 100: 0.000000 seconds
+Speedup for N = 100: -1.#IND00
+Efficiency for N = 100: -1.#IND00
+-------------------------------------------
+Sequential time for N = 500: 0.000000 seconds
+Parallel time for N = 500: 0.032000 seconds
+Speedup for N = 500: 0.000000
+Efficiency for N = 500: 0.000000
+-------------------------------------------
+Sequential time for N = 1000: 0.000000 seconds
+Parallel time for N = 1000: 0.063000 seconds
+Speedup for N = 1000: 0.000000
+Efficiency for N = 1000: 0.000000
 ```
 ### Explanation
 ## Odd-Even Transposition Sort using OpenMP
@@ -472,63 +553,100 @@ This code provides a practical example of parallelizing a sorting algorithm usin
 #include <stdio.h>
 #include <omp.h>
 
-#define N 1000000000
+#define N 100000000
 
 int main() {
-    long long sum = 0;
+    int sum = 0;
     int i;
 
-    // Static Scheduling
+    // Sequential summation for comparison
+    double s_start_time_seq = omp_get_wtime();
+    for (i = 1; i <= N; ++i) {
+        sum += i;
+    }
+    double s_end_time_seq = omp_get_wtime();
+    double seq_time = s_end_time_seq - s_start_time_seq;
+    printf("Sequential Sum: %d\n", sum);
+    printf("Sequential Time: %lf seconds\n", seq_time);
+    printf("******************************************\n");
+
+    // Reset sum for parallel summation
+    sum = 0;
+
+    // Parallel summation with different scheduling strategies
+
+    // Static scheduling
     double start_time_static = omp_get_wtime();
     #pragma omp parallel for reduction(+:sum) schedule(static)
     for (i = 1; i <= N; ++i) {
         sum += i;
     }
     double end_time_static = omp_get_wtime();
+    printf("Sum using Static Scheduling: %d\n", sum);
+    printf("Static Scheduling Time: %lf seconds\n", end_time_static - start_time_static);
+    double speedup_static = seq_time / (end_time_static - start_time_static);
+    double efficiency_static = speedup_static / omp_get_max_threads();
+    printf("Speedup (Static): %lf\n", speedup_static);
+    printf("Efficiency (Static): %lf\n", efficiency_static);
+    printf("******************************************\n");
 
-    printf("Sum using Static Scheduling: %lld\n", sum);
-    printf("Time taken with Static Scheduling: %f seconds\n", end_time_static - start_time_static);
-
+    // Reset sum for other strategies
     sum = 0;
 
-    // Dynamic Scheduling
+    // Dynamic scheduling
     double start_time_dynamic = omp_get_wtime();
     #pragma omp parallel for reduction(+:sum) schedule(dynamic)
     for (i = 1; i <= N; ++i) {
         sum += i;
     }
     double end_time_dynamic = omp_get_wtime();
+    printf("Sum using Dynamic Scheduling: %d\n", sum);
+    printf("Dynamic Scheduling Time: %lf seconds\n", end_time_dynamic - start_time_dynamic);
+    double speedup_dynamic = seq_time / (end_time_dynamic - start_time_dynamic);
+    double efficiency_dynamic = speedup_dynamic / omp_get_max_threads();
+    printf("Speedup (Dynamic): %lf\n", speedup_dynamic);
+    printf("Efficiency (Dynamic): %lf\n", efficiency_dynamic);
+    printf("******************************************\n");
 
-    printf("\nSum using Dynamic Scheduling: %lld\n", sum);
-    printf("Time taken with Dynamic Scheduling: %f seconds\n", end_time_dynamic - start_time_dynamic);
-
+    // Reset sum for other strategies
     sum = 0;
 
-    // Guided Scheduling
+    // Guided scheduling
     double start_time_guided = omp_get_wtime();
     #pragma omp parallel for reduction(+:sum) schedule(guided)
     for (i = 1; i <= N; ++i) {
         sum += i;
     }
     double end_time_guided = omp_get_wtime();
-
-    printf("\nSum using Guided Scheduling: %lld\n", sum);
-    printf("Time taken with Guided Scheduling: %f seconds\n", end_time_guided - start_time_guided);
+    printf("Sum using Guided Scheduling: %d\n", sum);
+    printf("Guided Scheduling Time: %lf seconds\n", end_time_guided - start_time_guided);
+    double speedup_guided = seq_time / (end_time_guided - start_time_guided);
+    double efficiency_guided = speedup_guided / omp_get_max_threads();
+    printf("Speedup (Guided): %lf\n", speedup_guided);
+    printf("Efficiency (Guided): %lf\n", efficiency_guided);
 
     return 0;
 }
-
 ```
 ### Output
 ```plaintext
-Sum using Static Scheduling: 500000000500000000
-Time taken with Static Scheduling: 0.093000 seconds
-
-Sum using Dynamic Scheduling: 500000000500000000
-Time taken with Dynamic Scheduling: 21.003000 seconds
-
-Sum using Guided Scheduling: 500000000500000000
-Time taken with Guided Scheduling: 0.084000 seconds
+Sequential Sum: 987459712
+Sequential Time: 0.161000 seconds
+******************************************
+Sum using Static Scheduling: 987459712
+Static Scheduling Time: 0.015000 seconds
+Speedup (Static): 10.733430
+Efficiency (Static): 0.536671
+******************************************
+Sum using Dynamic Scheduling: 987459712
+Dynamic Scheduling Time: 2.045000 seconds
+Speedup (Dynamic): 0.078729
+Efficiency (Dynamic): 0.003936
+******************************************
+Sum using Guided Scheduling: 987459712
+Guided Scheduling Time: 0.006000 seconds
+Speedup (Guided): 26.833148
+Efficiency (Guided): 1.341657
 ```
 ### Explanation
 
@@ -558,62 +676,114 @@ bin.`
 #### Example: 
 `1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3, 4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9`
 ```c
-#include <stdio.h>
-#include <omp.h>
+#define ARRAY_SIZE 100
+#define NUM_BINS 5
 
-#define NUM_BINS 10 
+void print_histogram(int histogram[], int num_bins) {
+    printf("Histogram:\n");
+    for (int i = 0; i < num_bins; ++i) {
+        printf("%d |", i + 1);
+        for (int j = 0; j < histogram[i]; ++j) {
+            printf("*");
+        }
+        printf(" (%d)\n", histogram[i]);
+    }
+}
 
 int main() {
+    // Generate an array of 100 random fractional numbers between 1 to 20
+    double A[ARRAY_SIZE];
+    srand(omp_get_wtime()); // Seed for random number generation
 
-  float data[20] = {1.3, 2.9, 0.4, 0.3, 1.3, 4.4, 1.7, 0.4, 3.2, 0.3,  
-                   4.9, 2.4, 3.1, 4.4, 3.9, 0.4, 4.2, 4.5, 4.9, 0.9};
-                   
-  int histogram[NUM_BINS] = {0};
-
-  // Find min and max values 
-  float min_val = data[0];
-  float max_val = data[0];
-
-  for (int i = 1; i < 20; i++) {
-    if (data[i] < min_val) min_val = data[i];
-    if (data[i] > max_val) max_val = data[i];
-  }
-
-  // Calculate bin size
-  float bin_size = (max_val - min_val) / NUM_BINS;
-
-  #pragma omp parallel for
-  for (int i = 0; i < 20; i++) {
-    int bin = (int)((data[i] - min_val) / bin_size);
-    
-    #pragma omp critical
-    {
-      histogram[bin]++;
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        A[i] = (rand() % 1901 + 100) / 100.0; // Random numbers between 1 and 20 with two decimal places
     }
-  }
 
-  // Print histogram
-  for (int i = 0; i < NUM_BINS; i++) {
-    float bin_start = min_val + i*bin_size;
-    float bin_end = bin_start + bin_size;
-    printf("[%0.1f, %0.1f): %d\n", bin_start, bin_end, histogram[i]);
-  }
+    int histogram[NUM_BINS] = {0};
 
-  return 0;
+    double min_val = A[0];
+    double max_val = A[0];
+
+    // Find the minimum and maximum values in the array
+    for (int i = 1; i < ARRAY_SIZE; ++i) {
+        if (A[i] < min_val) {
+            min_val = A[i];
+        }
+        if (A[i] > max_val) {
+            max_val = A[i];
+        }
+    }
+
+    // Calculate the range of data and width of each bin
+    double range = max_val - min_val;
+    double bin_width = range / NUM_BINS;
+
+    // Sequential execution
+    double start_time_seq = omp_get_wtime();
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        // Determine the bin index for each data point
+        int bin_index = (int)((A[i] - min_val) / bin_width);
+
+        // Ensure the bin index is within the valid range
+        if (bin_index < 0) {
+            bin_index = 0;
+        } else if (bin_index >= NUM_BINS) {
+            bin_index = NUM_BINS - 1;
+        }
+
+        // Increment the corresponding bin
+        histogram[bin_index]++;
+    }
+    double end_time_seq = omp_get_wtime();
+
+    // Print the histogram in a graphical form
+    print_histogram(histogram, NUM_BINS);
+
+    // Reset histogram for parallel execution
+    for (int i = 0; i < NUM_BINS; ++i) {
+        histogram[i] = 0;
+    }
+
+    // Parallel execution
+    double start_time_parallel = omp_get_wtime();
+    #pragma omp parallel for shared(A, histogram, min_val, bin_width)
+    for (int i = 0; i < ARRAY_SIZE; ++i) {
+        // Determine the bin index for each data point
+        int bin_index = (int)((A[i] - min_val) / bin_width);
+
+        // Ensure the bin index is within the valid range
+        if (bin_index < 0) {
+            bin_index = 0;
+        } else if (bin_index >= NUM_BINS) {
+            bin_index = NUM_BINS - 1;
+        }
+
+        // Increment the corresponding bin in a thread-safe manner
+        #pragma omp atomic
+        histogram[bin_index]++;
+    }
+    double end_time_parallel = omp_get_wtime();
+
+    // Calculate and print execution times
+    double time_seq = end_time_seq - start_time_seq;
+    double time_parallel = end_time_parallel - start_time_parallel;
+
+    printf("Sequential Time: %lf seconds\n", time_seq);
+    printf("Parallel Time: %lf seconds\n", time_parallel);
+
+    // Calculate speedup and efficiency
+    double speedup = time_seq / time_parallel;
+    double efficiency = speedup / omp_get_max_threads();
+
+    printf("Speedup: %lf\n", speedup);
+    printf("Efficiency: %lf\n", efficiency);
+
+    return 0;
 }
 ```
 ### Output
 ```plaintext
-[0.3, 0.8): 5
-[0.8, 1.2): 1
-[1.2, 1.7): 2
-[1.7, 2.1): 1
-[2.1, 2.6): 1
-[2.6, 3.1): 1
-[3.1, 3.5): 2
-[3.5, 4.0): 1
-[4.0, 4.4): 3
-[4.4, 4.9): 1
+...
 ```
 ### Explanation
 
