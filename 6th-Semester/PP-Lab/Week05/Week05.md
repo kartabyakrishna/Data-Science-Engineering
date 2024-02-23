@@ -117,10 +117,18 @@ int main() {
 ```
 ### Output
 ```plaintext
-Serial Time: 0.000000 seconds
-Parallel Time: 0.000000 seconds
-Speedup: -1.#IND00
-Efficiency: -1.#IND00
+Serial Vector Addition Time: 0.000000 seconds
+Parallel Vector Addition Time: 0.000000 seconds
+Speedup - Addition: -1.#IND00
+Efficiency - Addition: -1.#IND00
+Serial Vector Subtraction Time: 0.000000 seconds
+Parallel Vector Subtraction Time: 0.000000 seconds
+Speedup - Subtraction: -1.#IND00
+Efficiency - Subtraction: -1.#IND00
+Serial Vector Multiplication Time: 0.000000 seconds
+Parallel Vector Multiplication Time: 0.000000 seconds
+Speedup - Multiplication: -1.#IND00
+Efficiency - Multiplication: -1.#IND00
 ```
 ### Explanation
 #### OpenMP Vector Operations Example
