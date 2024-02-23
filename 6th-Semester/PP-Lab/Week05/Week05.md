@@ -1,95 +1,118 @@
 # Q1) Write a parallel program using OpenMP to perform vector addition, subtraction, multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the parallelized code. 
 
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <omp.h>
-
-#define SIZE 1000000
-
-void vector_addition(int *a, int *b, int *result, int size) {
-    #pragma omp parallel for
-    for (int i = 0; i < size; ++i) {
-        result[i] = a[i] + b[i];
-    }
-}
-
-void vector_subtraction(int *a, int *b, int *result, int size) {
-    #pragma omp parallel for
-    for (int i = 0; i < size; ++i) {
-        result[i] = a[i] - b[i];
-    }
-}
-
-void vector_multiplication(int *a, int *b, int *result, int size) {
-    #pragma omp parallel for
-    for (int i = 0; i < size; ++i) {
-        result[i] = a[i] * b[i];
-    }
-}
-
-int main() {
-    int *a, *b, *result_serial, *result_parallel;
-    int i;
-
-    // Allocate memory for vectors
-    a = (int *)malloc(SIZE * sizeof(int));
-    b = (int *)malloc(SIZE * sizeof(int));
-    result_serial = (int *)malloc(SIZE * sizeof(int));
-    result_parallel = (int *)malloc(SIZE * sizeof(int));
-
-    // Initialize vectors
-    for (i = 0; i < SIZE; ++i) {
-        a[i] = i;
-        b[i] = SIZE - i;
-    }
-
-    // Serial vector operations
-    double start_time_serial = omp_get_wtime();
-    vector_addition(a, b, result_serial, SIZE);
-    vector_subtraction(a, b, result_serial, SIZE);
-    vector_multiplication(a, b, result_serial, SIZE);
-    double end_time_serial = omp_get_wtime();
-
-    // Parallel vector operations
-    double start_time_parallel = omp_get_wtime();
-    #pragma omp parallel
-    {
-        #pragma omp single
-        {
-            #pragma omp task
-            vector_addition(a, b, result_parallel, SIZE);
-
-            #pragma omp task
-            vector_subtraction(a, b, result_parallel, SIZE);
-
-            #pragma omp task
-            vector_multiplication(a, b, result_parallel, SIZE);
-        }
-    }
-    double end_time_parallel = omp_get_wtime();
-
-    // Calculate speedup and efficiency
-    double serial_time = end_time_serial - start_time_serial;
-    double parallel_time = end_time_parallel - start_time_parallel;
-    double speedup = serial_time / parallel_time;
-    double efficiency = speedup / omp_get_max_threads();
-
-    // Print the results
-    printf("Serial Time: %f seconds\n", serial_time);
-    printf("Parallel Time: %f seconds\n", parallel_time);
-    printf("Speedup: %f\n", speedup);
-    printf("Efficiency: %f\n", efficiency);
-
-    // Free allocated memory
-    free(a);
-    free(b);
-    free(result_serial);
-    free(result_parallel);
-
-    return 0;
-}
-
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <omp.h> 
+ 
+void generate_random_vector(int *vec, int size) { 
+    for (int i = 0; i < size; ++i) { 
+        vec[i] = rand() % 100;  // Random values between 0 and 99 
+    } 
+} 
+ 
+void vector_addition(int *a, int *b, int *result, int size, int nth) { 
+    #pragma omp parallel for num_threads(nth) 
+    for (int i = 0; i < size; ++i) { 
+        result[i] = a[i] + b[i]; 
+    } 
+} 
+ 
+void vector_subtraction(int *a, int *b, int *result, int size, int nth) { 
+    #pragma omp parallel for num_threads(nth) 
+    for (int i = 0; i < size; ++i) { 
+        result[i] = a[i] - b[i]; 
+    } 
+} 
+ 
+void vector_multiplication(int *a, int *b, int *result, int size, int nth) { 
+    #pragma omp parallel for num_threads(nth) 
+    for (int i = 0; i < size; ++i) { 
+        result[i] = a[i] * b[i]; 
+    } 
+} 
+ 
+double calculate_speedup(double serial_time, double parallel_time) { 
+    return serial_time / parallel_time; 
+} 
+ 
+double calculate_efficiency(double speedup, int num_threads) { 
+    return speedup / num_threads; 
+} 
+ 
+int main() { 
+    const int size = 100000; 
+    int a[size], b[size], result_add[size], result_sub[size], result_mul[size]; 
+ 
+    // Generate random vectors a and b 
+    generate_random_vector(a, size); 
+    generate_random_vector(b, size); 
+ 
+    double serial_start_time, serial_end_time; 
+    double parallel_start_time, parallel_end_time; 
+ 
+    // Serial vector addition 
+    omp_set_num_threads(1); // Set the number of threads for serial execution 
+    serial_start_time = omp_get_wtime(); 
+    vector_addition(a, b, result_add, size, 1); 
+    serial_end_time = omp_get_wtime(); 
+    printf("Serial Vector Addition Time: %lf seconds\n", serial_end_time - serial_start_time); 
+ 
+    // Parallel vector addition 
+    omp_set_num_threads(4); // Set the number of threads for parallel execution 
+    parallel_start_time = omp_get_wtime(); 
+    vector_addition(a, b, result_add, size, 4); 
+    parallel_end_time = omp_get_wtime(); 
+    printf("Parallel Vector Addition Time: %lf seconds\n", parallel_end_time - parallel_start_time); 
+ 
+    // Calculate speedup and efficiency for vector addition 
+    double speedup_add = calculate_speedup(serial_end_time - serial_start_time, parallel_end_time - parallel_start_time); 
+    double efficiency_add = calculate_efficiency(speedup_add, 4); 
+    printf("Speedup - Addition: %lf\n", speedup_add); 
+    printf("Efficiency - Addition: %lf\n", efficiency_add); 
+ 
+    // Serial vector subtraction 
+    omp_set_num_threads(1); // Set the number of threads for serial execution 
+    serial_start_time = omp_get_wtime(); 
+    vector_subtraction(a, b, result_sub, size, 1); 
+    serial_end_time = omp_get_wtime(); 
+    printf("Serial Vector Subtraction Time: %lf seconds\n", serial_end_time - serial_start_time); 
+ 
+    // Parallel vector subtraction 
+    omp_set_num_threads(4); // Set the number of threads for parallel execution 
+    parallel_start_time = omp_get_wtime(); 
+    vector_subtraction(a, b, result_sub, size, 4); 
+    parallel_end_time = omp_get_wtime(); 
+    printf("Parallel Vector Subtraction Time: %lf seconds\n", parallel_end_time - parallel_start_time); 
+ 
+    // Calculate speedup and efficiency for vector subtraction 
+    double speedup_sub = calculate_speedup(serial_end_time - serial_start_time, parallel_end_time - parallel_start_time); 
+    double efficiency_sub = calculate_efficiency(speedup_sub, 4); 
+    printf("Speedup - Subtraction: %lf\n", speedup_sub); 
+    printf("Efficiency - Subtraction: %lf\n", efficiency_sub); 
+ 
+    // Serial vector multiplication 
+    omp_set_num_threads(1); // Set the number of threads for serial execution 
+    serial_start_time = omp_get_wtime(); 
+    vector_multiplication(a, b, result_mul, size, 1); 
+    serial_end_time = omp_get_wtime(); 
+    printf("Serial Vector Multiplication Time: %lf seconds\n", serial_end_time - serial_start_time); 
+ 
+    // Parallel vector multiplication 
+    omp_set_num_threads(4); // Set the number of threads for parallel execution 
+    parallel_start_time = omp_get_wtime(); 
+    vector_multiplication(a, b, result_mul, size, 4); 
+    parallel_end_time = omp_get_wtime(); 
+    printf("Parallel Vector Multiplication Time: %lf seconds\n", parallel_end_time - parallel_start_time); 
+ 
+    // Calculate speedup and efficiency for vector multiplication 
+    double speedup_mul = calculate_speedup(serial_end_time - serial_start_time, parallel_end_time - parallel_start_time); 
+    double efficiency_mul = calculate_efficiency(speedup_mul, 4); 
+    printf("Speedup - Multiplication: %lf\n", speedup_mul); 
+    printf("Efficiency - Multiplication: %lf\n", efficiency_mul); 
+ 
+    return 0; 
+} 
 ```
 ### Output
 ```plaintext
