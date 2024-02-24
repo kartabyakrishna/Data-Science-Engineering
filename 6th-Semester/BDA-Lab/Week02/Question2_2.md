@@ -136,7 +136,7 @@ Transpose of the product matrix :
 Create a file named `mapper2_2.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -154,7 +154,7 @@ The Mapper reads input lines, extracts matrix elements along with their position
 Create a file named `reducer2_2.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -202,7 +202,7 @@ This should output the result of matrix operations using MapReduce.
 ## Mapper
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -214,7 +214,7 @@ for line in sys.stdin:
 ## Reducer
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -266,7 +266,7 @@ This should output the result of matrix operations using MapReduce.
 # Transpose
 ## Mapper
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 import sys
 
 # Mapper function for matrix transpose
@@ -287,7 +287,7 @@ for line in sys.stdin:
 ```
 ## Reducer
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 import sys
 
 # Reducer function for matrix transpose

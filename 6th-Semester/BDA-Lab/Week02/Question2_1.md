@@ -29,7 +29,7 @@ This guide will walk you through setting up a simple Hadoop MapReduce job using 
 
 4. Create a Mapper script (`mapper.py`):
    ```python
-   #!/usr/bin/env python
+   #!/usr/bin/python3
 
    import sys
 
@@ -46,7 +46,7 @@ This guide will walk you through setting up a simple Hadoop MapReduce job using 
 
 5. Create a Reducer script (`reducer.py`):
    ```python
-   #!/usr/bin/env python
+   #!/usr/bin/python3
 
    from operator import itemgetter
    import sys

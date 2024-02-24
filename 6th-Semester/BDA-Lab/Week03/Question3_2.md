@@ -30,7 +30,7 @@ Paste the above content into the text editor and save the file.
 Create a file named `mapper3_2.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -48,7 +48,7 @@ The Mapper reads input lines, extracts year and temperature information, and out
 Create a file named `reducer3_2.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 

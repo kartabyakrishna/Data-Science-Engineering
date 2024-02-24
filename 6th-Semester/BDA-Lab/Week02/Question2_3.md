@@ -32,7 +32,7 @@ Create a file named `input3.txt` and paste the following content:
 Create a file named `mapper3.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -50,7 +50,7 @@ The Mapper reads input lines, extracts student details (registration, name, mark
 Create a file named `reducer3.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 

@@ -33,7 +33,7 @@ Paste the above content into the text editor and save the file.
 Create a file named `mapper3_1.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
@@ -64,7 +64,7 @@ The Mapper reads input lines, extracts unit and salary information, and outputs 
 Create a file named `reducer3_1.py` and paste the following Python code:
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 
