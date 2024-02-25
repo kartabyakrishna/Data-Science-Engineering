@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
 ## 7. Configure MPI for the project
 
 - Open the “Property Pages” (Project -> Properties).
-- Add the following in the Additional Include Directories area:
+- Add the following in the **C/C++ >> General >> Additional Include Directories** area:
   - For x64: `$(MSMPI_INC);$(MSMPI_INC)\x64`
   - For x86: `$(MSMPI_INC);$(MSMPI_INC)\x86`
 
@@ -60,17 +60,18 @@ Apply the changes.
 
 ## 8. Set up the linker library
 
-Add `msmpi.lib` to the Additional Dependencies. Remember to add a semicolon after `msmpi.lib`.
+Add `msmpi.lib` to the **Linker >> Input >> Additional Dependencies** . Remember to add a semicolon after `msmpi.lib`.
 
 ## 9. Additional Library Directories
 
-Add the following to the Additional Library Directories:
+Add the following to the **Linker >> General >> Additional Library Directories** :
 - For x64: `$(MSMPI_LIB64)`
 - For x86: `$(MSMPI_LIB32)`
 
 ## 10. Build the solution
 
 Build the solution (Build -> Build Solution).
+![Build Solution](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/verfyInstall.png)
 
 ## 11. Test the program
 
