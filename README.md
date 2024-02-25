@@ -1,6 +1,6 @@
 # BTech Data Science Complete Syllabus 📚
 
-Hello ! 👋
+Hello Everyone ! 👋
 
 This is a guide to the complete 4-year BTech Data Science syllabus and course structure for the 2021-2025 batch put together by your senior **Kartabya Krishna**. 
 
