@@ -9,15 +9,18 @@ Download the latest [Visual Studio 2022](https://visualstudio.microsoft.com/down
 
 During installation, choose the "Desktop development with C++" workload. This can be found in the installation options.
 
-![Desktop Development with C++](link_to_pic2)
+![Desktop Development with C++](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/Desktop%20Development.gif)
 
 ## 3. Download MS-MPI
 
 Download MS-MPI SDK and Redist installers (msmpisetup.exe and msmpisdk.msi) and install them.
 You can get them [here](https://www.microsoft.com/en-us/download/details.aspx?id=105289)
+
+![msmpi Download](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/msmpi%20Download.png)
+
 Verify the installation by running the command `set MSMPI` in the command prompt. The output should be as shown below:
 
-![Verify Installation](link_to_pic3)
+![Verify Installation](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/verfyInstall.png)
 
 ## 4. Create a new project
 
