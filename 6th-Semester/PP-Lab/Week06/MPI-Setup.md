@@ -71,7 +71,7 @@ Add the following to the **Linker >> General >> Additional Library Directories**
 ## 10. Build the solution
 
 Build the solution (Build -> Build Solution).
-![Build Solution](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/verfyInstall.png)
+![Build Solution](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/build%20Soln.png)
 
 ## 11. Test the program
 
