@@ -80,7 +80,7 @@ To test or execute the program, go to the Debug directory and execute the follow
 ```bash
 mpiexec –n <number_of_processing_elements> ./<executable_file>
 ```
-![Verify Installation](link_to_pic3)
+![Build Soln]([link_to_pic3](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/output%20using%20mpiexec.png))
 
 Replace `<number_of_processing_elements>` and `<executable_file>` accordingly.
 
