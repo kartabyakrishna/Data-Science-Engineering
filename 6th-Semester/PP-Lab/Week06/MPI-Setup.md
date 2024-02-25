@@ -1,6 +1,4 @@
-Certainly! I'll add a section for downloading MS-MPI. Please replace the `link_to_msmpi` placeholder with the actual link.
 
-```markdown
 # Setting up MPI with Visual Studio 2022
 
 ## 1. Download and Install Visual Studio 2022
@@ -83,4 +81,3 @@ mpiexec –n <number_of_processing_elements> ./<executable_file>
 Replace `<number_of_processing_elements>` and `<executable_file>` accordingly.
 
 Congratulations! The setup is complete. You can further analyze the code in another article.
-```
