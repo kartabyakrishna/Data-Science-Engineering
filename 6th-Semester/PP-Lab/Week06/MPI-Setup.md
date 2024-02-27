@@ -29,9 +29,8 @@ Open Visual Studio 2022 and create a new Empty Project (Console App). Name it as
 ## 5. Add a C++ Source File
 
 Click on the project name in the solution explorer and add a new C++ Source File (Project -> Add New Item -> C++ File).
-
+`Note :  Not Needed if you chose console app, you can start editing the <projectName.cpp> file.` 
 ## 6. Use the following MPI code
-
 ```cpp
 #include <mpi.h>
 #include <stdio.h>
@@ -57,17 +56,19 @@ int main(int argc, char** argv) {
   - For x86: `$(MSMPI_INC);$(MSMPI_INC)\x86`
 
 Apply the changes.
+![Step1](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/step1.gif)
 
 ## 8. Set up the linker library
 
 Add `msmpi.lib` to the **Linker >> Input >> Additional Dependencies** . Remember to add a semicolon after `msmpi.lib`.
+![Step2](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/step2.gif)
 
 ## 9. Additional Library Directories
 
 Add the following to the **Linker >> General >> Additional Library Directories** :
 - For x64: `$(MSMPI_LIB64)`
 - For x86: `$(MSMPI_LIB32)`
-
+![Step3](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/mpi-setup/step3.gif)
 ## 10. Build the solution
 
 Build the solution (Build -> Build Solution).
