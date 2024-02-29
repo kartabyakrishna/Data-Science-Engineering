@@ -1,6 +1,5 @@
 # Not Final
-# Q1 . Write a simple MPI program to find out pow (x, rank) for all the processes where 'x' is the
-integer constant and 'rank' is the rank of the process.
+# Q1 . Write a simple MPI program to find out pow (x, rank) for all the processes where 'x' is the integer constant and 'rank' is the rank of the process.
 ```c
 #include <stdio.h>
 #include <math.h>
@@ -34,8 +33,7 @@ Process 4: pow(40, 4) = 2560000.000000
 Process 3: pow(40, 3) = 64000.000000
 ```
 
-# Q2. Write a program in MPI where even ranked process prints "Hello" and odd ranked process
-prints "World".
+# Q2. Write a program in MPI where even ranked process prints "Hello" and odd ranked process prints "World".
 ```c
 #include <stdio.h>
 #include <mpi.h>
@@ -78,8 +76,7 @@ EVEN Hello from process 10
 ```
 
 
-# Q3. Write a program in MPI to simulate simple calculator. Perform each operation using
-different process in parallel.
+# Q3. Write a program in MPI to simulate simple calculator. Perform each operation using different process in parallel.
 ```c
 #include <stdio.h>
 #include <stdlib.h>
