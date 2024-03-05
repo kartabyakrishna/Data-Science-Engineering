@@ -1,3 +1,20 @@
+# Setting up Hadoop on Windows with WSL and Docker
+
+## Index
+- [Setting up prerequisites - WSL & Docker](#setting-up-prerequisites---wsl--docker)
+  - [Step 1: Install Windows Subsystem for Linux (WSL)](#step-1-install-windows-subsystem-for-linux-wsl)
+  - [Step 2: Install Docker](#step-2-install-docker)
+  - [Step 3: Install Docker Packages](#step-3-install-docker-packages)
+  - [Step 4: Verify Docker Installation](#step-4-verify-docker-installation)
+
+- [Hadoop Installation](#hadoop-installation)
+  - [Step 1: Clone docker-hadoop repository](#step-1-clone-docker-hadoop-repository)
+  - [Step 2: Start necessary containers using docker-compose](#step-2-start-necessary-containers-using-docker-compose)
+  - [Step 3: Access the master node "namenode"](#step-3-access-the-master-node-namenode)
+  - [Step 4: Create folder structure to allocate input files](#step-4-create-folder-structure-to-allocate-input-files)
+
+---
+
 # Setting up prerequisites - wsl & Docker 
 
 ## Step 1: Install Windows Subsystem for Linux (WSL)
@@ -50,6 +67,8 @@ sudo docker run hello-world
 ```
 
 This command downloads a test image and runs it in a container. When the container runs, it prints a confirmation message and exits.
+
+---
 
 # Hadoop Installation
 
