@@ -1,6 +1,5 @@
 # Setting up Hadoop on Windows with WSL and Docker
 
-## Index
 - [Setting up prerequisites - WSL & Docker](#setting-up-prerequisites---wsl--docker)
   - [Step 1: Install Windows Subsystem for Linux (WSL)](#step-1-install-windows-subsystem-for-linux-wsl)
   - [Step 2: Install Docker](#step-2-install-docker)
@@ -91,8 +90,8 @@ sudo docker-compose up -d
 ![sudo docker-compose up -d](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/sudo%20docker-compose%20up%20-d.png)
 **...**
 ![creating nodes](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/Screenshot%202024-03-05%20211209.png)
-This code might not work if you don't have `docker-compose` not installed. So run the following command to install it.
-![docker compose not found](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/Screenshot%202024-03-05%20211209.png)
+This code might not work if you don't have `docker-compose` installed. So run the following command to install it.
+![docker compose not found](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/Screenshot%202024-03-05%20210907.png)
 ```bash
 sudo apt install docker-compose
 ```
