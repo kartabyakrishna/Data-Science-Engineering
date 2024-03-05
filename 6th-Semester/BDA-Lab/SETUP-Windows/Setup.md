@@ -67,16 +67,16 @@ After executing this command, you should have the following folder structure:
 
 ## Step 2: Start necessary containers using docker-compose
 
-Run the following command to start the necessary containers. This command will initiate the five required containers. If it's the first time, you may need to wait for the download to finish.
+Run the following command to start the necessary containers after moving into the docker-hadoop folder using **`cd docker-hadoop`**. This command will initiate the five required containers. If it's the first time, you may need to wait for the download to finish.
 
 ```bash
-docker-compose up -d
+sudo docker-compose up -d
 ```
 
 Docker Compose allows running multi-container Docker applications using a YAML file, executing all defined commands. Check if all five containers are running by typing:
 
 ```bash
-docker ps
+sudo docker ps
 ```
 
 Ensure that the containers are up and running.
@@ -88,7 +88,7 @@ Ensure that the containers are up and running.
 Get into the namenode container, which serves as the master node of the Hadoop cluster. It's a mini-linux environment that allows managing the HDFS file system.
 
 ```bash
-docker exec -it namenode bash
+sudo docker exec -it namenode bash
 ```
 
 ![Getting into the namenode container](link-to-image)
