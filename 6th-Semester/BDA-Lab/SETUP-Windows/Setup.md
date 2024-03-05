@@ -60,10 +60,7 @@ Clone the docker-hadoop repository from GitHub. If you're using the console, run
 ```bash
 git clone https://github.com/big-data-europe/docker-hadoop
 ```
-
-After executing this command, you should have the following folder structure:
-
-![Folder structure after cloning the GitHub repository](link-to-image)
+![git clone](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/gitclone.png)
 
 ## Step 2: Start necessary containers using docker-compose
 
@@ -72,16 +69,16 @@ Run the following command to start the necessary containers after moving into th
 ```bash
 sudo docker-compose up -d
 ```
-
-Docker Compose allows running multi-container Docker applications using a YAML file, executing all defined commands. Check if all five containers are running by typing:
-
+![sudo docker-compose up -d](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/sudo%20docker-compose%20up%20-d.png)
+**...**
+![creating nodes](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/Screenshot%202024-03-05%20211209.png)
+This code might not work if you don't have `docker-compose` not installed. So run the following command to install it.
+![docker compose not found](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/Screenshot%202024-03-05%20211209.png)
 ```bash
-sudo docker ps
+sudo apt install docker-compose
 ```
-
-Ensure that the containers are up and running.
-
-![Starting all the necessary containers](link-to-image)
+![sudo apt install docker-compose](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/sudo%20apt%20install%20docker-compose.png)
+Then you can execute the `sudo docker-compose up -d` normally.
 
 ## Step 3: Access the master node "namenode"
 
@@ -91,7 +88,7 @@ Get into the namenode container, which serves as the master node of the Hadoop c
 sudo docker exec -it namenode bash
 ```
 
-![Getting into the namenode container](link-to-image)
+![sudo docker exec -it namenode bash](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/setup-Windows/sudo%20docker%20exec%20-it%20namenode%20bash.png)
 
 ## Step 4: Create folder structure to allocate input files
 
@@ -112,7 +109,5 @@ Verify if the folder was created successfully:
 ```bash
 hdfs dfs -ls /user/
 ```
-
-![Creating our /user/root folder](link-to-image)
 
 Continue to the next step when you're ready.
