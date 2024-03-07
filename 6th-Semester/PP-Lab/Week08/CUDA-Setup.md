@@ -39,8 +39,8 @@ Before setting up CUDA on your system, make sure you have the following prerequi
 3. Choose **CUDA Runtime 12.3** by searching in the template search bar.
 4. Click **Next** >> Click **Create** .
 5. Run using **Step 4**.
-***Steps are shown below :***
-![Cuda_Configure](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/cuda-Install/cuda-ProjectSetup.mp4)
+#### ***Steps are shown below :***
+https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/cuda-Install/cuda-ProjectSetup.mp4
 ### Step 3: Sample CUDA Program
 
 ```cpp
