@@ -40,7 +40,8 @@ Before setting up CUDA on your system, make sure you have the following prerequi
 4. Click **Next** >> Click **Create** .
 5. Run using **Step 4**.
 #### ***Steps are shown below :***
-https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/cuda-Install/cuda-ProjectSetup.mp4
+![Cuda_ConfigureProject](https://github.com/kartabyakrishna/KartabyaKrishna/blob/main/Assets/cuda-Install/cuda%20-%20ProjectSetup.gif)
+
 ### Step 3: Sample CUDA Program
 
 ```cpp
