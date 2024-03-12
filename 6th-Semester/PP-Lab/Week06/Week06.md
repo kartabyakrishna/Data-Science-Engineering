@@ -1,4 +1,3 @@
-# Not Final
 # Q1 . Write a simple MPI program to find out pow (x, rank) for all the processes where 'x' is the integer constant and 'rank' is the rank of the process.
 ```c
 #include <stdio.h>
