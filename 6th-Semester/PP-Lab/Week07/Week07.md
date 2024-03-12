@@ -1,4 +1,4 @@
-# 1. Write a MPI program using synchronous send. The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
+## 1. Write a MPI program using synchronous send. The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
 
 ```cpp
 #include <stdio.h>
@@ -61,12 +61,53 @@ Process 0 sends word: Hello
 Process 0 received toggled word: hELLO
 ```
 ---
-# 2. Write a MPI program where the master process (process 0) sends a number to each of the slaves and the slave processes receive the number and prints it. Use standard send.
+## 2. Write a MPI program where the master process (process 0) sends a number to each of the slaves and the slave processes receive the number and prints it. Use standard send.
 
 ```cpp
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+    
+    int world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+    int world_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+    int number;
+    if (world_rank == 0) {
+        // Master process
+        // Choose a number to send to all slave processes
+        number = 777;  // You can change this number to any number you want to send
+
+        // Use MPI_Send to send it to all the other processes
+        for (int i = 1; i < world_size; i++) {
+            MPI_Send(&number, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+            printf("Master process sending number %d to process %d\n", number, i);
+        }
+    } else {
+        // Slave processes
+        MPI_Recv(&number, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("Slave process %d received number %d from master process\n", world_rank, number);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
 ```
 ## Output
 ```plaintext
+C:\Users\suzen\source\repos\week7\Q1\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q2\x64\Debug\
+
+C:\Users\suzen\source\repos\week7\Q2\x64\Debug>mpiexec -n 4 Q2.exe
+Slave process 3 received number 777 from master process
+Slave process 2 received number 777 from master process
+Slave process 1 received number 777 from master process
+Master process sending number 777 to process 1
+Master process sending number 777 to process 2
+Master process sending number 777 to process 3
 ```
 ---
 # 3. Write a MPI program to read N elements of the array in the root process (process 0) where N is equal to the total number of process. The root process sends one value to each of the slaves. Let even ranked process finds square of the received element and odd ranked process finds cube of received element. Use Buffered send.
