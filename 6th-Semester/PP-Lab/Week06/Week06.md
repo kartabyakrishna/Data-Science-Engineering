@@ -159,79 +159,16 @@ Process 13: 10.00 - 2.00 = 8.00
 ```
 
 # Q4. Write a program in MPI to toggle the character of a given string indexed by the rank of theprocess. 
-### Hint: Suppose the string is HeLLO and there are 5 processes, then process 0 toggle 'H' to 'h', process 1 toggle 'e' to 'E' and so on.
+### Hint: Suppose the string is HeLLO and there are 5 processes, then process 0 toggle 'H' to 'h', process 1 toggle 'e' to 'E' and so on. 
+
+## NOT FINAL
+
 ```c
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <mpi.h>
 
-int main(int argc, char* argv[]) {
-    MPI_Init(&argc, &argv);
-
-    int world_size, world_rank;
-    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-
-    char input_string[] = "HeLLO";
-
-    // Calculate the portion of the string for each process
-    int input_length = strlen(input_string);
-    int local_string_size = input_length / world_size;
-    char* local_string = (char*)malloc(local_string_size + 1);
-
-    // Check if the input string length is sufficient for the number of processes
-    if (input_length < world_size) {
-        fprintf(stderr, "Error: String length is less than the number of processes.\n");
-        MPI_Abort(MPI_COMM_WORLD, 1);
-    }
-
-    MPI_Scatter(input_string, local_string_size, MPI_CHAR, local_string, local_string_size, MPI_CHAR, 0, MPI_COMM_WORLD);
-    local_string[local_string_size] = '\0'; // Null-terminate the local string
-
-    // Toggle the character based on rank
-    if (world_rank % 2 == 0) {
-        for (size_t i = 0; i < strlen(local_string); ++i) {
-            if (local_string[i] >= 'a' && local_string[i] <= 'z') {
-                local_string[i] = local_string[i] - 'a' + 'A'; // Toggle lowercase to uppercase
-            }
-        }
-    }
-    else {
-        for (size_t i = 0; i < strlen(local_string); ++i) {
-            if (local_string[i] >= 'A' && local_string[i] <= 'Z') {
-                local_string[i] = local_string[i] - 'A' + 'a'; // Toggle uppercase to lowercase
-            }
-        }
-    }
-
-    // Gather the modified strings at process 0
-    char* gathered_string = NULL;
-    if (world_rank == 0) {
-        gathered_string = (char*)malloc(input_length + 1);
-    }
-
-    MPI_Gather(local_string, local_string_size, MPI_CHAR, gathered_string, local_string_size, MPI_CHAR, 0, MPI_COMM_WORLD);
-
-    // Null-terminate the gathered string
-    if (world_rank == 0) {
-        gathered_string[input_length] = '\0';
-        printf("Original String: %s\n", input_string);
-        printf("Modified String: %s\n", gathered_string);
-
-        free(gathered_string); // Don't forget to free the allocated memory
-    }
-
-    free(local_string); // Don't forget to free the allocated memory
-    MPI_Finalize();
-    return 0;
-}
 ```
 ## Output 
 ```plaintext
-PS C:\Users\mca\source\repos\210968244\x64\Debug> mpiexec -n 5 210968244.exe
-Original String: HeLLO
-Modified String: HeLlO
+
 ```
 # Additional Questions -- NOT FINAL 
 ### Q1.  1. Write a program in MPI to reverse the digits of the following integer array of size 9 with 9 processes. Initialize the 
