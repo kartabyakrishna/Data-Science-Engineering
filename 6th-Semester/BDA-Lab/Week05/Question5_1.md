@@ -1,4 +1,6 @@
 # 1. Create the dataset of your choice and perform word count program using spark tool.
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
+
 
 ## Step 1: Create the Text File
 **use the `nano` text editor to create a new file named `input.txt`:**
