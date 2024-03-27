@@ -1,8 +1,7 @@
-# Week 5
+# 1. Create the dataset of your choice and perform word count program using spark tool.**
 
-**Q1. Create the dataset of your choice and perform word count program using spark tool.**
-
-1. **Create an input.txt file:**
+## Step 1:
+ **Create an input.txt file:**
    ```plaintext
    hi how are you
    i am good
