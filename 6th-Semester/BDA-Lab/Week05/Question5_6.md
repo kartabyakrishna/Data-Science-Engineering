@@ -1,4 +1,5 @@
 # 6.From the employee dataset, collect the first 5 records as an array using the collect action. 
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
 
 ## Step 1: To write the Scala Code
 **use the `nano` text editor to create a new file named `Q6.scala`:**
