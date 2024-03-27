@@ -1,4 +1,6 @@
 # 7. Demonstrate the creation of RDD using Parallelized collection, existing RDD by finding the sum of all elements in an RDD1(which holds array elements). Also, create an RDD from external sources. 
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
+
 
 ## Step 1: To write the Scala Code
 **use the `nano` text editor to create a new file named `Q7.scala`:**
