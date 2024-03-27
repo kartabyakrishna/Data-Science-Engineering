@@ -1,4 +1,6 @@
 # 4. Create a text file that will have few sentences, use flatMap transformation to split each sentence into words. 
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
+
 
 ## Step 1: Create the Text File
 **use the `nano` text editor to create a new file named `input.txt`:**
