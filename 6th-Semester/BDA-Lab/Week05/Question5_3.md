@@ -1,4 +1,5 @@
 # 3.From the same employee dataset, filter out employees whose salary is greater than 50000 using the filter transformation. 
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
 
 ## Step 1: To write the Scala Code
 **use the `nano` text editor to create a new file named `Q3.scala`:**
