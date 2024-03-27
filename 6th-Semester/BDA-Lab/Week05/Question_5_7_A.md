@@ -1,4 +1,6 @@
+# NOT FINAL
 # 7_A. Consider the dataset given in Question B. Perform the following operations. sortByKey(),  groupByKey(), countBykey() 
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
 
 ## Step 1: To write the Scala Code
 **use the `nano` text editor to create a new file named `Q7_A.scala`:**
