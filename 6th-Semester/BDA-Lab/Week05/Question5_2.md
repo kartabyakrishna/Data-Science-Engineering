@@ -1,4 +1,5 @@
 # 2. Given a dataset of employee records containing (name, age, salary), use map transformation to transform each record into a tuple of (name, age * 2, salary)?
+## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
 
 ## Step 1: Create the Text File
 **use the `nano` text editor to create a new file named `employee_records.txt`:**
