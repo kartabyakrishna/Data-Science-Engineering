@@ -38,17 +38,28 @@ nano Q2.scala
 ## Step 5: Enter the Scala Code: 
 **Copy the Scala code into the editor. Below is the code snippet you will use:**
 ```
-// Load the text file containing employee records
-val lines = spark.read.textFile("employee_records.txt")
+import spark.implicits._
 
-// Split the lines into individual fields (name, age, salary)
-val records = lines.rdd.map(_.getString(0).split("\\s+"))
+// Load the dataset from a text file
+val employeeData = spark.read.textFile("employees.txt")
 
-// Transform each record into a tuple of (name, age * 2, salary)
-val transformedRecords = records.map(record => (record(0), record(1).toInt * 2, record(2).toInt))
+// Define a case class to represent the Employee
+case class Employee(regNo: Int, empName: String, age: Int, salary: Int)
 
-// Show the transformed records
-transformedRecords.toDF("Name", "Age", "Salary").show()
+// Convert each line into an Employee object
+val employees = employeeData.map { line =>
+ val parts = line.split("\\s+")
+ Employee(parts(0).toInt, parts(1), parts(2).toInt, parts(3).toInt)
+}
+
+// Transform each Employee into a tuple of (name, age * 2, salary)
+val result = employees.map(emp => (emp.empName, emp.age * 2, emp.salary))
+
+// Show the result
+result.show()
+
+// Optionally, save the result to a text file
+result.write.text("transformed_employees.txt")
 ```
 
 ## Step 6: Save and Exit
