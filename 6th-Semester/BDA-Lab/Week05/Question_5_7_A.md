@@ -1,4 +1,3 @@
-# NOT FINAL
 # 7_A. Consider the dataset given in Question B. Perform the following operations. sortByKey(),  groupByKey(), countBykey() 
 ## Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
 
