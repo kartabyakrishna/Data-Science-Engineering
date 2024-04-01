@@ -63,52 +63,56 @@ spark-shell
 ```
 scala> :load Q7_A.scala
 Loading Q7_A.scala...
-lines: org.apache.spark.sql.Dataset[String] = [value: string]
-records: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[1] at map at Q7_A.scala:5
-keyValuePairs: org.apache.spark.rdd.RDD[(String, String)] = MapPartitionsRDD[2] at map at Q7_A.scala:9
-sortedRecords: org.apache.spark.rdd.RDD[(String, String)] = ShuffledRDD[3] at sortByKey at Q7_A.scala:12
-groupedRecords: org.apache.spark.rdd.RDD[(String, Iterable[String])] = ShuffledRDD[4] at groupByKey at Q7_A.scala:15
-countsByKey: scala.collection.Map[String,Long] = Map(42 -> 1, 21 -> 2, 34 -> 2, 10 -> 1, 24 -> 2, 45 -> 2, 62 -> 1, 61 -> 1, 67 -> 2)
+data: org.apache.spark.sql.Dataset[String] = [value: string]
+employees: org.apache.spark.sql.Dataset[(Int, String, Int, Int)] = [_1: int, _2: string ... 2 more fields]
+sortedEmployees: org.apache.spark.sql.Dataset[(Int, String, Int, Int)] = [_1: int, _2: string ... 2 more fields]
+groupedEmployees: org.apache.spark.sql.KeyValueGroupedDataset[Int,(Int, String, Int, Int)] = KeyValueGroupedDataset: [key: [value: int], value: [_1: int, _2: string ... 2 more field(s)]]
+countByKeys: scala.collection.Map[Int,Long] = Map(10 -> 1, 42 -> 1, 24 -> 2, 61 -> 1, 21 -> 2, 34 -> 2, 45 -> 2, 67 -> 2, 62 -> 1)
+Sorted by Key:
++---+------+---+-----+
+| _1|    _2| _3|   _4|
++---+------+---+-----+
+| 10|ronald| 57|65000|
+| 21| cassy| 51|40000|
+| 21| cassy| 51|40000|
+| 24|  John| 26|30000|
+| 24|  John| 26|30000|
+| 34|  Jack| 40|80000|
+| 34|  Yash| 40|60000|
+| 42|  Lion| 42|56000|
+| 45|  Jash| 35|75000|
+| 45|  Jash| 35|75000|
+| 61| Joshi| 25|35000|
+| 62|  kate| 50|76000|
+| 67| Smith| 20|24000|
+| 67| Smith| 20|24000|
++---+------+---+-----+
 
-scala> println("Sorted Records:")
-Sorted Records:
-(10, 10 ronald 57 65000)
-(21, 21 cassy 51 40000)
-(21, 21 cassy 51 40000)
-(24, 24 John 26 30000)
-(24, 24 John 26 30000)
-(34, 34 Jack 40 80000)
-(34, 34 Yash 40 60000)
-(42, 42 Lion 42 56000)
-(45, 45 Jash 35 75000)
-(45, 45 Jash 35 75000)
-(61, 61 Joshi 25 35000)
-(62, 62 kate 50 76000)
-(67, 67 Smith 20 24000)
-(67, 67 Smith 20 24000)
+Grouped by Key:
++---+--------+
+|key|count(1)|
++---+--------+
+| 34|       2|
+| 61|       1|
+| 10|       1|
+| 45|       2|
+| 24|       2|
+| 62|       1|
+| 21|       2|
+| 42|       1|
+| 67|       2|
++---+--------+
 
-scala> println("\nGrouped Records:")
-Grouped Records:
-Key: 10, Values: 10 ronald 57 65000
-Key: 21, Values: 21 cassy 51 40000, 21 cassy 51 40000
-Key: 24, Values: 24 John 26 30000, 24 John 26 30000
-Key: 34, Values: 34 Jack 40 80000, 34 Yash 40 60000
-Key: 42, Values: 42 Lion 42 56000
-Key: 45, Values: 45 Jash 35 75000, 45 Jash 35 75000
-Key: 61, Values: 61 Joshi 25 35000
-Key: 62, Values: 62 kate 50 76000
-Key: 67, Values: 67 Smith 20 24000, 67 Smith 20 24000
+Count by Key:
+(10,1)
+(42,1)
+(24,2)
+(61,1)
+(21,2)
+(34,2)
+(45,2)
+(67,2)
+(62,1)
 
-scala> println("\nCounts by Key:")
-Counts by Key:
-Key: 42, Count: 1
-Key: 21, Count: 2
-Key: 34, Count: 2
-Key: 10, Count: 1
-Key: 24, Count: 2
-Key: 45, Count: 2
-Key: 62, Count: 1
-Key: 61, Count: 1
-Key: 67, Count: 2
 
 ```
