@@ -11,35 +11,34 @@ nano Q7_A.scala
 ## Step 2: Enter the Scala Code: 
 **Copy the Scala code into the editor. Below is the code snippet you will use:**
 ```
-// Read the text file containing employee records
-val lines = spark.read.textFile("employee_records.txt")
+// Load the data
+val data = spark.read.textFile("employee_records.txt")
 
-// Split the lines into individual fields (Reg.No, EmpName, Age, Salary)
-val records = lines.map(_.split("\\s+"))
+// Convert the data to a Dataset[(Int, String, Int, Int)]
+val employees = data.map(line => {
+  val parts = line.split(" ")
+  (parts(0).toInt, parts(1), parts(2).toInt, parts(3).toInt)
+})
 
-// Convert records to key-value pairs (Reg.No as key, entire record as value)
-val keyValuePairs = records.map(record => (record(0), record.mkString(" ")))
+// Perform sortByKey
+val sortedEmployees = employees.sort("_1")
 
-// sortByKey()
-val sortedRecords = keyValuePairs.sortByKey()
+// Perform groupByKey
+val groupedEmployees = employees.groupByKey(_._1)
 
-// groupByKey()
-val groupedRecords = keyValuePairs.groupByKey()
+// Perform countByKey
+val countByKeys = employees.rdd.map(_._1).countByValue()
 
-// countByKey()
-val countsByKey = keyValuePairs.countByKey()
+// Print the results
+println("Sorted by Key:")
+sortedEmployees.show()
 
-// Show the sorted records
-println("Sorted Records:")
-sortedRecords.collect().foreach(println)
+println("Grouped by Key:")
+groupedEmployees.count().show()
 
-// Show the grouped records
-println("\nGrouped Records:")
-groupedRecords.collect().foreach{case (key, values) => println(s"Key: $key, Values: ${values.mkString(", ")}")}
+println("Count by Key:")
+countByKeys.foreach(println)
 
-// Show the counts by key
-println("\nCounts by Key:")
-countsByKey.foreach{case (key, count) => println(s"Key: $key, Count: $count")}
 
 ```
 
