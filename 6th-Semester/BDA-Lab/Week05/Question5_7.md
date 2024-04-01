@@ -58,4 +58,5 @@ rdd2: org.apache.spark.rdd.RDD[String] = employee_records.txt MapPartitionsRDD[2
 45 Jash  35 75000
 34 Yash  40  60000
 
+
 ```
