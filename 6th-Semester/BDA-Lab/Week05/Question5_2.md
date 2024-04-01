@@ -87,7 +87,7 @@ lines: org.apache.spark.sql.Dataset[String] = [value: string]
 records: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[...] at map at <console>:...
 transformedRecords: org.apache.spark.rdd.RDD[(String, Int, Int)] = MapPartitionsRDD[...] at map at <console>:...
 +------+----+------+
-|  Name| Age|Salary|
+|  _1  | _2 |   _3 |
 +------+----+------+
 |  John|  52| 30000|
 |  Jack|  80| 80000|
