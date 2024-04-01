@@ -72,4 +72,5 @@ highSalaryEmployees: org.apache.spark.sql.Dataset[Employee] = [regNo: int, empNa
 |   45|   Jash| 35| 75000|
 +-----+-------+---+------+
 
+
 ```
