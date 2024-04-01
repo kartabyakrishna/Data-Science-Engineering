@@ -10,17 +10,28 @@ nano Q3.scala
 ## Step 2: Enter the Scala Code: 
 **Copy the Scala code into the editor. Below is the code snippet you will use:**
 ```
-// Load the text file containing employee records
-val lines = spark.read.textFile("input2.txt")
+import spark.implicits._
 
-// Split the lines into individual fields (name, age, salary)
-val records = lines.map(_.split("\\s+"))
+// Define a case class to represent the Employee
+case class Employee(regNo: Int, empName: String, age: Int, salary: Int)
 
-// Filter out employees whose salary is greater than 50000
-val filteredRecords = records.filter(record => record(2).toInt > 50000)
+// Load the dataset from a text file
+val employeeData = spark.read.textFile("employees.txt")
 
-// Show the filtered records
-filteredRecords.show()
+// Convert each line into an Employee object
+val employees = employeeData.map { line =>
+ val parts = line.split("\\s+")
+ Employee(parts(0).toInt, parts(1), parts(2).toInt, parts(3).toInt)
+}
+
+// Filter employees whose salary is greater than 50000
+val highSalaryEmployees = employees.filter(_.salary > 50000)
+
+// Show the result
+highSalaryEmployees.show()
+
+// Optionally, save the result to a text file
+highSalaryEmployees.write.csv("high_salary_employees.csv")
 ```
 
 ## Step 3: Save and Exit
