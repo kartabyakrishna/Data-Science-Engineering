@@ -53,23 +53,23 @@ spark-shell
 # OUTPUT
 
 ```
-scala> :load Q3.scala
-Loading Q3.scala...
-lines: org.apache.spark.sql.Dataset[String] = [value: string]
-records: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[...] at map at <console>:...
-filteredRecords: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[...] at filter at <console>:...
-
-scala> filteredRecords.show()
-+------+---+------+
-|    _1| _2|    _3|
-+------+---+------+
-|  Jack| 40| 80000|
-|  Jash| 35| 75000|
-|  Yash| 40| 60000|
-|  Lion| 42| 56000|
-|  kate| 50| 76000|
-|ronald| 57| 65000|
-|  Jash| 35| 75000|
-+------+---+------+
+scala> :load Q5_3.scala
+Loading Q5_3.scala...
+import spark.implicits._
+defined class Employee
+employeeData: org.apache.spark.sql.Dataset[String] = [value: string]
+employees: org.apache.spark.sql.Dataset[Employee] = [regNo: int, empName: string ... 2 more fields]
+highSalaryEmployees: org.apache.spark.sql.Dataset[Employee] = [regNo: int, empName: string ... 2 more fields]
++-----+-------+---+------+
+|regNo|empName|age|salary|
++-----+-------+---+------+
+|   34|   Jack| 40| 80000|
+|   45|   Jash| 35| 75000|
+|   34|   Yash| 40| 60000|
+|   42|   Lion| 42| 56000|
+|   62|   kate| 50| 76000|
+|   10| ronald| 57| 65000|
+|   45|   Jash| 35| 75000|
++-----+-------+---+------+
 
 ```
