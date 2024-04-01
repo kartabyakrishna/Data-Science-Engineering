@@ -41,7 +41,7 @@ nano Q2.scala
 import spark.implicits._
 
 // Load the dataset from a text file
-val employeeData = spark.read.textFile("employees.txt")
+val employeeData = spark.read.textFile("employee_records.txt")
 
 // Define a case class to represent the Employee
 case class Employee(regNo: Int, empName: String, age: Int, salary: Int)
