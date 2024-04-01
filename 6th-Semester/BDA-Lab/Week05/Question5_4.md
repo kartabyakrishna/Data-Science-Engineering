@@ -27,7 +27,7 @@ nano Q4.scala
 **Copy the Scala code into the editor. Below is the code snippet you will use:**
 ```
 // Load the text file containing sentences
-val sentences = spark.read.textFile("input4.txt")
+val sentences = spark.read.textFile("input.txt")
 
 // Split each sentence into words using flatMap transformation
 val words = sentences.flatMap(_.split("\\s+"))
@@ -76,4 +76,5 @@ words: org.apache.spark.sql.Dataset[String] = [value: string]
 |final|
 |sentence.|
 +-----+
+
 ```

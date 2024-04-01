@@ -10,17 +10,28 @@ nano Q3.scala
 ## Step 2: Enter the Scala Code: 
 **Copy the Scala code into the editor. Below is the code snippet you will use:**
 ```
-// Load the text file containing employee records
-val lines = spark.read.textFile("input2.txt")
+import spark.implicits._
 
-// Split the lines into individual fields (name, age, salary)
-val records = lines.map(_.split("\\s+"))
+// Define a case class to represent the Employee
+case class Employee(regNo: Int, empName: String, age: Int, salary: Int)
 
-// Filter out employees whose salary is greater than 50000
-val filteredRecords = records.filter(record => record(2).toInt > 50000)
+// Load the dataset from a text file
+val employeeData = spark.read.textFile("employees.txt")
 
-// Show the filtered records
-filteredRecords.show()
+// Convert each line into an Employee object
+val employees = employeeData.map { line =>
+ val parts = line.split("\\s+")
+ Employee(parts(0).toInt, parts(1), parts(2).toInt, parts(3).toInt)
+}
+
+// Filter employees whose salary is greater than 50000
+val highSalaryEmployees = employees.filter(_.salary > 50000)
+
+// Show the result
+highSalaryEmployees.show()
+
+// Optionally, save the result to a text file
+highSalaryEmployees.write.csv("high_salary_employees.csv")
 ```
 
 ## Step 3: Save and Exit
@@ -42,23 +53,24 @@ spark-shell
 # OUTPUT
 
 ```
-scala> :load Q3.scala
-Loading Q3.scala...
-lines: org.apache.spark.sql.Dataset[String] = [value: string]
-records: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[...] at map at <console>:...
-filteredRecords: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[...] at filter at <console>:...
+scala> :load Q5_3.scala
+Loading Q5_3.scala...
+import spark.implicits._
+defined class Employee
+employeeData: org.apache.spark.sql.Dataset[String] = [value: string]
+employees: org.apache.spark.sql.Dataset[Employee] = [regNo: int, empName: string ... 2 more fields]
+highSalaryEmployees: org.apache.spark.sql.Dataset[Employee] = [regNo: int, empName: string ... 2 more fields]
++-----+-------+---+------+
+|regNo|empName|age|salary|
++-----+-------+---+------+
+|   34|   Jack| 40| 80000|
+|   45|   Jash| 35| 75000|
+|   34|   Yash| 40| 60000|
+|   42|   Lion| 42| 56000|
+|   62|   kate| 50| 76000|
+|   10| ronald| 57| 65000|
+|   45|   Jash| 35| 75000|
++-----+-------+---+------+
 
-scala> filteredRecords.show()
-+------+---+------+
-|    _1| _2|    _3|
-+------+---+------+
-|  Jack| 40| 80000|
-|  Jash| 35| 75000|
-|  Yash| 40| 60000|
-|  Lion| 42| 56000|
-|  kate| 50| 76000|
-|ronald| 57| 65000|
-|  Jash| 35| 75000|
-+------+---+------+
 
 ```
