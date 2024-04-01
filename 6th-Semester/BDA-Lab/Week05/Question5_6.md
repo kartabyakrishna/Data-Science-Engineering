@@ -79,4 +79,5 @@ scala> firstFiveRecords.foreach(record => println(record.mkString(" ")))
 61 Joshi 25 35000
 45 Jash 35 75000
 34 Yash 40 60000
+
 ```
