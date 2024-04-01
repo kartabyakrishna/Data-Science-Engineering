@@ -65,12 +65,13 @@ firstFiveRecords: Array[Array[String]] = Array(
   Array(45, Jash, 35, 75000),
   Array(34, Yash, 40, 60000)
 )
+```
 
+```
 scala> firstFiveRecords.foreach(record => println(record.mkString(" ")))
 24 John 26 30000
 34 Jack 40 80000
 61 Joshi 25 35000
 45 Jash 35 75000
 34 Yash 40 60000
-
 ```
