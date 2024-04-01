@@ -76,4 +76,5 @@ words: org.apache.spark.sql.Dataset[String] = [value: string]
 |final|
 |sentence.|
 +-----+
+
 ```
