@@ -85,5 +85,4 @@ groupedStudents: org.apache.spark.sql.RelationalGroupedDataset = RelationalGroup
 |Science |  2  |
 +--------+-----+
 
-
 ```
