@@ -1,7 +1,7 @@
 # 1. Write a program in CUDA to add two matrices for the following  specifications: 
-• Each row of resultant matrix to be computed by one thread.  
-• Each column of resultant matrix to be computed by one thread.  
-• Each element of resultant matrix to be computed by one thread 
+## • Each row of resultant matrix to be computed by one thread.  
+## • Each column of resultant matrix to be computed by one thread.  
+## • Each element of resultant matrix to be computed by one thread 
 ```cpp
 #include <stdio.h>
 #include <cuda_runtime.h>
@@ -113,7 +113,7 @@ int main() {
 }
 ```
 
-Explanation:
+# Explanation:
 - Three CUDA kernels are defined, each designed to compute the resultant matrix by different thread mapping strategies:
   - `addMatrixRows`: Each thread computes one row of the resultant matrix.
   - `addMatrixColumns`: Each thread computes one column of the resultant matrix.
@@ -125,7 +125,7 @@ Explanation:
 - The result matrices are copied back from the device to the host.
 - Finally, the result matrices are printed using the `printMatrix` function, and memory allocated on both the host and device is freed.
 
-Output:
+# Output:
 ```plaintext
 Matrix A:
 1.00    2.00    3.00    
