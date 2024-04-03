@@ -1,4 +1,3 @@
-# Codes by :- [Suzen Malik Firasta](https://github.com/SuzenFirasta)
 
 ## 1. Write a MPI program using synchronous send. The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
 
@@ -55,13 +54,32 @@ int main(int argc, char *argv[]) {
 ```
 ## Output
 ```plaintext
-C:\Users\suzen>cd C:\Users\suzen\source\repos\week7\Q1\x64\Debug
+C:\Users\Kartabya>cd C:\Users\Kartabya\source\repos\week7\Q1\x64\Debug
 
-C:\Users\suzen\source\repos\week7\Q1\x64\Debug>mpiexec -n 2 Q1.exe
+C:\Users\Kartabya\source\repos\week7\Q1\x64\Debug>mpiexec -n 2 Q1.exe
 Process 1 received word: Hello
 Process 0 sends word: Hello
 Process 0 received toggled word: hELLO
 ```
+## Explanatioin
+- The program initializes MPI environment and obtains the rank of the process using `MPI_Comm_rank()`.
+
+- It defines a tag for message identification and specifies the root process as process 0.
+
+- If the process rank is the root (rank 0), it acts as the sender process:
+  - It defines the word to be sent as "Hello".
+  - It sends the word to process 1 using synchronous send (`MPI_Ssend()`).
+  - It receives the toggled word back from process 1 using blocking receive (`MPI_Recv()`).
+  - It prints the received toggled word.
+
+- If the process rank is 1, it acts as the receiver process:
+  - It receives the word from process 0 using blocking receive (`MPI_Recv()`).
+  - It prints the received word.
+  - It toggles the case of each letter in the received word using the `toggle_case()` function.
+  - It sends the toggled word back to process 0 using synchronous send (`MPI_Ssend()`).
+
+- Finally, MPI environment is finalized using `MPI_Finalize()`.
+
 ---
 ## 2. Write a MPI program where the master process (process 0) sends a number to each of the slaves and the slave processes receive the number and prints it. Use standard send.
 
@@ -101,9 +119,9 @@ int main(int argc, char** argv) {
 ```
 ## Output
 ```plaintext
-C:\Users\suzen\source\repos\week7\Q1\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q2\x64\Debug\
+C:\Users\Kartabya\source\repos\week7\Q1\x64\Debug>cd C:\Users\Kartabya\source\repos\week7\Q2\x64\Debug\
 
-C:\Users\suzen\source\repos\week7\Q2\x64\Debug>mpiexec -n 4 Q2.exe
+C:\Users\Kartabya\source\repos\week7\Q2\x64\Debug>mpiexec -n 4 Q2.exe
 Slave process 3 received number 777 from master process
 Slave process 2 received number 777 from master process
 Slave process 1 received number 777 from master process
@@ -111,7 +129,21 @@ Master process sending number 777 to process 1
 Master process sending number 777 to process 2
 Master process sending number 777 to process 3
 ```
+Explanation : 
+
+- The program initializes MPI environment and obtains the size and rank of the MPI communicator `MPI_COMM_WORLD`.
+
+- The master process (rank 0) chooses a number to send to all slave processes. In this case, the number chosen is 777.
+
+- The master process uses `MPI_Send()` in a loop to send the chosen number to all the other processes except itself.
+
+- Each slave process (with rank > 0) receives the number sent by the master process using `MPI_Recv()`. It specifies the source rank as 0 (the master process).
+
+- Each slave process prints the received number along with its own rank.
+
+- Finally, MPI environment is finalized using `MPI_Finalize()`.
 ---
+
 ## 3. Write a MPI program to read N elements of the array in the root process (process 0) where N is equal to the total number of process. The root process sends one value to each of the slaves. Let even ranked process finds square of the received element and odd ranked process finds cube of received element. Use Buffered send.
 
 ```cpp
@@ -180,13 +212,32 @@ int main(int argc, char *argv[]) {
 ```
 ## Output
 ```plaintext
-C:\Users\suzen\source\repos\week7\Q2\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q3\x64\Debug\
+C:\Users\Kartabya\source\repos\week7\Q2\x64\Debug>cd C:\Users\Kartabya\source\repos\week7\Q3\x64\Debug\
 
-C:\Users\suzen\source\repos\week7\Q3\x64\Debug>mpiexec -n 4 Q3.exe
+C:\Users\Kartabya\source\repos\week7\Q3\x64\Debug>mpiexec -n 4 Q3.exe
 Process 1 received 2, cubing it to 8
 Process 3 received 4, cubing it to 64
 Process 2 received 3, squaring it to 9
 ```
+## Explanation
+
+- The program initializes MPI environment, obtains the size and rank of the MPI communicator `MPI_COMM_WORLD`.
+
+- The root process (process 0) allocates memory to store an array of integers named `numbers`, where the size of the array is equal to the total number of processes.
+
+- The root process initializes the array with some values. In this case, the array is initialized with numbers from 1 to `world_size`.
+
+- A buffer is allocated for buffered send operations. The buffer size is calculated based on the number of elements to be sent (`world_size`) and the MPI overhead.
+
+- Buffered send is used to distribute one number to each slave process (processes with rank > 0). The root process sends each number to the respective process using `MPI_Bsend()`.
+
+- Each slave process receives the number sent by the root process using `MPI_Recv()`. Based on the rank of the process, even-ranked processes square the received number, while odd-ranked processes cube the received number. The result is printed accordingly.
+
+- The buffer is detached and freed after sending/receiving operations.
+
+- Memory allocated for the `numbers` array is freed on the root process.
+
+- Finally, MPI environment is finalized using `MPI_Finalize()`.
 ---
 ## 4. Write a MPI program to read an integer value in the root process. Root process sends this value to Process1, Process1 sends this value to Process2 and so on. Last process sends the value back to root process. When sending the value each process will first increment the received value by one. Write the program using point to point communication routines. 
 
@@ -232,15 +283,31 @@ int main(int argc, char** argv) {
 ```
 ## Output
 ```plaintext
-C:\Users\suzen\source\repos\week7\Q3\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q4\x64\Debug\
+C:\Users\Kartabya\source\repos\week7\Q3\x64\Debug>cd C:\Users\Kartabya\source\repos\week7\Q4\x64\Debug\
 
-C:\Users\suzen\source\repos\week7\Q4\x64\Debug>mpiexec -n 4 Q4.exe
+C:\Users\Kartabya\source\repos\week7\Q4\x64\Debug>mpiexec -n 4 Q4.exe
 Process 1 incremented value to: 11
 Root process starts with value: 10
 Root process received final value: 13
 Process 3 incremented value to: 13
 Process 2 incremented value to: 12
 ```
+## Explanation 
+
+- The program initializes MPI environment and obtains the rank and size of the MPI communicator `MPI_COMM_WORLD`.
+
+- If the process rank is 0 (root process), it initializes the value to be sent. In this example, the value is set to 10. The root process then sends this value to process 1 using `MPI_Send()`.
+
+- If the process rank is not 0 (i.e., it's a non-root process), it receives the value from the previous process using `MPI_Recv()`. Each process increments the received value by one.
+
+- Each non-root process sends the updated value to the next process using `MPI_Send()`. The last process sends the updated value back to the root process.
+
+- The root process receives the final value from the last process using `MPI_Recv()`.
+
+- All processes print the received or final value along with their rank.
+
+- Finally, MPI environment is finalized using `MPI_Finalize()`.
+
 ---
 ## 5. Write a MPI program to read N elements of an array in the master process. Let N processes including master process check the array values are prime or not.
 
@@ -291,10 +358,22 @@ int main(int argc, char** argv) {
 ```
 ## Output
 ```plaintext
-C:\Users\suzen\source\repos\week7\Q5\x64\Debug>mpiexec -n 4 Q5.exe
+C:\Users\Kartabya\source\repos\week7\Q5\x64\Debug>mpiexec -n 4 Q5.exe
 Process 1 received 3, prime? Yes
 Process 2 received 4, prime? No
 Process 0 received 2, prime? Yes
 Process 3 received 5, prime? Yes
 ```
+## Explanation
+- The program initializes MPI environment and obtains the rank and size of the MPI communicator `MPI_COMM_WORLD`.
+
+- In the master process (process with rank 0), memory is allocated dynamically to store an array of integers named `array`. Each element of the array represents a number to be checked for primality. In this example, the array is initialized with values starting from 2 (the first prime number) up to the size of the MPI communicator `world_size`.
+
+- The `MPI_Scatter()` function is used to distribute the values of the array to all processes. Each process receives one element of the array (`number_to_check`) from the master process.
+
+- Each process then checks whether the received number is prime or not using the `is_prime()` function.
+
+- The result of the primality check is printed along with the rank of the process.
+
+- Finally, memory allocated for the array is freed in the master process, and MPI environment is finalized using `MPI_Finalize()`.
 ---
