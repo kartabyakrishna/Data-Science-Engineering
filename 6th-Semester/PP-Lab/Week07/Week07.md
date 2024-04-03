@@ -54,9 +54,9 @@ int main(int argc, char *argv[]) {
 ```
 ## Output
 ```plaintext
-C:\Users\Kartabya>cd C:\Users\Kartabya\source\repos\week7\Q1\x64\Debug
+C:\Users\suzen>cd C:\Users\suzen\source\repos\week7\Q1\x64\Debug
 
-C:\Users\Kartabya\source\repos\week7\Q1\x64\Debug>mpiexec -n 2 Q1.exe
+C:\Users\suzen\source\repos\week7\Q1\x64\Debug>mpiexec -n 2 Q1.exe
 Process 1 received word: Hello
 Process 0 sends word: Hello
 Process 0 received toggled word: hELLO
@@ -119,9 +119,9 @@ int main(int argc, char** argv) {
 ```
 ## Output
 ```plaintext
-C:\Users\Kartabya\source\repos\week7\Q1\x64\Debug>cd C:\Users\Kartabya\source\repos\week7\Q2\x64\Debug\
+C:\Users\suzen\source\repos\week7\Q1\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q2\x64\Debug\
 
-C:\Users\Kartabya\source\repos\week7\Q2\x64\Debug>mpiexec -n 4 Q2.exe
+C:\Users\suzen\source\repos\week7\Q2\x64\Debug>mpiexec -n 4 Q2.exe
 Slave process 3 received number 777 from master process
 Slave process 2 received number 777 from master process
 Slave process 1 received number 777 from master process
@@ -212,9 +212,9 @@ int main(int argc, char *argv[]) {
 ```
 ## Output
 ```plaintext
-C:\Users\Kartabya\source\repos\week7\Q2\x64\Debug>cd C:\Users\Kartabya\source\repos\week7\Q3\x64\Debug\
+C:\Users\suzen\source\repos\week7\Q2\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q3\x64\Debug\
 
-C:\Users\Kartabya\source\repos\week7\Q3\x64\Debug>mpiexec -n 4 Q3.exe
+C:\Users\suzen\source\repos\week7\Q3\x64\Debug>mpiexec -n 4 Q3.exe
 Process 1 received 2, cubing it to 8
 Process 3 received 4, cubing it to 64
 Process 2 received 3, squaring it to 9
@@ -283,9 +283,9 @@ int main(int argc, char** argv) {
 ```
 ## Output
 ```plaintext
-C:\Users\Kartabya\source\repos\week7\Q3\x64\Debug>cd C:\Users\Kartabya\source\repos\week7\Q4\x64\Debug\
+C:\Users\suzen\source\repos\week7\Q3\x64\Debug>cd C:\Users\suzen\source\repos\week7\Q4\x64\Debug\
 
-C:\Users\Kartabya\source\repos\week7\Q4\x64\Debug>mpiexec -n 4 Q4.exe
+C:\Users\suzen\source\repos\week7\Q4\x64\Debug>mpiexec -n 4 Q4.exe
 Process 1 incremented value to: 11
 Root process starts with value: 10
 Root process received final value: 13
@@ -358,7 +358,7 @@ int main(int argc, char** argv) {
 ```
 ## Output
 ```plaintext
-C:\Users\Kartabya\source\repos\week7\Q5\x64\Debug>mpiexec -n 4 Q5.exe
+C:\Users\suzen\source\repos\week7\Q5\x64\Debug>mpiexec -n 4 Q5.exe
 Process 1 received 3, prime? Yes
 Process 2 received 4, prime? No
 Process 0 received 2, prime? Yes
