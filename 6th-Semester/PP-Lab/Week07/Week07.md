@@ -1,4 +1,3 @@
-
 ## 1. Write a MPI program using synchronous send. The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
 
 ```cpp
