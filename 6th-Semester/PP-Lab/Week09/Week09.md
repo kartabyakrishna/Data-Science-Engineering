@@ -1,3 +1,4 @@
+# NOT FINAL
 # 1.Write a program in CUDA to count the number of times a given word is repeated in a sentence (Use Atomic Function)
 
 ```cpp
