@@ -26,33 +26,43 @@ user_id,page_id,timestamp,action
 ```
 
 ### Code
-```python
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import count, when
+```scala
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
 
-# Create SparkSession
-spark = SparkSession.builder \
-    .appName("Clickstream Analysis") \
-    .getOrCreate()
+// Step 1: Create a SparkSession
+val spark = SparkSession.builder()
+  .appName("ClickstreamAnalysis")
+  .getOrCreate()
 
-# Load CSV data into DataFrame
-clickstream_df = spark.read.csv("clickstream_data.csv", header=True, inferSchema=True)
+// Step 2: Load the CSV data into a DataFrame
+val df = spark.read
+  .option("header", "true")
+  .option("inferSchema", "true")
+  .csv("clickstream_data.csv")
 
-# Display schema
-clickstream_df.printSchema()
+// Step 3: Display the schema and the first 5 rows of the DataFrame
+df.printSchema()
+df.show(5)
 
-# Display first 5 rows
-clickstream_df.show(5)
+// Step 4: Calculate the total number of clicks, views, and purchases for each user
+val actionsCount = df.groupBy("user_id", "action")
+  .agg(count("action").alias("count"))
+  .groupBy("user_id")
+  .pivot("action")
+  .agg(coalesce(first("count")))
 
-# Calculate total number of clicks, views, and purchases for each user
-clickstream_df.groupBy("user_id") \
-    .agg(count(when(clickstream_df.action == "click", True)).alias("click"),
-         count(when(clickstream_df.action == "view", True)).alias("view"),
-         count(when(clickstream_df.action == "purchase", True)).alias("purchase")) \
-    .show()
+actionsCount.show()
 
-# Identify the most common sequence of actions performed by users
-print("Most common sequence of actions: click -> view")
+// Step 5: Identify the most common sequence of actions performed by users
+val actionSeq = df.groupBy("user_id")
+  .agg(concat_ws(" -> ", collect_list("action")).alias("action_sequence"))
+  .groupBy("action_sequence")
+  .agg(count("user_id").alias("user_count"))
+  .orderBy(desc("user_count"))
+
+actionSeq.show(1, false) // Display the most common sequence
+
 ```
 
 ### Output
